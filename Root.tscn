@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+
+[node name="Root" type="Node2D" index="0"]
+
+position = Vector2( 33.2, 31.4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Player" parent="." index="0" instance=ExtResource( 1 )]
+
+position = Vector2( 433, 274 )
+scale = Vector2( 2, 2 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+

@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Art/House_objects/Closet.gd" type="Script" id=1]
+[ext_resource path="res://Art/House_objects/closet_2x5.png" type="Texture" id=2]
+[ext_resource path="res://Art/House_objects/closet_2x4.png" type="Texture" id=3]
+[ext_resource path="res://Art/House_objects/closet_2x3.png" type="Texture" id=4]
+[ext_resource path="res://Art/House_objects/closet_2x2.png" type="Texture" id=5]
+[ext_resource path="res://Art/House_objects/closet_2x1.png" type="Texture" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "close",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "open_close",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 13.491, 25.3634 )
+
+[node name="Interactable" type="KinematicBody2D"]
+
+position = Vector2( 0.214493, -0.407135 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/margin = 0.08
+script = ExtResource( 1 )
+max_health = 10
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+
+position = Vector2( 0, -30 )
+frames = SubResource( 1 )
+animation = "open_close"
+
+[node name="StaticBody" type="StaticBody2D" parent="AnimatedSprite"]
+
+position = Vector2( 0.50831, 1.09362 )
+scale = Vector2( 1.10719, 1.13284 )
+input_pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Transform2D( 1, 0, 0, 1, -1.34528, 2.40508 )
+shapes/0/trigger = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite/StaticBody"]
+
+position = Vector2( -1.34528, 2.40508 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0

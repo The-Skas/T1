@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Art/House_objects/Scene_Change.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 7.32047, 3.89427 )
+
+[node name="Blood" type="Area2D"]
+
+position = Vector2( -0.0973816, -0.493932 )
+input_pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Transform2D( 3.05155, 0, 0, 3.88447, 1.25114, -0.661094 )
+shapes/0/trigger = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script = ExtResource( 1 )
+change_level = "res://Main1.scn"
+position_node = "Player_Spawn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+position = Vector2( 1.25114, -0.661094 )
+scale = Vector2( 3.05155, 3.88447 )
+shape = SubResource( 1 )
+trigger = true
+_update_shape_index = 0

@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Entity/Interactable_Bed.gd" type="Script" id=1]
+[ext_resource path="res://Art/House_objects/kitchen_table_2.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 13.491, 12.1961 )
+
+[node name="Interactable" type="KinematicBody2D"]
+
+position = Vector2( 0.214493, -30.4071 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/margin = 0.08
+script = ExtResource( 1 )
+max_health = 10
+
+[node name="Sprite" type="Sprite" parent="."]
+
+position = Vector2( -1.74307, 37.2009 )
+texture = ExtResource( 2 )
+offset = Vector2( 0.545603, -20.7111 )
+
+[node name="StaticBody" type="StaticBody2D" parent="Sprite"]
+
+position = Vector2( 2.25138, -5.10729 )
+scale = Vector2( 1.10719, 1.13284 )
+input_pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Transform2D( 2.15052, 0, 0, 1.26741, -2.74454, -14.203 )
+shapes/0/trigger = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script = ExtResource( 1 )
+max_health = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/StaticBody"]
+
+position = Vector2( -2.74454, -14.203 )
+scale = Vector2( 2.15052, 1.26741 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
