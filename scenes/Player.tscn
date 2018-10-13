@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://resource/Detective/detective topdown.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 33.3107, 28.7279 )
+
+[node name="Player" type="KinematicBody2D" index="0"]
+
+position = Vector2( -2.02784, 5.74251 )
+scale = Vector2( 0.6, 0.6 )
+input_pickable = false
+collision_layer = 2
+collision_mask = 3
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "collision" ]
+start_pos = Vector2( 466.2, 305.3 )
+start_scene = "Stage"
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+position = Vector2( 3.59386, -57.6305 )
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="." index="1"]
+
+position = Vector2( 2.01998, -4.03661 )
+scale = Vector2( 0.624487, 0.398025 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D1" type="CollisionShape2D" parent="Area2D" index="0"]
+
+position = Vector2( 0.0990925, -1.74155 )
+scale = Vector2( 1.13035, 1.47536 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+
+position = Vector2( 1.69838, -4.16239 )
+scale = Vector2( 0.622754, 0.500134 )
+shape = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="." index="3"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="4"]
+
+position = Vector2( 3.33333, -4.67713 )
+scale = Vector2( 1, 0.697591 )
+enabled = false
+exclude_parent = true
+cast_to = Vector2( 0, 50 )
+collision_mask = 1
+
+

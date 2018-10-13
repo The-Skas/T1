@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Tiles.gd" type="Script" id=1]
+[ext_resource path="res://resource/TileD.png" type="Texture" id=2]
+
+[node name="Sprite" type="Node"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Animation", "Region" ]
+texture = ExtResource( 2 )
+tileSize = Vector2( 32, 32 )
+tiles_to_map = Vector2( 32, 32 )
+generate = false
+
+[node name="Chair_F" type="Sprite" parent="." index="0"]
+
+position = Vector2( 32, 32 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Chair_B" type="Sprite" parent="." index="1"]
+
+position = Vector2( 64, 32 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 32, 0, 32, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Chair_L" type="Sprite" parent="." index="2"]
+
+position = Vector2( 96, 32 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 64, 0, 32, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Chair_R" type="Sprite" parent="." index="3"]
+
+position = Vector2( 128, 32 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 96, 0, 32, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Chair_R2" type="Sprite" parent="." index="4"]
+
+position = Vector2( 128, 32 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 96, 0, 32, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="Chair_R3" type="Sprite" parent="." index="5"]
+
+position = Vector2( 128, 32 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 96, 0, 32, 64 )
+_sections_unfolded = [ "Region" ]
+
+

@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="woodfloor" type="Node2D" index="0"]
+
+position = Vector2( -0.0169525, 1.17574 )
+scale = Vector2( 0.164199, 0.087636 )
+_sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
+
+

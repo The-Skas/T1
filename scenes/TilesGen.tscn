@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Tiles.gd" type="Script" id=1]
+[ext_resource path="res://resource/ayene_wooden_floor.png" type="Texture" id=2]
+
+[node name="Sprite" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Animation", "Region", "Transform" ]
+texture = ExtResource( 2 )
+tileSize = Vector2( 32, 32 )
+tiles_to_map = Vector2( 32, 32 )
+generate = false
+
+
