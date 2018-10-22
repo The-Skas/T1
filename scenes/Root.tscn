@@ -1,14 +1,19 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Rewindable.gd" type="Script" id=2]
-[ext_resource path="res://scenes/Dining_Table.tscn" type="PackedScene" id=3]
-[ext_resource path="res://resource/House_objects/Kitchen_table1.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Mother.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=7]
-[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=8]
-[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=9]
+[ext_resource path="res://resource/House_objects/Entity.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resource/blood_2.png" type="Texture" id=4]
+[ext_resource path="res://resource/futuristic-tiles/rmvxace/Extra/parallax_windows.png" type="Texture" id=5]
+[ext_resource path="res://scenes/Dining_Table.tscn" type="PackedScene" id=6]
+[ext_resource path="res://resource/House_objects/Kitchen_table1.tscn" type="PackedScene" id=7]
+[ext_resource path="res://resource/House_objects/kitchen_table_2.png" type="Texture" id=8]
+[ext_resource path="res://Mother.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=10]
+[ext_resource path="res://resource/House_objects/pantry.png" type="Texture" id=11]
+[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=12]
+[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=13]
+[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=14]
 
 [sub_resource type="NavigationPolygon" id=1]
 
@@ -30,32 +35,97 @@ _sections_unfolded = [ "Transform" ]
 
 _sections_unfolded = [ "Transform" ]
 
+[node name="Blood" parent="Stage/Background" index="0" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+position = Vector2( 765.045, 430.658 )
+scale = Vector2( 1.2655, 1.16426 )
+_sections_unfolded = [ "Collision", "Transform", "Visibility" ]
+my_texture = ExtResource( 4 )
+
+[node name="Sprite" parent="Stage/Background/Blood" index="0"]
+
+texture = ExtResource( 4 )
+
+[node name="Area2D" type="Area2D" parent="Stage/Background/Blood" index="1"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" parent="Stage/Background/Blood/StaticBody" index="0"]
+
+one_way_collision = true
+
+[node name="Window" parent="Stage/Background" index="1" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+modulate = Color( 0.933333, 0.890196, 0.890196, 1 )
+position = Vector2( 464.402, 106.042 )
+scale = Vector2( 1.2655, 1.16426 )
+_sections_unfolded = [ "Collision", "Transform", "Visibility" ]
+my_texture = ExtResource( 5 )
+
+[node name="Sprite" parent="Stage/Background/Window" index="0"]
+
+position = Vector2( -3.2004, 15.7083 )
+scale = Vector2( 0.649375, 0.664412 )
+texture = ExtResource( 5 )
+hframes = 2
+region_enabled = true
+region_rect = Rect2( 133, 0, 68, 75 )
+region_filter_clip = true
+_sections_unfolded = [ "Animation", "Offset", "Region", "Transform", "Visibility" ]
+
+[node name="Area2D" type="Area2D" parent="Stage/Background/Window" index="1"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" parent="Stage/Background/Window/StaticBody" index="0"]
+
+one_way_collision = true
+
 [node name="Foreground" type="YSort" parent="Stage" index="1"]
 
+editor/display_folded = true
 sort_enabled = true
 script = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Dining" parent="Stage/Foreground" index="0" instance=ExtResource( 3 )]
+[node name="Dining" parent="Stage/Foreground" index="0" instance=ExtResource( 6 )]
 
 position = Vector2( 468.768, 375.672 )
 scale = Vector2( 2.46763, 1.98202 )
 
-[node name="Kitchen" parent="Stage/Foreground" index="1" instance=ExtResource( 4 )]
-
-editor/display_folded = true
-modulate = Color( 1, 1, 1, 1 )
-position = Vector2( 466.182, 186.319 )
-scale = Vector2( 1.71775, 1.8757 )
-
-[node name="Kitchen2" parent="Stage/Foreground" index="2" instance=ExtResource( 4 )]
+[node name="Kitchen_1" parent="Stage/Foreground" index="1" instance=ExtResource( 7 )]
 
 editor/display_folded = true
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 354.182, 185.319 )
 scale = Vector2( 1.71775, 1.8757 )
 
-[node name="Mother" parent="Stage/Foreground" index="3" instance=ExtResource( 5 )]
+[node name="Kitchen_2" parent="Stage/Foreground" index="2" instance=ExtResource( 7 )]
+
+editor/display_folded = true
+modulate = Color( 1, 1, 1, 1 )
+position = Vector2( 464.182, 185.319 )
+scale = Vector2( 1.71775, 1.8757 )
+
+[node name="Sprite" parent="Stage/Foreground/Kitchen_2" index="0"]
+
+texture = ExtResource( 8 )
+
+[node name="Mother" parent="Stage/Foreground" index="3" instance=ExtResource( 9 )]
 
 editor/display_folded = true
 position = Vector2( 470.331, 238.711 )
@@ -65,13 +135,28 @@ _sections_unfolded = [ "Collision" ]
 
 position = Vector2( -35.0267, 147.237 )
 
-[node name="Player" parent="Stage/Foreground" index="4" instance=ExtResource( 6 )]
+[node name="Player" parent="Stage/Foreground" index="4" instance=ExtResource( 10 )]
 
 position = Vector2( 250.378, 301.514 )
 scale = Vector2( 1.41365, 1.3934 )
 collision_mask = 1
 
-[node name="Chandalier" parent="." index="1" instance=ExtResource( 7 )]
+[node name="Interactable" parent="Stage/Foreground" index="5" instance=ExtResource( 3 )]
+
+position = Vector2( 657.081, 148.284 )
+scale = Vector2( 1.5124, 2.11984 )
+my_texture = ExtResource( 11 )
+
+[node name="Sprite" parent="Stage/Foreground/Interactable" index="0"]
+
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" parent="Stage/Foreground/Interactable/StaticBody" index="0"]
+
+position = Vector2( -2.0905, -13.8905 )
+scale = Vector2( 2.19018, 2.20227 )
+
+[node name="Chandalier" parent="." index="1" instance=ExtResource( 12 )]
 
 position = Vector2( 466.8, -21.4 )
 scale = Vector2( 0.635622, 0.4748 )
@@ -95,7 +180,7 @@ enabled = true
 visible = false
 position = Vector2( 493.773, 233.214 )
 scale = Vector2( 1.98058, 1.54587 )
-texture = ExtResource( 8 )
+texture = ExtResource( 13 )
 
 [node name="Camera" type="Camera2D" parent="." index="4"]
 
@@ -122,9 +207,12 @@ drag_margin_bottom = 0.2
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-script = ExtResource( 9 )
+script = ExtResource( 14 )
 _sections_unfolded = [ "Editor", "Transform", "Visibility" ]
 
 
-[editable path="Stage/Foreground/Kitchen"]
+[editable path="Stage/Background/Blood"]
+[editable path="Stage/Background/Window"]
+[editable path="Stage/Foreground/Kitchen_2"]
 [editable path="Stage/Foreground/Mother"]
+[editable path="Stage/Foreground/Interactable"]
