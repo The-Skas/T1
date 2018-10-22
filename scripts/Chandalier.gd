@@ -39,12 +39,6 @@ func _on_Tween_tween_completed(object, key):
 
 
 
-func _on_Area2D_body_entered(body):
-	
-	if(body.name == "Mother" ):
-		var mother = body
-		mother.kill()
-	pass # replace with function body
 	
 func rewind():
 	get_node("Chand").position = start_chand_pos 

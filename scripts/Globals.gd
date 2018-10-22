@@ -8,6 +8,7 @@ onready var root = get_node("/root/Root")
 
 
 #Timer
+var is_rewinding = false
 var timer
 onready var camera = get_node("/root/Root/Camera")
 #Global TIme Events

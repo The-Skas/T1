@@ -13,13 +13,13 @@ func _ready():
 	set_process(true)
 	self.start_position = self.position
 	#AI
-	goal_position = $Goal.global_position
-	goal_position = get_node("/root/Root/Navigation").get_simple_path(self.global_position, goal_position,true)[-1]
-	print(global_position)
+	goal_position = self.position + $Goal.position
+	goal_position = get_node("/root/Root/Navigation").get_simple_path(self.position, goal_position,true)[-1]
+
 	pass
 func moveTo(entityName):
 	#	return get_node("/root/Root/Navigation").get_simple_path(self.position, get_node("/root/Root/Stage/Foreground/"+entityName).position + 	get_node("/root/Root/Stage/Foreground/"+entityName+"/Nav").position * get_node("/root/Root/Stage/Foreground/"+entityName).scale,true)
-	return get_node("/root/Root/Navigation").get_simple_path(self.global_position, goal_position,true)
+	return get_node("/root/Root/Navigation").get_simple_path(self.position, goal_position,true)
 
 var GOAL_THRESHOLD = 5
 func hasArrived():
@@ -76,7 +76,8 @@ func _draw():
 var dead = false
 func kill():
 	#kill the mom
-	if(not dead):
+	print(Globals.is_rewinding)
+	if(not dead and not Globals.is_rewinding):
 		$AnimatedSprite/AudioStreamPlayer2D.play()
 		dead = true
 		get_node("AnimatedSprite").rotate(90)
@@ -89,6 +90,7 @@ func rewind():
 	self.position = self.start_position
 
 func _on_Area2D_body_entered(body):
-	if(body.get_parent().get_name() == "Chand"):
+	print(body)
+	if(body.get_parent().get_name() == "Chand" and body.get_name() == "Kill"):
 		self.kill()
 	pass # replace with function body

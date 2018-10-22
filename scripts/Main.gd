@@ -35,6 +35,8 @@ func _process(delta):
 
 
 func rewind():
+	Globals.is_rewinding = true
 	Globals.rewind(self)
+	Globals.is_rewinding = false
 	Globals.timer.start()
 	

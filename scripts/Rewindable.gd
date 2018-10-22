@@ -10,10 +10,12 @@ func _ready():
 	pass
 
 func rewind():
+
 	var children = get_children()
 	for child in children:
 			if(child.has_method("rewind")):
 				child.rewind()
+				
 
-	print(event)
+
 

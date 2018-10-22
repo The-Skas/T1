@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Rewindable.gd" type="Script" id=2]
@@ -15,14 +15,42 @@
 [ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=13]
 [ext_resource path="res://scripts/CameraShake.gd" type="Script" id=14]
 
+[sub_resource type="GDScript" id=2]
+
+script/source = " 
+extends KinematicBody2D
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	pass
+
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+func interact():
+	print(\"Im a real table!\")
+	get_node(\"Sprite\").modulate = Color(154,30,30,1.0)
+	get_node(\"../Mother\").goal = self.position
+
+func rewind():
+		get_node(\"Sprite\").modulate = Color(1.0,1.0,1.0,1.0)"
+
 [sub_resource type="NavigationPolygon" id=1]
 
-vertices = PoolVector2Array( 556.603, 408.526, 960.866, 547.773, -18.1671, 549.069, 419.241, 407.301, -3.91254, -5.72095, 414.316, 237.508, 958.922, -6.3689, 553.364, 243.144 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 3, 2, 4, 5 ), PoolIntArray( 5, 4, 6, 7 ), PoolIntArray( 7, 6, 1, 0 ) ]
-outlines = [ PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 960.866, 547.773, -18.1671, 549.069 ), PoolVector2Array( 414.316, 237.508, 419.241, 407.301, 556.603, 408.526, 553.364, 243.144 ) ]
+vertices = PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 566.793, 236.134, 414.316, 237.508, 960.866, 547.773, 556.603, 408.526, -18.1671, 549.069, 419.241, 407.301 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 1, 4, 5 ), PoolIntArray( 5, 4, 6, 7 ), PoolIntArray( 6, 0, 3, 7 ) ]
+outlines = [ PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 960.866, 547.773, -18.1671, 549.069 ), PoolVector2Array( 414.316, 237.508, 419.241, 407.301, 556.603, 408.526, 566.793, 236.134 ) ]
 
 [node name="Root" type="Node2D" index="0"]
 
+position = Vector2( 285, 271 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
@@ -38,6 +66,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="Blood" parent="Stage/Background" index="0" instance=ExtResource( 3 )]
 
 editor/display_folded = true
+modulate = Color( 0.378906, 0.125331, 0.0916709, 1 )
 position = Vector2( 765.045, 430.658 )
 scale = Vector2( 1.2655, 1.16426 )
 _sections_unfolded = [ "Collision", "Transform", "Visibility" ]
@@ -97,7 +126,6 @@ one_way_collision = true
 
 [node name="Foreground" type="YSort" parent="Stage" index="1"]
 
-editor/display_folded = true
 sort_enabled = true
 script = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
@@ -113,6 +141,7 @@ editor/display_folded = true
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 354.182, 185.319 )
 scale = Vector2( 1.71775, 1.8757 )
+script = SubResource( 2 )
 
 [node name="Kitchen_2" parent="Stage/Foreground" index="2" instance=ExtResource( 7 )]
 
@@ -127,13 +156,12 @@ texture = ExtResource( 8 )
 
 [node name="Mother" parent="Stage/Foreground" index="3" instance=ExtResource( 9 )]
 
-editor/display_folded = true
 position = Vector2( 470.331, 238.711 )
 _sections_unfolded = [ "Collision" ]
 
 [node name="Goal" parent="Stage/Foreground/Mother" index="2"]
 
-position = Vector2( -35.0267, 147.237 )
+position = Vector2( -6.45489, 210.421 )
 
 [node name="Player" parent="Stage/Foreground" index="4" instance=ExtResource( 10 )]
 
@@ -143,6 +171,7 @@ collision_mask = 1
 
 [node name="Interactable" parent="Stage/Foreground" index="5" instance=ExtResource( 3 )]
 
+editor/display_folded = true
 position = Vector2( 657.081, 148.284 )
 scale = Vector2( 1.5124, 2.11984 )
 my_texture = ExtResource( 11 )
@@ -187,7 +216,7 @@ texture = ExtResource( 13 )
 position = Vector2( 477.53, 268.006 )
 anchor_mode = 1
 rotating = false
-current = false
+current = true
 zoom = Vector2( 1, 1 )
 limit_left = -10000000
 limit_top = -10000000
