@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/Chandalier.gd" type="Script" id=1]
 [ext_resource path="res://resource/Fx/shadow.png" type="Texture" id=2]
 [ext_resource path="res://resource/House_objects/Iron_Chandelier_furniture_icon_ID_653.png" type="Texture" id=3]
 [ext_resource path="res://scenes/Area2D.gd" type="Script" id=4]
+[ext_resource path="res://resource/sounds/Crash.wav" type="AudioStream" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -13,6 +14,7 @@ height = 20.0
 
 [node name="Node" type="Node2D" index="0"]
 
+position = Vector2( 1, 1 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Pause", "Transform" ]
 
@@ -53,11 +55,80 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 4 )
+_sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chand/Area2D" index="0"]
 
 position = Vector2( -1.2959, 14.2546 )
 shape = SubResource( 1 )
+
+[node name="Area2D2" type="KinematicBody2D" parent="Chand" index="1"]
+
+scale = Vector2( 10, 10 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chand/Area2D2" index="0"]
+
+position = Vector2( -1.2959, 14.2546 )
+shape = SubResource( 1 )
+
+[node name="Crash" type="AudioStreamPlayer2D" parent="Chand" index="2"]
+
+scale = Vector2( 10, 10 )
+stream = ExtResource( 5 )
+volume_db = -0.42
+pitch_scale = 4.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="Crash2" type="AudioStreamPlayer2D" parent="Chand" index="3"]
+
+scale = Vector2( 10, 10 )
+stream = ExtResource( 5 )
+volume_db = 0.0
+pitch_scale = 0.6
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="Crash3" type="AudioStreamPlayer2D" parent="Chand" index="4"]
+
+scale = Vector2( 10, 10 )
+stream = ExtResource( 5 )
+volume_db = 0.0
+pitch_scale = 32.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="Crash4" type="AudioStreamPlayer2D" parent="Chand" index="5"]
+
+scale = Vector2( 10, 10 )
+stream = ExtResource( 5 )
+volume_db = 0.0
+pitch_scale = 0.4
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
 
 [connection signal="body_entered" from="Chand/Area2D" to="." method="_on_Area2D_body_entered"]
 

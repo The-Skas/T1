@@ -16,6 +16,7 @@ func _ready():
 	var t = Timer.new()
 	t.connect("timeout", self, "shake")
 	t.set_wait_time(1)
+	print("Initializing Camera")
 	t.start()
 	
 
@@ -63,7 +64,3 @@ func shake(duration, frequency, amplitude):
 	set_offset(get_offset() - _last_offset)
 	_last_offset = Vector2(0, 0)
 
-#Chandalier falls
-func _on_Tween_tween_completed(object, key):
-	shake(0.2, 20, 5)
-	pass # replace with function body

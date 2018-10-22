@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Sprite
 
 # class member variables go here, for example:
 # var a = 2
@@ -13,10 +13,3 @@ func _ready():
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 #	pass
-func interact():
-	print("Im a real table!")
-	get_node("Sprite").modulate = Color(154,30,30,1.0)
-	get_node("../Mother").goal = self.position
-
-func rewind():
-		get_node("Sprite").modulate = Color(1.0,1.0,1.0,1.0)

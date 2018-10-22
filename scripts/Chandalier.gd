@@ -27,6 +27,13 @@ func fall():
 	get_node("Tween").start()
 
 func _on_Tween_tween_completed(object, key):
+	Globals.camera.shake(0.2, 20, 5)
+	$Chand/Crash.play()
+	$Chand/Crash2.play()
+	$Chand/Crash3.play()
+	$Chand/Crash4.play()	
+		
+
 	pass # replace with function body
 
 

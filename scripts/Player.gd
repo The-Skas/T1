@@ -42,7 +42,7 @@ func _ready():
 		
 		set_process_input(false)
 
-	set_process(true)
+	set_physics_process(true)
 	set_process_input(true)
 
 func interact():
@@ -112,7 +112,7 @@ func move_down():
 
 
 
-func _process(delta):
+func _physics_process(delta):
 
 	acc = Vector2(0.0,0.0)
 
@@ -188,7 +188,7 @@ func _process(delta):
 func rewind():
 	if(self.master == true):
 
-		var clone = self.duplicate()
+		var clone = self.duplicate(15)
 		print("****Callin master!****")
 		clone.master = false
 		clone.set_name("Clone")
