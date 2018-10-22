@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Rewindable.gd" type="Script" id=2]
@@ -11,11 +11,13 @@
 [ext_resource path="res://Mother.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=10]
 [ext_resource path="res://resource/House_objects/pantry.png" type="Texture" id=11]
-[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=12]
-[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=13]
-[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=14]
+[ext_resource path="res://resource/sounds/Blues-Bits.ogg" type="AudioStream" id=12]
+[ext_resource path="res://resource/House_objects/radio.png" type="Texture" id=13]
+[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=14]
+[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=15]
+[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=16]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 
 script/source = " 
 extends KinematicBody2D
@@ -42,7 +44,54 @@ func interact():
 func rewind():
 		get_node(\"Sprite\").modulate = Color(1.0,1.0,1.0,1.0)"
 
-[sub_resource type="NavigationPolygon" id=1]
+[sub_resource type="GDScript" id=3]
+
+script/source = "tool
+extends KinematicBody2D
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+export(Texture) var my_texture = null setget set_sprite
+export(String) var my_name = \"SnoopDog\"
+func set_sprite(texture):
+	my_texture = texture
+	if($Sprite != null):
+		$Sprite.texture = texture
+	update()
+
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	if(not(my_texture == null)):
+		$Sprite.texture = my_texture
+	pass
+
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+var toggle_radio = true
+func interact():
+	print(\"Im a real entity!\")
+
+	
+	get_node(\"../Mother\").set_goal_pos(self.position)
+	
+	if(toggle_radio):
+		$AudioStreamPlayer2D.play()
+		toggle_radio = false
+	else:
+		$AudioStreamPlayer2D.stop()
+		toggle_radio = true
+	#Play Music
+
+func rewind():
+		get_node(\"Sprite\").modulate = Color(1.0,1.0,1.0,1.0)
+		$AudioStreamPlayer2D.stop()
+		toggle_radio = true"
+
+[sub_resource type="NavigationPolygon" id=2]
 
 vertices = PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 566.793, 236.134, 414.316, 237.508, 960.866, 547.773, 556.603, 408.526, -18.1671, 549.069, 419.241, 407.301 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 1, 4, 5 ), PoolIntArray( 5, 4, 6, 7 ), PoolIntArray( 6, 0, 3, 7 ) ]
@@ -141,7 +190,7 @@ editor/display_folded = true
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 354.182, 185.319 )
 scale = Vector2( 1.71775, 1.8757 )
-script = SubResource( 2 )
+script = SubResource( 1 )
 
 [node name="Kitchen_2" parent="Stage/Foreground" index="2" instance=ExtResource( 7 )]
 
@@ -156,12 +205,14 @@ texture = ExtResource( 8 )
 
 [node name="Mother" parent="Stage/Foreground" index="3" instance=ExtResource( 9 )]
 
+editor/display_folded = true
 position = Vector2( 470.331, 238.711 )
 _sections_unfolded = [ "Collision" ]
 
-[node name="Goal" parent="Stage/Foreground/Mother" index="2"]
+[node name="Goal" type="Position2D" parent="Stage/Foreground/Mother" index="2"]
 
-position = Vector2( -6.45489, 210.421 )
+position = Vector2( -235.035, 1.35732 )
+scale = Vector2( 1.02042, 1.05307 )
 
 [node name="Player" parent="Stage/Foreground" index="4" instance=ExtResource( 10 )]
 
@@ -169,23 +220,45 @@ position = Vector2( 250.378, 301.514 )
 scale = Vector2( 1.41365, 1.3934 )
 collision_mask = 1
 
-[node name="Interactable" parent="Stage/Foreground" index="5" instance=ExtResource( 3 )]
+[node name="Pantry" parent="Stage/Foreground" index="5" instance=ExtResource( 3 )]
 
 editor/display_folded = true
 position = Vector2( 657.081, 148.284 )
 scale = Vector2( 1.5124, 2.11984 )
+script = SubResource( 3 )
 my_texture = ExtResource( 11 )
 
-[node name="Sprite" parent="Stage/Foreground/Interactable" index="0"]
+[node name="Sprite" parent="Stage/Foreground/Pantry" index="0"]
 
 texture = ExtResource( 11 )
 
-[node name="CollisionShape2D" parent="Stage/Foreground/Interactable/StaticBody" index="0"]
+[node name="CollisionShape2D" parent="Stage/Foreground/Pantry/StaticBody" index="0"]
 
 position = Vector2( -2.0905, -13.8905 )
 scale = Vector2( 2.19018, 2.20227 )
 
-[node name="Chandalier" parent="." index="1" instance=ExtResource( 12 )]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Stage/Foreground/Pantry" index="3"]
+
+position = Vector2( -434.462, -69.9506 )
+scale = Vector2( 0.661201, 0.471734 )
+stream = ExtResource( 12 )
+volume_db = -14.7
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 4.59479
+bus = "Master"
+area_mask = 1
+
+[node name="Radio" type="Sprite" parent="Stage/Foreground/Pantry" index="4"]
+
+modulate = Color( 0.134514, 0.714844, 0.674039, 1 )
+position = Vector2( 11.6437, -8.6906 )
+scale = Vector2( 0.159541, 0.0970531 )
+texture = ExtResource( 13 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Chandalier" parent="." index="1" instance=ExtResource( 14 )]
 
 position = Vector2( 466.8, -21.4 )
 scale = Vector2( 0.635622, 0.4748 )
@@ -199,7 +272,7 @@ _sections_unfolded = [ "Transform" ]
 
 position = Vector2( -17.4944, -17.6184 )
 scale = Vector2( 1, 1.05781 )
-navpoly = SubResource( 1 )
+navpoly = SubResource( 2 )
 enabled = true
 
 [node name="Comics" type="Node2D" parent="." index="3"]
@@ -209,7 +282,7 @@ enabled = true
 visible = false
 position = Vector2( 493.773, 233.214 )
 scale = Vector2( 1.98058, 1.54587 )
-texture = ExtResource( 13 )
+texture = ExtResource( 15 )
 
 [node name="Camera" type="Camera2D" parent="." index="4"]
 
@@ -236,7 +309,7 @@ drag_margin_bottom = 0.2
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-script = ExtResource( 14 )
+script = ExtResource( 16 )
 _sections_unfolded = [ "Editor", "Transform", "Visibility" ]
 
 
@@ -244,4 +317,4 @@ _sections_unfolded = [ "Editor", "Transform", "Visibility" ]
 [editable path="Stage/Background/Window"]
 [editable path="Stage/Foreground/Kitchen_2"]
 [editable path="Stage/Foreground/Mother"]
-[editable path="Stage/Foreground/Interactable"]
+[editable path="Stage/Foreground/Pantry"]

@@ -8,7 +8,7 @@ onready var root = get_node("/root/Root")
 
 
 #Timer
-var is_rewinding = false
+var is_rewinding
 var timer
 onready var camera = get_node("/root/Root/Camera")
 #Global TIme Events
@@ -20,7 +20,9 @@ var time_events = {
 
 
 #Custom classes
-var Player = preload("res://Scripts/Player.gd")
+var Class = {
+	
+}
 
 # Shared Functions
 func rewind(entity):

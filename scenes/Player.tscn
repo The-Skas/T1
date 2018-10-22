@@ -62,11 +62,13 @@ playback/speed = 1.0
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="4"]
 
-position = Vector2( 3.33333, -4.67713 )
-scale = Vector2( 1, 0.697591 )
+position = Vector2( 2.8982, -10.1813 )
+rotation = -1.5708
+scale = Vector2( 2.10735, 0.857618 )
 enabled = false
 exclude_parent = true
 cast_to = Vector2( 0, 50 )
 collision_mask = 1
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 

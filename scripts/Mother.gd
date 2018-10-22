@@ -7,6 +7,14 @@ var speed = 50
 var goal = null
 var goal_position = null
 var start_position
+
+func set_goal_pos(var pos):
+	#assert
+	$Goal.position = pos
+	goal_position = self.position + pos
+	goal_position = get_node("/root/Root/Navigation").get_simple_path(self.position, goal_position,true)[-1]
+
+
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
@@ -48,7 +56,7 @@ func _process(delta):
 	
 	#AI Node
 	if(hasArrived()):
-		print("Goal Done!")
+
 		goal = null
 		positions = null
 		vel = Vector2(0,0)
@@ -76,7 +84,7 @@ func _draw():
 var dead = false
 func kill():
 	#kill the mom
-	print(Globals.is_rewinding)
+
 	if(not dead and not Globals.is_rewinding):
 		$AnimatedSprite/AudioStreamPlayer2D.play()
 		dead = true
@@ -90,7 +98,7 @@ func rewind():
 	self.position = self.start_position
 
 func _on_Area2D_body_entered(body):
-	print(body)
+
 	if(body.get_parent().get_name() == "Chand" and body.get_name() == "Kill"):
 		self.kill()
 	pass # replace with function body

@@ -35,5 +35,5 @@ func pick_animation(var vec):
 		anim_to_play = "Stand_Down"
 		
 	if( current_animation != anim_to_play):
-		print("Changing to " + anim_to_play)
+
 		play(anim_to_play)

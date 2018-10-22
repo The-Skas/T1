@@ -24,7 +24,7 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 
 resource_name = "Stand_Right"
 length = 1.0
@@ -43,7 +43,7 @@ tracks/0/keys = {
 "values": [ 25 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 
 resource_name = "Stand_Right"
 length = 1.0
@@ -62,7 +62,7 @@ tracks/0/keys = {
 "values": [ 13 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 
 resource_name = "Stand_Up"
 length = 1.0
@@ -81,9 +81,8 @@ tracks/0/keys = {
 "values": [ 37 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=5]
 
-resource_name = "Walk_Down"
 length = 1.5
 loop = true
 step = 0.1
@@ -100,9 +99,8 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=6]
 
-resource_name = "Walk_Left"
 length = 1.5
 loop = true
 step = 0.1
@@ -119,7 +117,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 13, 12 ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=7]
 
 custom_solver_bias = 0.0
 extents = Vector2( 24.7271, 11.3277 )
@@ -157,11 +155,11 @@ playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
 anims/Stand_Down = SubResource( 1 )
-anims/Stand_Right = SubResource( 6 )
-"anims/Stand_Right (copy)" = SubResource( 7 )
-anims/Stand_Up = SubResource( 5 )
-anims/Walk_Down = SubResource( 2 )
-anims/Walk_Left = SubResource( 3 )
+anims/Stand_Right = SubResource( 2 )
+"anims/Stand_Right (copy)" = SubResource( 3 )
+anims/Stand_Up = SubResource( 4 )
+anims/Walk_Down = SubResource( 5 )
+anims/Walk_Left = SubResource( 6 )
 blend_times = [  ]
 script = ExtResource( 3 )
 
@@ -180,13 +178,9 @@ area_mask = 1
 
 position = Vector2( 0.979391, -3.10455 )
 scale = Vector2( 0.844558, 0.735697 )
-shape = SubResource( 4 )
+shape = SubResource( 7 )
 
-[node name="Goal" type="Position2D" parent="." index="2"]
-
-_sections_unfolded = [ "Transform", "Z Index" ]
-
-[node name="Area2D" type="Area2D" parent="." index="3"]
+[node name="Area2D" type="Area2D" parent="." index="2"]
 
 position = Vector2( 0.979391, -3.10455 )
 scale = Vector2( 0.844558, 0.735697 )

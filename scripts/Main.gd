@@ -14,6 +14,9 @@ func _ready():
 	Globals.timer.one_shot = true
 	Globals.timer.start()
 	####
+	Globals.Class.Player = load("res://scripts/Player.gd")
+	print(Globals.Class.Player)
+	####
 	get_node("Stage/Foreground/Mother").goal = "Dining"
 	get_node("Camera")
 	pass

@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+
 var master = true
 
 
@@ -34,8 +35,10 @@ func _ready():
 	raycast.set_enabled(false)
 
 	if(master):
+		self.start_pos = self.position
 		get_node("Area2D").connect("body_enter", self, "_on_body_enter")
-		print("Start pos: ", start_pos)
+
+		
 		set_process_input(true)
 	else:
 		get_node("Sprite").self_modulate.a = 0.5
@@ -48,15 +51,23 @@ func _ready():
 func interact():
 	if(not self.master):
 		queue_free()
+		
+
 func _interact():
 	raycast.force_raycast_update()
 	if(raycast.is_colliding()):
+	
 		var collider = raycast.get_collider()
 		print(collider.get_name())
-		var root = collider.get_parent().get_parent()
+		var root = collider.get_parent()
+		print(root.get_name())
 		if(root.has_method("interact")):
-			actions.append("interact")
-			root.interact()
+			#If its not a Player, interact
+			if(not(	root is Globals.Class.Player)):
+				root.interact()
+			else:
+				root.interact() if master else 0
+				
 
 
 func _input(event):
@@ -66,19 +77,19 @@ func _input(event):
 	#Master here refers to the Current active clone... Is there an alternative way to do this?
 	#For now, stick to this, I dont see an issue.
 	if(master):
-		if(event.is_action_pressed("ui_select") and Globals.timer.get_time_left() >= 0):
-			raycast.force_raycast_update()
-			if(raycast.is_colliding()):
-				var collider = raycast.get_collider()
-				print(collider.get_name())
-				var root = collider.get_parent()
-				print(root)
-				if(root.has_method("interact")):
-					actions.append("_interact")
-					root.interact()
-					#globals.time_events["next"].append([root, globals.timer.get_time_left()])
-				elif(collider.has_node("Interactable")):
-					collider.get_node("Interactable").interact()
+#		if(event.is_action_pressed("ui_select") and Globals.timer.get_time_left() >= 0):
+#			raycast.force_raycast_update()
+#			print(raycast.rotation)
+#			if(raycast.is_colliding()):
+#				print("Its colliding!")
+#				var collider = raycast.get_collider()
+#				print(collider.get_name())
+#				var root = collider.get_parent()
+#				print(root)
+#				if(root.has_method("interact")):
+#					actions.append("_interact")
+#					root.interact()
+
 
 
 		if(event.is_action_pressed("rewind")):
@@ -97,18 +108,18 @@ func _on_body_enter(collider):
 
 func move_right():
 	acc.x = 1
-	raycast.rotate(90)
+	raycast.rotation = -90
 func move_left():
 	acc.x = -1
-	raycast.rotate(-90)
+	raycast.rotation = 90
 
 func move_up():
 	acc.y = -1
-	raycast.rotate(180)
+	raycast.rotation = -180
 
 func move_down():
 	acc.y = 1
-	raycast.rotate(0)
+	raycast.rotation = 0
 
 
 
@@ -120,9 +131,9 @@ func _physics_process(delta):
 
 		actions = []
 
-		if(Input.is_action_pressed("attack")):
-			attack()
-			actions.append("attack")
+		if(Input.is_action_just_pressed("ui_select")):
+			self._interact()
+			actions.append("_interact")
 		if(Input.is_action_pressed("move_right")):
 
 
@@ -155,6 +166,8 @@ func _physics_process(delta):
 		if(i_actions < actions_timeline.size() && actions_timeline[i_actions][0] > Globals.timer.get_time_left()):
 			for action in actions_timeline[i_actions][1]:
 				call(action)
+
+
 			i_actions += 1
 
 	#accelarate
@@ -189,7 +202,7 @@ func rewind():
 	if(self.master == true):
 
 		var clone = self.duplicate(15)
-		print("****Callin master!****")
+
 		clone.master = false
 		clone.set_name("Clone")
 		clone.actions_timeline = self.actions_timeline
@@ -205,7 +218,7 @@ func rewind():
 		self.start_scene = get_node("/root/Root/").get_child(0).get_name()
 
 	else:
-		print("*****Callin Slave*****")
+
 		self.position = start_pos
 		var foreground = get_node("/root/Root/"+self.start_scene+"/Foreground")
 		foreground.add_child(self)
