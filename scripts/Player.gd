@@ -194,6 +194,10 @@ func _physics_process(delta):
 		self.start_pos = self.position
 	#	self.start_scene = get_node("/root/Root/Stage").get_child(0).get_name()
 	var remainder = move_and_slide(vel/delta)
+	
+	if(get_slide_collision(get_slide_count()-1)):
+		vel = DEACCEL *vel * delta
+		
 
 
 

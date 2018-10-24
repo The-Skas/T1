@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Rewindable.gd" type="Script" id=2]
@@ -13,9 +13,11 @@
 [ext_resource path="res://resource/House_objects/pantry.png" type="Texture" id=11]
 [ext_resource path="res://resource/sounds/Blues-Bits.ogg" type="AudioStream" id=12]
 [ext_resource path="res://resource/House_objects/radio.png" type="Texture" id=13]
-[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=14]
-[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=15]
-[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=16]
+[ext_resource path="res://resource/Fx/Music_note_small.png" type="Texture" id=14]
+[ext_resource path="res://scenes/Music Notes.gd" type="Script" id=15]
+[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=16]
+[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=17]
+[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=18]
 
 [sub_resource type="GDScript" id=1]
 
@@ -44,7 +46,7 @@ func interact():
 func rewind():
 		get_node(\"Sprite\").modulate = Color(1.0,1.0,1.0,1.0)"
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=2]
 
 script/source = "tool
 extends KinematicBody2D
@@ -75,23 +77,97 @@ var toggle_radio = true
 func interact():
 	print(\"Im a real entity!\")
 
-	
+	get_node(\"../Mother\").goal = \"Pantry\"
 	get_node(\"../Mother\").set_goal_pos(self.position)
 	
 	if(toggle_radio):
 		$AudioStreamPlayer2D.play()
+		$Particle_Music.emitting = true
 		toggle_radio = false
+
 	else:
 		$AudioStreamPlayer2D.stop()
+		$Particle_Music.emitting = false
 		toggle_radio = true
+		
 	#Play Music
 
 func rewind():
 		get_node(\"Sprite\").modulate = Color(1.0,1.0,1.0,1.0)
 		$AudioStreamPlayer2D.stop()
+		$Particle_Music.emitting = false
 		toggle_radio = true"
 
-[sub_resource type="NavigationPolygon" id=2]
+[sub_resource type="ShaderMaterial" id=3]
+
+render_priority = 0
+
+[sub_resource type="Curve" id=8]
+
+min_value = -1.0
+max_value = 1.0
+bake_resolution = 100
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+
+flags = 4
+width = 2048
+curve = SubResource( 8 )
+
+[sub_resource type="Gradient" id=10]
+
+offsets = PoolRealArray( 0, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=11]
+
+flags = 4
+gradient = SubResource( 10 )
+width = 1746
+
+[sub_resource type="ParticlesMaterial" id=6]
+
+render_priority = 0
+trail_divisor = 1
+trail_color_modifier = SubResource( 11 )
+emission_shape = 0
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 180.0
+flatness = 1.0
+gravity = Vector3( 0, -98, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.0
+angular_velocity = 0.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 65.2
+angle_random = 1.0
+scale = 1.0
+scale_random = 0.0
+color = Color( 1, 1, 1, 1 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+hue_variation_curve = SubResource( 9 )
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Angle", "Angular Velocity", "Emission Shape", "Gravity", "Hue Variation", "Initial Velocity", "Linear Accel", "Orbit Velocity", "Radial Accel", "Spread", "Tangential Accel", "Trail" ]
+
+[sub_resource type="NavigationPolygon" id=7]
 
 vertices = PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 566.793, 236.134, 414.316, 237.508, 960.866, 547.773, 556.603, 408.526, -18.1671, 549.069, 419.241, 407.301 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 1, 4, 5 ), PoolIntArray( 5, 4, 6, 7 ), PoolIntArray( 6, 0, 3, 7 ) ]
@@ -222,10 +298,9 @@ collision_mask = 1
 
 [node name="Pantry" parent="Stage/Foreground" index="5" instance=ExtResource( 3 )]
 
-editor/display_folded = true
 position = Vector2( 657.081, 148.284 )
 scale = Vector2( 1.5124, 2.11984 )
-script = SubResource( 3 )
+script = SubResource( 2 )
 my_texture = ExtResource( 11 )
 
 [node name="Sprite" parent="Stage/Foreground/Pantry" index="0"]
@@ -252,13 +327,45 @@ area_mask = 1
 
 [node name="Radio" type="Sprite" parent="Stage/Foreground/Pantry" index="4"]
 
-modulate = Color( 0.134514, 0.714844, 0.674039, 1 )
+modulate = Color( 0.879032, 0.957472, 1, 1 )
 position = Vector2( 11.6437, -8.6906 )
 scale = Vector2( 0.159541, 0.0970531 )
 texture = ExtResource( 13 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Chandalier" parent="." index="1" instance=ExtResource( 14 )]
+[node name="Particle_Music" type="Particles2D" parent="Stage/Foreground/Pantry" index="5"]
+
+modulate = Color( 1, 0, 0, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+material = SubResource( 3 )
+position = Vector2( -9.52146, -7.31187 )
+scale = Vector2( 0.661201, 0.471734 )
+emitting = false
+amount = 1
+lifetime = 1.0
+one_shot = false
+preprocess = 0.0
+speed_scale = 0.91
+explosiveness = 0.89
+randomness = 0.33
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 0
+process_material = SubResource( 6 )
+texture = ExtResource( 14 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+script = ExtResource( 15 )
+_sections_unfolded = [ "Material", "Process Material", "Textures", "Time", "Transform", "Visibility" ]
+TIME_SCALE = 2.0
+RADIUS = 10.0
+OFFSET = Vector2( 0, 0 )
+active = true
+
+[node name="Chandalier" parent="." index="1" instance=ExtResource( 16 )]
 
 position = Vector2( 466.8, -21.4 )
 scale = Vector2( 0.635622, 0.4748 )
@@ -272,17 +379,19 @@ _sections_unfolded = [ "Transform" ]
 
 position = Vector2( -17.4944, -17.6184 )
 scale = Vector2( 1, 1.05781 )
-navpoly = SubResource( 2 )
+navpoly = SubResource( 7 )
 enabled = true
 
 [node name="Comics" type="Node2D" parent="." index="3"]
+
+position = Vector2( 308, 73 )
 
 [node name="Cooking" type="Sprite" parent="Comics" index="0"]
 
 visible = false
 position = Vector2( 493.773, 233.214 )
 scale = Vector2( 1.98058, 1.54587 )
-texture = ExtResource( 15 )
+texture = ExtResource( 17 )
 
 [node name="Camera" type="Camera2D" parent="." index="4"]
 
@@ -309,7 +418,7 @@ drag_margin_bottom = 0.2
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-script = ExtResource( 16 )
+script = ExtResource( 18 )
 _sections_unfolded = [ "Editor", "Transform", "Visibility" ]
 
 
