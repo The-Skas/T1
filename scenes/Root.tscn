@@ -78,7 +78,8 @@ func interact():
 	print(\"Im a real entity!\")
 
 	get_node(\"../Mother\").goal = \"Pantry\"
-	get_node(\"../Mother\").set_goal_pos(self.position)
+	get_node(\"../Mother\").set_goal_pos(self.position + $Position2D.position * self.scale)
+	print(self.position)
 	
 	if(toggle_radio):
 		$AudioStreamPlayer2D.play()
@@ -282,12 +283,12 @@ texture = ExtResource( 8 )
 [node name="Mother" parent="Stage/Foreground" index="3" instance=ExtResource( 9 )]
 
 editor/display_folded = true
-position = Vector2( 470.331, 238.711 )
+position = Vector2( 470.331, 238.461 )
 _sections_unfolded = [ "Collision" ]
 
 [node name="Goal" type="Position2D" parent="Stage/Foreground/Mother" index="2"]
 
-position = Vector2( -235.035, 1.35732 )
+position = Vector2( -146.258, -16.0184 )
 scale = Vector2( 1.02042, 1.05307 )
 
 [node name="Player" parent="Stage/Foreground" index="4" instance=ExtResource( 10 )]
@@ -338,7 +339,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
 material = SubResource( 3 )
-position = Vector2( -9.52146, -7.31187 )
+position = Vector2( 6.44188, -7.31187 )
 scale = Vector2( 0.661201, 0.471734 )
 emitting = false
 amount = 1
@@ -364,6 +365,11 @@ TIME_SCALE = 2.0
 RADIUS = 10.0
 OFFSET = Vector2( 0, 0 )
 active = true
+
+[node name="Position2D" type="Position2D" parent="Stage/Foreground/Pantry" index="6"]
+
+position = Vector2( 9.91801, 33.0214 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Chandalier" parent="." index="1" instance=ExtResource( 16 )]
 

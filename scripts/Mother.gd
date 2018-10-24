@@ -11,7 +11,7 @@ var start_position
 func set_goal_pos(var pos):
 	#assert
 	$Goal.position = pos
-	goal_position = self.position + pos
+	goal_position = pos
 	goal_position = get_node("/root/Root/Navigation").get_simple_path(self.position, goal_position,true)[-1]
 
 
