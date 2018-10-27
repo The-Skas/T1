@@ -2,7 +2,7 @@ tool
 extends Particles2D
 
 export(float) var TIME_SCALE = 1.0
-export(float) var RADIUS = 200.0
+export(float) var RADIUS = 100.0
 export(Vector2) var OFFSET = Vector2()
 
 export(bool) var active = false setget set_active
