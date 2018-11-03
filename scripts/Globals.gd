@@ -12,11 +12,9 @@ var is_rewinding
 var timer
 onready var camera = get_node("/root/Root/Camera")
 #Global TIme Events
-#	- Used for Player.gd Mainly, when "Interact" is pressed... I think lol
-var time_events = {
-	next = [],
-	curr = []
-}
+
+#Used in Events
+var events = []
 
 
 #Custom classes

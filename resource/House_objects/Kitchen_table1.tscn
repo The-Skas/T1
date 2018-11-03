@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 13.491, 12.1961 )
+extents = Vector2( 13.491, 10.1049 )
 
 [node name="Interactable" type="KinematicBody2D" index="0"]
 
@@ -27,8 +27,8 @@ _sections_unfolded = [ "Offset", "Transform", "Visibility" ]
 
 [node name="StaticBody" type="StaticBody2D" parent="." index="1"]
 
-position = Vector2( 0.50831, 9.09358 )
-scale = Vector2( 1.10719, 1.13284 )
+position = Vector2( 0.50831, 18.4387 )
+scale = Vector2( 1.10719, 0.840806 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -39,8 +39,8 @@ bounce = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody" index="0"]
 
-position = Vector2( -2.74454, -14.203 )
-scale = Vector2( 2.15052, 1.26741 )
+position = Vector2( -1.84134, -21.6984 )
+scale = Vector2( 2.15052, 1.08593 )
 shape = SubResource( 1 )
 
 [node name="Nav" type="Position2D" parent="." index="2"]

@@ -21,9 +21,18 @@ func _ready():
 	
 
 
-# Shake with decreasing intensity while there's time remaining.
+onready var player = get_node("/root/Root/Stage/Foreground/Player")
 func _process(delta):
-    # Only shake when there's shake time remaining.
+	#attempt shake
+	attempt_shake(delta)
+	self.position = player.position
+
+	
+
+
+
+func attempt_shake(delta):
+	# Only shake when there's shake time remaining.
     if _timer == 0:
         return
     # Only shake on certain frames.

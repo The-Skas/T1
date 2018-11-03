@@ -30,10 +30,6 @@ func _ready():
 var rotate = 0.0
 var positions
 func _process(delta):
-
-
-
-
 	pass
 
 

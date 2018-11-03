@@ -6,7 +6,7 @@ var master = true
 
 const MAX_SPEED = 3.0
 const ACCEL = 28
-const DEACCEL = 5
+const DEACCEL = 10
 var vel = Vector2(0 , 0)
 var acc = Vector2(0 , 0)
 var last_vel_length = 0
