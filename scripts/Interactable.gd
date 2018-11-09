@@ -16,6 +16,7 @@ func _ready():
 #	# Update game logic here.
 #	pass
 func interact():
+
 	print("Sommethings interacting with me!")
 	Globals.timer.time_left
 	get_node("../Event").this_happened("timer_on")
