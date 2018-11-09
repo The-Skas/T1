@@ -67,6 +67,9 @@ func _interact():
 				root.interact()
 			else:
 				root.interact() if master else 0
+		elif(collider.get_name() == "Interactable"):
+			collider.interact()
+
 				
 
 

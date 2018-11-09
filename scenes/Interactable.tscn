@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/Interactable.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="Interactable" type="KinematicBody2D" index="0"]
+
+modulate = Color( 0.228392, 0.679688, 0.478719, 1 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+
+scale = Vector2( 3.01106, 3.02029 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+

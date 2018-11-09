@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Sound_Alarm.wav-2eadcf4654f0e6266498b1f39c6fde0f.sample"
+
+[deps]
+
+source_file="res://resource/sounds/Sound_Alarm.wav"
+dest_files=[ "res://.import/Sound_Alarm.wav-2eadcf4654f0e6266498b1f39c6fde0f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

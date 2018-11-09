@@ -16,9 +16,6 @@ func _ready():
 #	# Update game logic here.
 #	pass
 func interact():
-	get_node("Sprite").modulate = Color(154,30,30,1.0)
-	get_node("../Mother").goal = self.position
-	
+	print("Sommethings interacting with me!")
 
-func rewind():
-		get_node("Sprite").modulate = Color(1.0,1.0,1.0,1.0)
+	
