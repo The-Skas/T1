@@ -4,7 +4,7 @@ extends KinematicBody2D
 # var a = 2
 # var b = "textvar"
 var speed = 50
-var goal = null
+export (String) var goal = null
 var goal_position = null
 var start_position
 
@@ -20,14 +20,19 @@ func _ready():
 	# Initialization here
 	set_process(true)
 	self.start_position = self.position
+	goal = null
 	#AI
-	goal_position = self.position + $Goal.position
-	goal_position = get_node("/root/Root/Navigation").get_simple_path(self.position, goal_position,true)[-1]
+
 
 	pass
 func moveTo(entityName):
 	#	return get_node("/root/Root/Navigation").get_simple_path(self.position, get_node("/root/Root/Stage/Foreground/"+entityName).position + 	get_node("/root/Root/Stage/Foreground/"+entityName+"/Nav").position * get_node("/root/Root/Stage/Foreground/"+entityName).scale,true)
-	return get_node("/root/Root/Navigation").get_simple_path(self.position, goal_position,true)
+	var _object = get_parent().get_node(entityName)
+	if(_object != null):
+		set_goal_pos(get_object_pos(_object))
+		return get_node("/root/Root/Navigation").get_simple_path(self.position, goal_position,true)
+	else:
+		return self.position
 
 var GOAL_THRESHOLD = 5
 func hasArrived():
@@ -43,8 +48,21 @@ var positions
 
 ## Entity velocity
 var vel = Vector2(0,0)
+
+func get_object_pos(object):
+	# Means they have a preferred pos
+	var _position = object.position
+	if(object.has_node("Nav")):
+		_position += object.get_node("Nav").position * object.scale
+	return _position
+		
 func _process(delta):
-	
+	# What if the mother moves to a different area.. then 
+	# different logic should be loaded for each area
+	#	  
+	if( Globals.events.has("alarm")):
+		goal = "Kitchen_1"
+
 	
 	
 	#Animation

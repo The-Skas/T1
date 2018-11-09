@@ -20,7 +20,7 @@ func this_happened(event_name):
 	if(do_once and done):
 		return
 		
-	Globals.events.append([event_name, Globals.timer.time_left])
+	Globals.events[event_name] = [event_name, Globals.timer.time_left]
 	done = true
 		
 	

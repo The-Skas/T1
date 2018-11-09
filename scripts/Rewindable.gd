@@ -20,7 +20,7 @@ func rewind():
 				child.rewind()
 				
 	#Delete all previous events
-	Globals.events = []
+	Globals.events = {}
 				
 
 

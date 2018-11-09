@@ -439,6 +439,7 @@ texture = ExtResource( 10 )
 
 [node name="Kitchen_2" parent="Stage/Foreground" index="1" instance=ExtResource( 11 )]
 
+editor/display_folded = true
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 464.182, 185.319 )
 scale = Vector2( 1.71775, 1.8757 )
@@ -447,12 +448,21 @@ scale = Vector2( 1.71775, 1.8757 )
 
 texture = ExtResource( 12 )
 
+[node name="Nav" parent="Stage/Foreground/Kitchen_2" index="2"]
+
+position = Vector2( 1.16431, 19 )
+
 [node name="Kitchen_1" parent="Stage/Foreground" index="2" instance=ExtResource( 11 )]
 
+editor/display_folded = true
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 354.182, 185.319 )
 scale = Vector2( 1.71775, 1.8757 )
 script = SubResource( 1 )
+
+[node name="Nav" parent="Stage/Foreground/Kitchen_1" index="2"]
+
+position = Vector2( -17.4647, 18.2003 )
 
 [node name="pot" type="Sprite" parent="Stage/Foreground/Kitchen_1" index="3"]
 
@@ -473,6 +483,7 @@ do_once = true
 
 [node name="timer" type="Sprite" parent="Stage/Foreground/Kitchen_1" index="4"]
 
+editor/display_folded = true
 position = Vector2( -15.8521, -11.0778 )
 rotation = 0.00579712
 scale = Vector2( 0.920129, 0.820845 )
@@ -529,6 +540,7 @@ editor/display_folded = true
 position = Vector2( 470.331, 238.461 )
 collision_layer = 4
 _sections_unfolded = [ "Collision" ]
+goal = "Dining"
 
 [node name="Goal" type="Position2D" parent="Stage/Foreground/Mother" index="2"]
 
@@ -546,6 +558,7 @@ _sections_unfolded = [ "Collision", "Pause", "Visibility", "collision" ]
 
 [node name="Pantry" parent="Stage/Foreground" index="5" instance=ExtResource( 3 )]
 
+editor/display_folded = true
 position = Vector2( 657.081, 148.284 )
 scale = Vector2( 1.5124, 2.11984 )
 script = SubResource( 3 )
@@ -593,7 +606,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
 material = SubResource( 4 )
-position = Vector2( -6.49859, -7.31187 )
+position = Vector2( 5.38585, -7.31187 )
 scale = Vector2( 0.661201, 0.471734 )
 emitting = false
 amount = 1

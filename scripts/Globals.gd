@@ -14,7 +14,7 @@ onready var camera = get_node("/root/Root/Camera")
 #Global TIme Events
 onready var player = get_node("/root/Root/Stage/Foreground/Player")
 #Used in Events
-var events = []
+var events = {}
 
 
 #Custom classes
