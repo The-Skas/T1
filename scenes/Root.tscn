@@ -107,7 +107,7 @@ func rewind():
 #	pass
 "
 
-[sub_resource type="GDScript" id=11]
+[sub_resource type="GDScript" id=3]
 
 script/source = "extends Sprite
 
@@ -151,7 +151,7 @@ func rewind():
 #	pass
 "
 
-[sub_resource type="GDScript" id=12]
+[sub_resource type="GDScript" id=4]
 
 script/source = "extends AudioStreamPlayer2D
 
@@ -170,7 +170,7 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=5]
 
 script/source = "tool
 extends KinematicBody2D
@@ -226,39 +226,39 @@ func rewind():
 		$Particle_Music.emitting = false
 		toggle_radio = true"
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=6]
 
 render_priority = 0
 
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=7]
 
 min_value = -1.0
 max_value = 1.0
 bake_resolution = 100
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=6]
+[sub_resource type="CurveTexture" id=8]
 
 flags = 4
 width = 2048
-curve = SubResource( 5 )
+curve = SubResource( 7 )
 
-[sub_resource type="Gradient" id=7]
+[sub_resource type="Gradient" id=9]
 
 offsets = PoolRealArray( 0, 1 )
 colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=8]
+[sub_resource type="GradientTexture" id=10]
 
 flags = 4
-gradient = SubResource( 7 )
+gradient = SubResource( 9 )
 width = 1746
 
-[sub_resource type="ParticlesMaterial" id=9]
+[sub_resource type="ParticlesMaterial" id=11]
 
 render_priority = 0
 trail_divisor = 1
-trail_color_modifier = SubResource( 8 )
+trail_color_modifier = SubResource( 10 )
 emission_shape = 0
 flag_align_y = false
 flag_rotate_y = false
@@ -287,7 +287,7 @@ scale_random = 0.0
 color = Color( 1, 1, 1, 1 )
 hue_variation = 0.0
 hue_variation_random = 0.0
-hue_variation_curve = SubResource( 6 )
+hue_variation_curve = SubResource( 8 )
 anim_speed = 0.0
 anim_speed_random = 0.0
 anim_offset = 0.0
@@ -295,7 +295,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Angle", "Angular Velocity", "Emission Shape", "Gravity", "Hue Variation", "Initial Velocity", "Linear Accel", "Orbit Velocity", "Radial Accel", "Spread", "Tangential Accel", "Trail" ]
 
-[sub_resource type="NavigationPolygon" id=10]
+[sub_resource type="NavigationPolygon" id=12]
 
 vertices = PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 564.994, 236.355, 414.316, 237.508, 960.866, 547.773, 556.603, 408.526, -18.1671, 549.069, 419.241, 407.301 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 1, 4, 5 ), PoolIntArray( 5, 4, 6, 7 ), PoolIntArray( 6, 0, 3, 7 ) ]
@@ -483,12 +483,11 @@ do_once = true
 
 [node name="timer" type="Sprite" parent="Stage/Foreground/Kitchen_1" index="4"]
 
-editor/display_folded = true
 position = Vector2( -15.8521, -11.0778 )
 rotation = 0.00579712
 scale = Vector2( 0.920129, 0.820845 )
 texture = ExtResource( 15 )
-script = SubResource( 11 )
+script = SubResource( 3 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="Sound_Alarm" type="AudioStreamPlayer2D" parent="Stage/Foreground/Kitchen_1/timer" index="0"]
@@ -504,7 +503,7 @@ max_distance = 1000.0
 attenuation = 7.46425
 bus = "Master"
 area_mask = 1
-script = SubResource( 12 )
+script = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Sound_Tick" type="AudioStreamPlayer2D" parent="Stage/Foreground/Kitchen_1/timer" index="1"]
@@ -561,7 +560,7 @@ _sections_unfolded = [ "Collision", "Pause", "Visibility", "collision" ]
 editor/display_folded = true
 position = Vector2( 657.081, 148.284 )
 scale = Vector2( 1.5124, 2.11984 )
-script = SubResource( 3 )
+script = SubResource( 5 )
 my_texture = ExtResource( 21 )
 
 [node name="Sprite" parent="Stage/Foreground/Pantry" index="0"]
@@ -605,8 +604,8 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
-material = SubResource( 4 )
-position = Vector2( 5.38585, -7.31187 )
+material = SubResource( 6 )
+position = Vector2( -4.06318, -7.31187 )
 scale = Vector2( 0.661201, 0.471734 )
 emitting = false
 amount = 1
@@ -621,7 +620,7 @@ fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 0
-process_material = SubResource( 9 )
+process_material = SubResource( 11 )
 texture = ExtResource( 24 )
 normal_map = null
 h_frames = 1
@@ -671,7 +670,7 @@ _sections_unfolded = [ "Transform" ]
 
 position = Vector2( -17.4944, -17.6184 )
 scale = Vector2( 1, 1.05781 )
-navpoly = SubResource( 10 )
+navpoly = SubResource( 12 )
 enabled = true
 
 [node name="Camera" type="Camera2D" parent="." index="2"]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/Mother.gd" type="Script" id=1]
 [ext_resource path="res://resource/Woman/651bfcbdc9f47c71ffcc3a888846b428.png" type="Texture" id=2]
 [ext_resource path="res://scenes/AnimationPlayer.gd" type="Script" id=3]
 [ext_resource path="res://resource/sounds/Scream_Chand.wav" type="AudioStream" id=4]
+[ext_resource path="res://addons/net.kivano.fsm/content/fsm.gd" type="Script" id=5]
+[ext_resource path="res://addons/net.kivano.fsm/assets/ico2d.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=1]
 
@@ -136,6 +138,7 @@ collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
+goal = null
 
 [node name="AnimatedSprite" type="Sprite" parent="." index="0"]
 
@@ -199,6 +202,32 @@ position = Vector2( 1.39027, -53.2775 )
 scale = Vector2( 1.38577, 1.52625 )
 shape = SubResource( 8 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="FSM2D" type="Node2D" parent="." index="3"]
+
+position = Vector2( 2.15355, -42.3006 )
+scale = Vector2( 1.17036, 1.12286 )
+script = ExtResource( 5 )
+__meta__ = {
+"_editor_icon": ExtResource( 6 )
+}
+path2LogicRoot = NodePath("..")
+onlyActiveStateOnTheScene = false
+initManually = false
+updateMode = 1
+receiceSignalsOnly4ActiveStatesAndTransitions = true
+enableDebug = false
+"Initial state:" = ""
+"Create new:/Subdirectory for FSM nodes:" = "FSM"
+"Create new:/Create state with name:" = null
+"Create new:/Create transition with name:" = null
+GraphData = {
+
+}
+
+[node name="States" type="Node2D" parent="FSM2D" index="0"]
+
+[node name="Transitions" type="Node2D" parent="FSM2D" index="1"]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 

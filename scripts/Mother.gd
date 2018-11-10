@@ -24,7 +24,6 @@ func _ready():
 	#AI
 
 
-	pass
 func moveTo(entityName):
 	#	return get_node("/root/Root/Navigation").get_simple_path(self.position, get_node("/root/Root/Stage/Foreground/"+entityName).position + 	get_node("/root/Root/Stage/Foreground/"+entityName+"/Nav").position * get_node("/root/Root/Stage/Foreground/"+entityName).scale,true)
 	var _object = get_parent().get_node(entityName)
@@ -54,6 +53,7 @@ func get_object_pos(object):
 	var _position = object.position
 	if(object.has_node("Nav")):
 		_position += object.get_node("Nav").position * object.scale
+
 	return _position
 		
 func _process(delta):
