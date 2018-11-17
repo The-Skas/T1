@@ -243,7 +243,7 @@ var toggle_radio = true
 func interact():
 	print(\"Im a real entity!\")
 
-	$Event_React.react(\"\")
+
 	
 	if(toggle_radio):
 		$AudioStreamPlayer2D.play()
@@ -495,6 +495,7 @@ position = Vector2( 1.16431, 19 )
 
 [node name="Kitchen_1" parent="Stage/Foreground" index="2" instance=ExtResource( 11 )]
 
+editor/display_folded = true
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 354.182, 185.319 )
 scale = Vector2( 1.71775, 1.8757 )
@@ -612,7 +613,6 @@ _sections_unfolded = [ "Collision", "Pause", "Visibility", "collision" ]
 
 [node name="Pantry" parent="Stage/Foreground" index="5" instance=ExtResource( 3 )]
 
-editor/display_folded = true
 position = Vector2( 657.081, 148.284 )
 scale = Vector2( 1.5124, 2.11984 )
 script = SubResource( 6 )
@@ -660,7 +660,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
 material = SubResource( 7 )
-position = Vector2( 0.630831, -7.31187 )
+position = Vector2( 3.81831, -7.31187 )
 scale = Vector2( 0.661201, 0.471734 )
 emitting = false
 amount = 1
