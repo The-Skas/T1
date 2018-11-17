@@ -1,11 +1,12 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/Mother.gd" type="Script" id=1]
 [ext_resource path="res://resource/Woman/651bfcbdc9f47c71ffcc3a888846b428.png" type="Texture" id=2]
 [ext_resource path="res://scenes/AnimationPlayer.gd" type="Script" id=3]
 [ext_resource path="res://resource/sounds/Scream_Chand.wav" type="AudioStream" id=4]
-[ext_resource path="res://addons/net.kivano.fsm/content/fsm.gd" type="Script" id=5]
-[ext_resource path="res://addons/net.kivano.fsm/assets/ico2d.png" type="Texture" id=6]
+[ext_resource path="res://player/states/motion/on_ground/move.gd" type="Script" id=5]
+[ext_resource path="res://scripts/idle.gd" type="Script" id=6]
+[ext_resource path="res://scripts/Event_React.gd" type="Script" id=7]
 
 [sub_resource type="Animation" id=1]
 
@@ -129,7 +130,94 @@ extents = Vector2( 24.7271, 11.3277 )
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="Mother" type="KinematicBody2D" index="0"]
+[sub_resource type="GDScript" id=10]
+
+script/source = "extends Node
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+var event_conditions = [\"radio\", \"smoke\"]
+var state_conditions = [\"MoveTo\"]
+export (bool) var do_once = false
+var done = false
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	pass
+
+func outcome():
+	if(do_once and done):
+		return null
+
+	var logic;
+	logic = Globals.events.has(\"alarm\") and Globals.events.has(\"smoke\")
+
+	if(logic):
+		done = true
+		return {\"state\":\"Move\",
+				\"params\":
+					{\"speed\":\"\",
+					 \"move_to\": \"Kitchen_1\"
+					 
+					}
+
+				}
+	else:
+		return null
+
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="GDScript" id=11]
+
+script/source = "extends Node
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+var event_conditions = [\"radio\", \"smoke\"]
+var state_conditions = [\"MoveTo\"]
+export (bool) var do_once = false
+var done = false
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	pass
+
+func outcome():
+	if(do_once and done):
+		return null
+		
+	var logic;
+	logic = Globals.events.has(\"radio_on\") and not Globals.events.has(\"alarm\")
+
+	if(logic):
+		done = true
+		return {\"state\":\"Move\", 
+				\"params\": 
+					{\"speed\":\"\",
+					 \"move_to\": \"Pantry\"
+					}
+					
+				}
+	else:
+		return null
+
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+_sections_unfolded = [ "Resource" ]
+
+[node name="Mother" type="KinematicBody2D" index="0" groups=[
+"event_react",
+]]
 
 position = Vector2( 0.331497, -1.28883 )
 scale = Vector2( 0.979987, 0.9496 )
@@ -203,31 +291,40 @@ scale = Vector2( 1.38577, 1.52625 )
 shape = SubResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="FSM2D" type="Node2D" parent="." index="3"]
+[node name="Current_State" type="Node" parent="." index="3"]
 
-position = Vector2( 2.15355, -42.3006 )
-scale = Vector2( 1.17036, 1.12286 )
+[node name="State" type="Node" parent="." index="4"]
+
+[node name="Move" type="Node" parent="State" index="0"]
+
 script = ExtResource( 5 )
-__meta__ = {
-"_editor_icon": ExtResource( 6 )
-}
-path2LogicRoot = NodePath("..")
-onlyActiveStateOnTheScene = false
-initManually = false
-updateMode = 1
-receiceSignalsOnly4ActiveStatesAndTransitions = true
-enableDebug = false
-"Initial state:" = ""
-"Create new:/Subdirectory for FSM nodes:" = "FSM"
-"Create new:/Create state with name:" = null
-"Create new:/Create transition with name:" = null
-GraphData = {
+move_to = null
 
-}
+[node name="Idle" type="Node" parent="State" index="1"]
 
-[node name="States" type="Node2D" parent="FSM2D" index="0"]
+script = ExtResource( 6 )
+_sections_unfolded = [ "Pause" ]
 
-[node name="Transitions" type="Node2D" parent="FSM2D" index="1"]
+[node name="Event_React" type="Node" parent="." index="5"]
+
+script = ExtResource( 7 )
+logic = null
+
+[node name="Level_1" type="Node" parent="Event_React" index="0"]
+
+_sections_unfolded = [ "Pause" ]
+
+[node name="Reacts_to_Alarm" type="Node" parent="Event_React/Level_1" index="0"]
+
+script = SubResource( 10 )
+_sections_unfolded = [ "Pause" ]
+do_once = true
+
+[node name="Reacts_to_Radio" type="Node" parent="Event_React/Level_1" index="1"]
+
+script = SubResource( 11 )
+_sections_unfolded = [ "Pause" ]
+do_once = false
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 

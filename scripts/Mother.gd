@@ -3,95 +3,54 @@ extends KinematicBody2D
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
+## Entity velocity
+var vel = Vector2(0,0)
 var speed = 50
 export (String) var goal = null
 var goal_position = null
 var start_position
+var positions
 
-func set_goal_pos(var pos):
-	#assert
-	$Goal.position = pos
-	goal_position = pos
-	goal_position = get_node("/root/Root/Navigation").get_simple_path(self.position, goal_position,true)[-1]
-
-
+var start_state = "Move"
+var start_state_params = {"speed": speed, "move_to": "Dining"}
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	set_process(true)
 	self.start_position = self.position
-	goal = null
-	#AI
+	$Current_State.add_child($State/Move.duplicate())
+	current_state = $Current_State.get_child(0)
+	current_state.enter(self, start_state_params)
 
 
-func moveTo(entityName):
-	#	return get_node("/root/Root/Navigation").get_simple_path(self.position, get_node("/root/Root/Stage/Foreground/"+entityName).position + 	get_node("/root/Root/Stage/Foreground/"+entityName+"/Nav").position * get_node("/root/Root/Stage/Foreground/"+entityName).scale,true)
-	var _object = get_parent().get_node(entityName)
-	if(_object != null):
-		set_goal_pos(get_object_pos(_object))
-		return get_node("/root/Root/Navigation").get_simple_path(self.position, goal_position,true)
-	else:
-		return self.position
 
-var GOAL_THRESHOLD = 5
-func hasArrived():
 	
-	if(positions != null):
-		if((self.position - goal_position).length() < GOAL_THRESHOLD):
-			
-			return true
-		else:
-			return false
-	
-var positions
 
-## Entity velocity
-var vel = Vector2(0,0)
-
-func get_object_pos(object):
-	# Means they have a preferred pos
-	var _position = object.position
-	if(object.has_node("Nav")):
-		_position += object.get_node("Nav").position * object.scale
-
-	return _position
-		
+var current_state 
 func _process(delta):
 	# What if the mother moves to a different area.. then 
 	# different logic should be loaded for each area
 	#	  
-	if( Globals.events.has("alarm")):
-		goal = "Kitchen_1"
-
+	var react_state = $Event_React.react(Globals.events)
 	
+	if( react_state):
+		var new_state = $State.find_node(react_state["state"])
+		current_state.exit(new_state.duplicate(), react_state["params"])
+	
+	
+	
+
+	#AI Node
+	current_state.update(self,delta)
+	
+	move_and_slide(vel.normalized() * speed)
 	
 	#Animation
 	if(vel.length() > 0.1):
 
 		$AnimatedSprite/AnimationPlayer.pick_animation(vel)
 
-	
-	
-	#AI Node
-	if(hasArrived()):
-
-		goal = null
-		positions = null
-		vel = Vector2(0,0)
-	if(goal):
-		
-		positions = moveTo(goal)
-
-		vel = positions[1] - self.position
-
-		move_and_slide(vel.normalized() * speed)
-		
-		#debug
-		draw_polyline(positions, Color(0,1.0,1.0), 5.0)
-		update()
-	else:
-		#Bad code design.
-		$AnimatedSprite/AnimationPlayer.pick_animation(Vector2(0,0))
+	vel = Vector2(0,0)
 
 func _draw():
 	if(positions != null):
@@ -114,6 +73,10 @@ func rewind():
 	self.modulate = Color(1,1,1,1)
 	get_node("AnimatedSprite").rotation = 0
 	self.position = self.start_position
+	
+	#AI 
+	current_state.exit( $State/Move.duplicate(), start_state_params)
+
 
 func _on_Area2D_body_entered(body):
 

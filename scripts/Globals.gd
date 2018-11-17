@@ -1,5 +1,5 @@
 extends Node
-
+tool
 #text interface
 var tie
 
@@ -14,6 +14,9 @@ onready var camera = get_node("/root/Root/Camera")
 #Global TIme Events
 onready var player = get_node("/root/Root/Stage/Foreground/Player")
 #Used in Events
+
+#Store a variable for all possible event types, and to
+#throw an error if the event logic is checking for a NON Existing event
 var events = {}
 
 

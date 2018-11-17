@@ -201,10 +201,6 @@ var toggle_radio = true
 func interact():
 	print(\"Im a real entity!\")
 
-	get_node(\"../Mother\").goal = \"Pantry\"
-	get_node(\"../Mother\").set_goal_pos(self.position + $Position2D.position * self.scale)
-	print(self.position)
-	
 	if(toggle_radio):
 		$AudioStreamPlayer2D.play()
 		$Particle_Music.emitting = true
@@ -222,9 +218,10 @@ func interact():
 func rewind():
 		get_node(\"Sprite\").modulate = Color(1.0,1.0,1.0,1.0)
 		$AudioStreamPlayer2D.stop()
-		get_node(\"Event\").this_happened(\"Radio_Off\")
+		get_node(\"Event\").this_happened(\"radio_off\")
 		$Particle_Music.emitting = false
 		toggle_radio = true"
+_sections_unfolded = [ "Resource" ]
 
 [sub_resource type="ShaderMaterial" id=6]
 
@@ -557,7 +554,6 @@ _sections_unfolded = [ "Collision", "Pause", "Visibility", "collision" ]
 
 [node name="Pantry" parent="Stage/Foreground" index="5" instance=ExtResource( 3 )]
 
-editor/display_folded = true
 position = Vector2( 657.081, 148.284 )
 scale = Vector2( 1.5124, 2.11984 )
 script = SubResource( 5 )
@@ -605,7 +601,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
 material = SubResource( 6 )
-position = Vector2( -4.06318, -7.31187 )
+position = Vector2( -9.91967, -7.31187 )
 scale = Vector2( 0.661201, 0.471734 )
 emitting = false
 amount = 1
