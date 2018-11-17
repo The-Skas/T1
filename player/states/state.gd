@@ -1,29 +1,42 @@
-"""
-Base interface for all states: it doesn't do anything in itself
-but forces us to pass the right arguments to the methods below
-and makes sure every State object had all of these methods.
-"""
 extends Node
 
-signal finished(next_state_name)
-
-# Initialize the state. E.g. change the animation
-func enter(host):
-	return
 
 
-# Clean up the state. Reinitialize values like a timer
-func exit(host):
-	return
+var host
+var event_on_complete = null
 
 
-func handle_input(host, event):
-	return
+#
+#
+# STATE CODE
+#
+#
+
+
+func enter(_host, params):
+	host = _host
+	if(params.has("event_end")):
+		event_on_complete = params["event_end"]
 
 
 func update(host, delta):
-	return
+	pass
 
 
-func _on_animation_finished(anim_name):
-	return
+func exit(new_state, new_params):
+	get_node("../../Current_State").add_child(new_state)
+	host.current_state = new_state
+	host.current_state.enter(host, new_params)
+	
+	if(event_on_complete):
+		get_parent().get_parent().get_node("Event").this_happened(event_on_complete)	
+	queue_free()
+		#debug
+#		draw_polyline(positions, Color(0,1.0,1.0), 5.0)
+#		update()
+#	else:
+		#Bad code design.
+#		$AnimatedSprite/AnimationPlayer.pick_animation(Vector2(0,0))
+
+
+

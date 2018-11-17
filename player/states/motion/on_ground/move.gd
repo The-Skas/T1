@@ -1,11 +1,10 @@
-extends Node
+extends "res://player/states/state.gd"
 
 var speed = 50
 export (String) var move_to = null
 var goal_position = null
 var start_position
 
-var host
 
 func set_goal_pos(var pos):
 	#assert
@@ -57,7 +56,7 @@ func get_object_pos(object):
 func enter(_host, params):
 	speed = params["speed"]
 	move_to = params["move_to"]
-	host = _host
+	.enter(_host, params)
 
 
 
@@ -77,13 +76,11 @@ func update(host, delta):
 		vel = positions[1] - host.position
 
 		host.vel += vel
+		
 
 
 func exit(new_state, new_params):
-	get_node("../../Current_State").add_child(new_state)
-	host.current_state = new_state
-	host.current_state.enter(host, new_params)
-	queue_free()
+	.exit(new_state, new_params)
 		#debug
 #		draw_polyline(positions, Color(0,1.0,1.0), 5.0)
 #		update()

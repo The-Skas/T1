@@ -11,6 +11,7 @@ func _ready():
 	pass
 
 func _process(delta):
+	print(Globals.events)
 	pass
 func rewind():
 

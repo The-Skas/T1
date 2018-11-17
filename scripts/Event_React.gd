@@ -14,7 +14,8 @@ func _ready():
 func react(events):
 	for child in $Level_1.get_children():
 		var outcome = child.outcome()
-		return outcome if outcome else 0
+		if(outcome):
+			return outcome 
 	
 	return null
 	pass

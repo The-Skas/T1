@@ -17,6 +17,8 @@ onready var player = get_node("/root/Root/Stage/Foreground/Player")
 
 #Store a variable for all possible event types, and to
 #throw an error if the event logic is checking for a NON Existing event
+
+var Event_Message = preload("res://scenes/Event.tscn")
 var events = {}
 
 
