@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Rewindable.gd" type="Script" id=2]
@@ -26,11 +26,12 @@
 [ext_resource path="res://resource/House_objects/radio.png" type="Texture" id=24]
 [ext_resource path="res://resource/Fx/Music_note_small.png" type="Texture" id=25]
 [ext_resource path="res://scenes/Music Notes.gd" type="Script" id=26]
-[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=27]
-[ext_resource path="res://resource/Particles/dust_charge/Smoke.tscn" type="PackedScene" id=28]
-[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=29]
-[ext_resource path="res://scripts/Comics.gd" type="Script" id=30]
-[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=31]
+[ext_resource path="res://scripts/Temp/ComicEvent.gd" type="Script" id=27]
+[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=28]
+[ext_resource path="res://resource/Particles/dust_charge/Smoke.tscn" type="PackedScene" id=29]
+[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=30]
+[ext_resource path="res://scripts/Comics.gd" type="Script" id=31]
+[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=32]
 
 [sub_resource type="GDScript" id=1]
 
@@ -127,7 +128,7 @@ func _ready():
 	fixed_pos = self.position
 
 func _process(delta):
-	var outcome = get_node(\"../Event_React\").react(\"\")
+
 	
 	if(alarm_time != null):
 		if(Globals.timer.time_left < alarm_time):
@@ -146,6 +147,9 @@ func _process(delta):
 func rewind():
 	self.position = fixed_pos
 	self.rotation = 0
+	$Sound_Tick.stop()
+	$Sound_Alarm.stop()
+	alarm_time = null
 	time = 0
 
 #func _process(delta):
@@ -173,7 +177,7 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=6]
 
 script/source = "extends Node
 
@@ -205,6 +209,8 @@ func outcome():
 	else:
 		return null
 
+func rewind():
+	done = false
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
@@ -212,7 +218,7 @@ func outcome():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=7]
 
 script/source = "tool
 extends KinematicBody2D
@@ -267,39 +273,39 @@ func rewind():
 		toggle_radio = true"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=8]
 
 render_priority = 0
 
-[sub_resource type="Curve" id=8]
+[sub_resource type="Curve" id=9]
 
 min_value = -1.0
 max_value = 1.0
 bake_resolution = 100
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=9]
+[sub_resource type="CurveTexture" id=10]
 
 flags = 4
 width = 2048
-curve = SubResource( 8 )
+curve = SubResource( 9 )
 
-[sub_resource type="Gradient" id=10]
+[sub_resource type="Gradient" id=11]
 
 offsets = PoolRealArray( 0, 1 )
 colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=11]
+[sub_resource type="GradientTexture" id=12]
 
 flags = 4
-gradient = SubResource( 10 )
+gradient = SubResource( 11 )
 width = 1746
 
-[sub_resource type="ParticlesMaterial" id=12]
+[sub_resource type="ParticlesMaterial" id=13]
 
 render_priority = 0
 trail_divisor = 1
-trail_color_modifier = SubResource( 11 )
+trail_color_modifier = SubResource( 12 )
 emission_shape = 0
 flag_align_y = false
 flag_rotate_y = false
@@ -328,7 +334,7 @@ scale_random = 0.0
 color = Color( 1, 1, 1, 1 )
 hue_variation = 0.0
 hue_variation_random = 0.0
-hue_variation_curve = SubResource( 9 )
+hue_variation_curve = SubResource( 10 )
 anim_speed = 0.0
 anim_speed_random = 0.0
 anim_offset = 0.0
@@ -336,11 +342,93 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Angle", "Angular Velocity", "Emission Shape", "Gravity", "Hue Variation", "Initial Velocity", "Linear Accel", "Orbit Velocity", "Radial Accel", "Spread", "Tangential Accel", "Trail" ]
 
-[sub_resource type="NavigationPolygon" id=13]
+[sub_resource type="NavigationPolygon" id=14]
 
-vertices = PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 564.994, 236.355, 414.316, 237.508, 960.866, 547.773, 556.603, 408.526, -18.1671, 549.069, 419.241, 407.301 )
+vertices = PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 558.094, 240.042, 421.594, 240.042, 960.866, 547.773, 556.603, 408.526, -18.1671, 549.069, 419.241, 407.301 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 1, 4, 5 ), PoolIntArray( 5, 4, 6, 7 ), PoolIntArray( 6, 0, 3, 7 ) ]
-outlines = [ PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 960.866, 547.773, -18.1671, 549.069 ), PoolVector2Array( 414.316, 237.508, 419.241, 407.301, 556.603, 408.526, 564.994, 236.355 ) ]
+outlines = [ PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 960.866, 547.773, -18.1671, 549.069 ), PoolVector2Array( 421.594, 240.042, 419.241, 407.301, 556.603, 408.526, 558.094, 240.042 ) ]
+
+[sub_resource type="GDScript" id=15]
+
+script/source = "extends Node
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+export (bool) var logic
+
+func _ready():
+	pass
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	set_process(true)
+
+func _process(delta):
+	react(1)
+func react(events):
+	for child in get_children():
+		var outcome = child.outcome()
+		if(outcome):
+			return outcome
+
+	return null
+	pass
+	# Get current Location ...
+
+	#Evaluate for every event were looking for
+	#if true, return the Action to occur....
+	#	return State.new.Move(\"Object_to_move to\")
+	#		   State.new.Stun(0.5)
+	#Or? Perform it ourselves.
+func rewind():
+	for child in self.get_children():
+		if(child.has_method(\"rewind\")):
+				child.rewind()
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="GDScript" id=16]
+
+script/source = "extends Node
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+var event_conditions = [\"radio\", \"smoke\"]
+var state_conditions = [\"MoveTo\"]
+export (bool) var do_once = false
+var done = false
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	pass
+
+func outcome():
+	if(do_once and done):
+		return null
+
+	var logic;
+	logic =  Globals.events.has(\"mom_alarm\")
+
+	if(logic):
+		done = true
+		get_node(\"../../\").visible = true
+
+	else:
+		return null
+
+func rewind():
+	done = false
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
 
 [node name="Root" type="Node2D" index="0"]
 
@@ -355,6 +443,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Background" type="Node2D" parent="Stage" index="0"]
 
+editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
 
 [node name="Blood" parent="Stage/Background" index="0" instance=ExtResource( 3 )]
@@ -493,7 +582,9 @@ texture = ExtResource( 12 )
 
 position = Vector2( 1.16431, 19 )
 
-[node name="Kitchen_1" parent="Stage/Foreground" index="2" instance=ExtResource( 11 )]
+[node name="Kitchen_1" parent="Stage/Foreground" index="2" groups=[
+"player_exception",
+] instance=ExtResource( 11 )]
 
 editor/display_folded = true
 modulate = Color( 1, 1, 1, 1 )
@@ -524,6 +615,7 @@ do_once = true
 
 [node name="timer" type="Sprite" parent="Stage/Foreground/Kitchen_1" index="4"]
 
+editor/display_folded = true
 position = Vector2( -15.8521, -11.0778 )
 rotation = 0.00579712
 scale = Vector2( 0.920129, 0.820845 )
@@ -585,9 +677,9 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="Mom_off_Radio" type="Node" parent="Stage/Foreground/Kitchen_1/Event_React/Level_1" index="0"]
 
-script = SubResource( 5 )
+script = SubResource( 6 )
 _sections_unfolded = [ "Pause" ]
-do_once = true
+do_once = false
 
 [node name="Mother" parent="Stage/Foreground" index="3" instance=ExtResource( 20 )]
 
@@ -615,7 +707,7 @@ _sections_unfolded = [ "Collision", "Pause", "Visibility", "collision" ]
 
 position = Vector2( 657.081, 148.284 )
 scale = Vector2( 1.5124, 2.11984 )
-script = SubResource( 6 )
+script = SubResource( 7 )
 my_texture = ExtResource( 22 )
 
 [node name="Sprite" parent="Stage/Foreground/Pantry" index="0"]
@@ -632,6 +724,10 @@ scale = Vector2( 1.10719, 0.266456 )
 
 position = Vector2( -2.0905, -13.8905 )
 scale = Vector2( 2.19018, 2.20227 )
+
+[node name="Nav" parent="Stage/Foreground/Pantry" index="2"]
+
+position = Vector2( 12.5628, 32.6803 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Stage/Foreground/Pantry" index="3"]
 
@@ -659,8 +755,8 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
-material = SubResource( 7 )
-position = Vector2( 3.81831, -7.31187 )
+material = SubResource( 8 )
+position = Vector2( -7.05537, -7.31187 )
 scale = Vector2( 0.661201, 0.471734 )
 emitting = false
 amount = 1
@@ -675,7 +771,7 @@ fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 0
-process_material = SubResource( 12 )
+process_material = SubResource( 13 )
 texture = ExtResource( 25 )
 normal_map = null
 h_frames = 1
@@ -692,7 +788,22 @@ active = true
 position = Vector2( 9.91801, 33.0214 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Event" parent="Stage/Foreground/Pantry" index="7" instance=ExtResource( 14 )]
+[node name="Event_React" type="Node" parent="Stage/Foreground/Pantry" index="7"]
+
+script = ExtResource( 19 )
+logic = null
+
+[node name="Level_1" type="Node" parent="Stage/Foreground/Pantry/Event_React" index="0"]
+
+_sections_unfolded = [ "Pause" ]
+
+[node name="Mom_off_Radio" type="Node" parent="Stage/Foreground/Pantry/Event_React/Level_1" index="0"]
+
+script = ExtResource( 27 )
+_sections_unfolded = [ "Pause" ]
+do_once = false
+
+[node name="Event" parent="Stage/Foreground/Pantry" index="8" instance=ExtResource( 14 )]
 
 event_name = "Null"
 do_once = false
@@ -701,12 +812,12 @@ do_once = false
 
 script = ExtResource( 2 )
 
-[node name="Chandalier" parent="Stage/Top" index="0" instance=ExtResource( 27 )]
+[node name="Chandalier" parent="Stage/Top" index="0" instance=ExtResource( 28 )]
 
 position = Vector2( 466.8, -21.4 )
 scale = Vector2( 0.635622, 0.4748 )
 
-[node name="pot_smoke" parent="Stage/Top" index="1" instance=ExtResource( 28 )]
+[node name="pot_smoke" parent="Stage/Top" index="1" instance=ExtResource( 29 )]
 
 modulate = Color( 1, 1, 1, 0.03 )
 position = Vector2( 387.4, 155.675 )
@@ -725,12 +836,11 @@ _sections_unfolded = [ "Transform" ]
 
 position = Vector2( -17.4944, -17.6184 )
 scale = Vector2( 1, 1.05781 )
-navpoly = SubResource( 13 )
+navpoly = SubResource( 14 )
 enabled = true
 
 [node name="Camera" type="Camera2D" parent="." index="2"]
 
-visible = false
 position = Vector2( 486.28, 279.131 )
 anchor_mode = 1
 rotating = false
@@ -754,13 +864,14 @@ drag_margin_bottom = 0.1
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-script = ExtResource( 29 )
+script = ExtResource( 30 )
 _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Smoothing", "Transform", "Visibility" ]
 
 [node name="Comics" type="Node2D" parent="Camera" index="0"]
 
+visible = false
 position = Vector2( -178.28, -206.131 )
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 
 [node name="Panel" type="Panel" parent="Camera/Comics" index="0"]
 
@@ -804,7 +915,18 @@ _sections_unfolded = [ "Visibility" ]
 
 position = Vector2( 186.7, 177.954 )
 scale = Vector2( 1.45143, 1.09249 )
-texture = ExtResource( 31 )
+texture = ExtResource( 32 )
+
+[node name="Event_React2" type="Node" parent="Camera/Comics" index="3"]
+
+script = SubResource( 15 )
+logic = null
+
+[node name="Mom_off_Radio" type="Node" parent="Camera/Comics/Event_React2" index="0"]
+
+script = SubResource( 16 )
+_sections_unfolded = [ "Pause" ]
+do_once = false
 
 
 [editable path="Stage/Background/Blood"]

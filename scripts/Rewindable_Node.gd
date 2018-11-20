@@ -11,7 +11,7 @@ func _ready():
 	pass
 
 func _process(delta):
-	print(Globals.events)
+#	print(Globals.events)
 	pass
 func rewind():
 
@@ -19,10 +19,10 @@ func rewind():
 	for child in children:
 			if(child.has_method("rewind")):
 				child.rewind()
-				
+
 	#Delete all previous events
 	Globals.events = {}
-				
+
 
 
 

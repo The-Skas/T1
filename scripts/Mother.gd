@@ -77,6 +77,11 @@ func rewind():
 	#AI 
 	current_state.exit( $State/Move.duplicate(), start_state_params)
 
+	
+	for child in self.get_children():
+		if(child.has_method("rewind")):
+				child.rewind()
+
 
 func _on_Area2D_body_entered(body):
 

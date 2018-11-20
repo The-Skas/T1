@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/Mother.gd" type="Script" id=1]
 [ext_resource path="res://resource/Woman/651bfcbdc9f47c71ffcc3a888846b428.png" type="Texture" id=2]
@@ -8,9 +8,10 @@
 [ext_resource path="res://player/states/motion/on_ground/move.gd" type="Script" id=6]
 [ext_resource path="res://scripts/idle.gd" type="Script" id=7]
 [ext_resource path="res://scripts/Event_React.gd" type="Script" id=8]
-[ext_resource path="res://scenes/Event.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scripts/Rewindable_Node.gd" type="Script" id=9]
+[ext_resource path="res://scenes/Event.tscn" type="PackedScene" id=10]
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=1]
 
 resource_name = "Stand_Down"
 length = 1.0
@@ -29,7 +30,7 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=2]
 
 resource_name = "Stand_Right"
 length = 1.0
@@ -48,7 +49,7 @@ tracks/0/keys = {
 "values": [ 25 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=3]
 
 resource_name = "Stand_Right"
 length = 1.0
@@ -67,7 +68,7 @@ tracks/0/keys = {
 "values": [ 13 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=4]
 
 resource_name = "Stand_Up"
 length = 1.0
@@ -86,7 +87,7 @@ tracks/0/keys = {
 "values": [ 37 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=5]
 
 length = 1.5
 loop = true
@@ -104,7 +105,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=6]
 
 length = 1.5
 loop = true
@@ -122,25 +123,24 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 13, 12 ]
 }
 
-[sub_resource type="RectangleShape2D" id=18]
+[sub_resource type="RectangleShape2D" id=7]
 
 custom_solver_bias = 0.0
 extents = Vector2( 24.7271, 11.3277 )
 
-[sub_resource type="CircleShape2D" id=19]
+[sub_resource type="CircleShape2D" id=8]
 
 custom_solver_bias = 0.0
 radius = 10.0
 
-[sub_resource type="GDScript" id=20]
+[sub_resource type="GDScript" id=9]
 
 script/source = "extends Node
 
 # class member variables go here, for example:
 # var a = 2
 # var b = \"textvar\"
-var event_conditions = [\"radio\", \"smoke\"]
-var state_conditions = [\"MoveTo\"]
+
 export (bool) var do_once = false
 var done = false
 func _ready():
@@ -153,7 +153,7 @@ func outcome():
 		return null
 
 	var logic;
-	logic = Globals.events.has(\"alarm\") and Globals.events.has(\"smoke\")
+	logic = Globals.events.has(\"alarm\") 
 
 	if(logic):
 		done = true
@@ -168,6 +168,8 @@ func outcome():
 	else:
 		return null
 
+func rewind():
+	done = false
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
@@ -175,7 +177,7 @@ func outcome():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GDScript" id=21]
+[sub_resource type="GDScript" id=10]
 
 script/source = "extends Node
 
@@ -211,7 +213,9 @@ func outcome():
 		
 	else:
 		return null
-
+		
+func rewind():
+	done = false
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
@@ -249,12 +253,12 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Stand_Down = SubResource( 12 )
-anims/Stand_Right = SubResource( 13 )
-"anims/Stand_Right (copy)" = SubResource( 14 )
-anims/Stand_Up = SubResource( 15 )
-anims/Walk_Down = SubResource( 16 )
-anims/Walk_Left = SubResource( 17 )
+anims/Stand_Down = SubResource( 1 )
+anims/Stand_Right = SubResource( 2 )
+"anims/Stand_Right (copy)" = SubResource( 3 )
+anims/Stand_Up = SubResource( 4 )
+anims/Walk_Down = SubResource( 5 )
+anims/Walk_Left = SubResource( 6 )
 blend_times = [  ]
 script = ExtResource( 3 )
 
@@ -273,7 +277,7 @@ area_mask = 1
 
 position = Vector2( 0.979391, -3.10455 )
 scale = Vector2( 0.844558, 0.735697 )
-shape = SubResource( 18 )
+shape = SubResource( 7 )
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
 
@@ -292,7 +296,7 @@ _sections_unfolded = [ "Collision" ]
 
 position = Vector2( 1.39027, -53.2775 )
 scale = Vector2( 1.38577, 1.52625 )
-shape = SubResource( 19 )
+shape = SubResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Current_State" type="Node" parent="." index="3"]
@@ -318,21 +322,22 @@ logic = null
 
 [node name="Level_1" type="Node" parent="Event_React" index="0"]
 
+script = ExtResource( 9 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="Reacts_to_Alarm" type="Node" parent="Event_React/Level_1" index="0"]
 
-script = SubResource( 20 )
+script = SubResource( 9 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
 [node name="Reacts_to_Radio" type="Node" parent="Event_React/Level_1" index="1"]
 
-script = SubResource( 21 )
+script = SubResource( 10 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
-[node name="Event" parent="." index="6" instance=ExtResource( 9 )]
+[node name="Event" parent="." index="6" instance=ExtResource( 10 )]
 
 do_once = true
 
