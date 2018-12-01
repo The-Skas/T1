@@ -43,12 +43,12 @@ extends KinematicBody2D
 # var b = \"textvar\"
 
 
+
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	
-	var raycast = Globals.player.get_node(\"RayCast2D\")
-	raycast.add_exception(get_node(\"StaticBody\"))
+
 	pass
 
 #func _process(delta):
@@ -177,7 +177,7 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=5]
 
 script/source = "extends Node
 
@@ -218,7 +218,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=6]
 
 script/source = "tool
 extends KinematicBody2D
@@ -273,39 +273,39 @@ func rewind():
 		toggle_radio = true"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="ShaderMaterial" id=8]
+[sub_resource type="ShaderMaterial" id=7]
 
 render_priority = 0
 
-[sub_resource type="Curve" id=9]
+[sub_resource type="Curve" id=8]
 
 min_value = -1.0
 max_value = 1.0
 bake_resolution = 100
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=10]
+[sub_resource type="CurveTexture" id=9]
 
 flags = 4
 width = 2048
-curve = SubResource( 9 )
+curve = SubResource( 8 )
 
-[sub_resource type="Gradient" id=11]
+[sub_resource type="Gradient" id=10]
 
 offsets = PoolRealArray( 0, 1 )
 colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=12]
+[sub_resource type="GradientTexture" id=11]
 
 flags = 4
-gradient = SubResource( 11 )
+gradient = SubResource( 10 )
 width = 1746
 
-[sub_resource type="ParticlesMaterial" id=13]
+[sub_resource type="ParticlesMaterial" id=12]
 
 render_priority = 0
 trail_divisor = 1
-trail_color_modifier = SubResource( 12 )
+trail_color_modifier = SubResource( 11 )
 emission_shape = 0
 flag_align_y = false
 flag_rotate_y = false
@@ -334,7 +334,7 @@ scale_random = 0.0
 color = Color( 1, 1, 1, 1 )
 hue_variation = 0.0
 hue_variation_random = 0.0
-hue_variation_curve = SubResource( 10 )
+hue_variation_curve = SubResource( 9 )
 anim_speed = 0.0
 anim_speed_random = 0.0
 anim_offset = 0.0
@@ -342,13 +342,13 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Angle", "Angular Velocity", "Emission Shape", "Gravity", "Hue Variation", "Initial Velocity", "Linear Accel", "Orbit Velocity", "Radial Accel", "Spread", "Tangential Accel", "Trail" ]
 
-[sub_resource type="NavigationPolygon" id=14]
+[sub_resource type="NavigationPolygon" id=13]
 
 vertices = PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 558.094, 240.042, 421.594, 240.042, 960.866, 547.773, 556.603, 408.526, -18.1671, 549.069, 419.241, 407.301 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 1, 4, 5 ), PoolIntArray( 5, 4, 6, 7 ), PoolIntArray( 6, 0, 3, 7 ) ]
 outlines = [ PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 960.866, 547.773, -18.1671, 549.069 ), PoolVector2Array( 421.594, 240.042, 419.241, 407.301, 556.603, 408.526, 558.094, 240.042 ) ]
 
-[sub_resource type="GDScript" id=15]
+[sub_resource type="GDScript" id=14]
 
 script/source = "extends Node
 
@@ -392,7 +392,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GDScript" id=16]
+[sub_resource type="GDScript" id=15]
 
 script/source = "extends Node
 
@@ -586,11 +586,14 @@ position = Vector2( 1.16431, 19 )
 "player_exception",
 ] instance=ExtResource( 11 )]
 
-editor/display_folded = true
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 354.182, 185.319 )
 scale = Vector2( 1.71775, 1.8757 )
 script = SubResource( 1 )
+
+[node name="StaticBody" parent="Stage/Foreground/Kitchen_1" index="1" groups=[
+"player_raycast_ignore",
+]]
 
 [node name="Nav" parent="Stage/Foreground/Kitchen_1" index="2"]
 
@@ -615,7 +618,6 @@ do_once = true
 
 [node name="timer" type="Sprite" parent="Stage/Foreground/Kitchen_1" index="4"]
 
-editor/display_folded = true
 position = Vector2( -15.8521, -11.0778 )
 rotation = 0.00579712
 scale = Vector2( 0.920129, 0.820845 )
@@ -662,7 +664,7 @@ do_once = false
 
 [node name="Interactable" parent="Stage/Foreground/Kitchen_1/timer" index="3" instance=ExtResource( 18 )]
 
-position = Vector2( -0.682526, 8.97388 )
+position = Vector2( -0.680847, 9.29861 )
 rotation = -0.00649828
 scale = Vector2( 0.444311, 0.416081 )
 
@@ -677,7 +679,7 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="Mom_off_Radio" type="Node" parent="Stage/Foreground/Kitchen_1/Event_React/Level_1" index="0"]
 
-script = SubResource( 6 )
+script = SubResource( 5 )
 _sections_unfolded = [ "Pause" ]
 do_once = false
 
@@ -705,9 +707,10 @@ _sections_unfolded = [ "Collision", "Pause", "Visibility", "collision" ]
 
 [node name="Pantry" parent="Stage/Foreground" index="5" instance=ExtResource( 3 )]
 
+editor/display_folded = true
 position = Vector2( 657.081, 148.284 )
 scale = Vector2( 1.5124, 2.11984 )
-script = SubResource( 7 )
+script = SubResource( 6 )
 my_texture = ExtResource( 22 )
 
 [node name="Sprite" parent="Stage/Foreground/Pantry" index="0"]
@@ -755,8 +758,8 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
-material = SubResource( 8 )
-position = Vector2( -7.05537, -7.31187 )
+material = SubResource( 7 )
+position = Vector2( 9.08963, -7.31187 )
 scale = Vector2( 0.661201, 0.471734 )
 emitting = false
 amount = 1
@@ -771,7 +774,7 @@ fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 0
-process_material = SubResource( 13 )
+process_material = SubResource( 12 )
 texture = ExtResource( 25 )
 normal_map = null
 h_frames = 1
@@ -836,7 +839,7 @@ _sections_unfolded = [ "Transform" ]
 
 position = Vector2( -17.4944, -17.6184 )
 scale = Vector2( 1, 1.05781 )
-navpoly = SubResource( 14 )
+navpoly = SubResource( 13 )
 enabled = true
 
 [node name="Camera" type="Camera2D" parent="." index="2"]
@@ -919,12 +922,12 @@ texture = ExtResource( 32 )
 
 [node name="Event_React2" type="Node" parent="Camera/Comics" index="3"]
 
-script = SubResource( 15 )
+script = SubResource( 14 )
 logic = null
 
 [node name="Mom_off_Radio" type="Node" parent="Camera/Comics/Event_React2" index="0"]
 
-script = SubResource( 16 )
+script = SubResource( 15 )
 _sections_unfolded = [ "Pause" ]
 do_once = false
 
