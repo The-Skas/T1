@@ -198,7 +198,7 @@ func outcome():
 		return null
 		
 	var logic;
-	logic =  Globals.events.has(\"radio_on\") and not Globals.events.has(\"alarm\") 
+	logic =  Globals.events.has(\"radio_on\") 
 
 	if(logic):
 		done = true

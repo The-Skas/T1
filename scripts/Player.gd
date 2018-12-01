@@ -24,8 +24,6 @@ var i_actions = 0
 var actions = []
 var actions_timeline = []
 
-
-
 export(Vector2) var start_pos = Vector2(466.200012,305.3)
 export(String) var start_scene = "Stage"
 func _ready():
@@ -34,17 +32,8 @@ func _ready():
 	raycast = get_node("RayCast2D")
 	raycast.add_exception(self)
 	raycast.add_exception(get_node("Area2D"))
-	for node in get_tree().get_nodes_in_group("player_raycast_ignore"):
-		raycast.add_exception(node)
-		print(node.name)
-		print("am i even getting here?")
-		
-	
 	raycast.set_enabled(false)
-	
-	
-	
-	
+
 	if(master):
 		self.start_pos = self.position
 		get_node("Area2D").connect("body_enter", self, "_on_body_enter")
