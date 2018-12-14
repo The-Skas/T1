@@ -8,7 +8,9 @@
 custom_solver_bias = 0.0
 extents = Vector2( 33.3107, 28.7279 )
 
-[node name="Player" type="KinematicBody2D" index="0"]
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
 
 position = Vector2( -2.02784, 5.74251 )
 scale = Vector2( 0.6, 0.6 )

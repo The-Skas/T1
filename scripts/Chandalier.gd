@@ -10,7 +10,7 @@ func _ready():
 	# Initialization here
 	start_chand_pos = get_node("Chand").position
 	start_shadow_scale = get_node("Fall/Shadow").scale
-	self.fall()
+#	self.fall()
 	pass
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.

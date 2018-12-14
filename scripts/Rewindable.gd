@@ -11,7 +11,7 @@ func _ready():
 	pass
 
 func _process(delta):
-	print(Globals.events)
+	print(get_node("/root/Globals").events)
 	pass
 func rewind():
 

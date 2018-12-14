@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/Mother.gd" type="Script" id=1]
 [ext_resource path="res://resource/Woman/651bfcbdc9f47c71ffcc3a888846b428.png" type="Texture" id=2]
@@ -7,7 +7,7 @@
 [ext_resource path="res://player/states/state.gd" type="Script" id=5]
 [ext_resource path="res://player/states/motion/on_ground/move.gd" type="Script" id=6]
 [ext_resource path="res://scripts/idle.gd" type="Script" id=7]
-[ext_resource path="res://scripts/Event_React.gd" type="Script" id=8]
+[ext_resource path="res://scripts/Event_React_Mom.gd" type="Script" id=8]
 [ext_resource path="res://scripts/Rewindable_Node.gd" type="Script" id=9]
 [ext_resource path="res://scenes/Event.tscn" type="PackedScene" id=10]
 
@@ -153,7 +153,7 @@ func outcome():
 		return null
 
 	var logic;
-	logic = Globals.events.has(\"alarm\") 
+	logic = Globals.events.has(\"alarm\") and (!Globals.events.has(\"radio_on\") or Globals.events.has(\"radio_off\"))
 
 	if(logic):
 		done = true
@@ -162,6 +162,50 @@ func outcome():
 					{\"speed\":50,
 					 \"move_to\": \"Kitchen_1\",
 					 \"event_end\": \"mom_alarm\"
+					}
+
+				}
+	else:
+		return null
+
+func rewind():
+	done = false
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="GDScript" id=11]
+
+script/source = "extends Node
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+export (bool) var do_once = false
+var done = false
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	pass
+
+func outcome():
+	if(do_once and done):
+		return null
+
+	var logic;
+	logic = Globals.events.has(\"mom_alarm\") 
+
+	if(logic):
+		done = true
+		return {\"state\":\"Move\",
+				\"params\":
+					{\"speed\":50,
+					  \"move_to\": \"Dining\",
+					 \"event_end\": \"dinner_ready\"
 					}
 
 				}
@@ -331,7 +375,13 @@ script = SubResource( 9 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
-[node name="Reacts_to_Radio" type="Node" parent="Event_React/Level_1" index="1"]
+[node name="Reacts_to_mom_alarm" type="Node" parent="Event_React/Level_1" index="1"]
+
+script = SubResource( 11 )
+_sections_unfolded = [ "Pause" ]
+do_once = true
+
+[node name="Reacts_to_Radio" type="Node" parent="Event_React/Level_1" index="2"]
 
 script = SubResource( 10 )
 _sections_unfolded = [ "Pause" ]
@@ -339,7 +389,7 @@ do_once = true
 
 [node name="Event" parent="." index="6" instance=ExtResource( 10 )]
 
-do_once = true
+do_once = false
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 
