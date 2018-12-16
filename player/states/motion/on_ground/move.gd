@@ -54,7 +54,9 @@ func get_object_pos(object):
 
 
 func enter(_host, params):
-	speed = params["speed"]
+	if(params.has("speed")):
+		speed = params["speed"]
+
 	move_to = params["move_to"]
 	.enter(_host, params)
 

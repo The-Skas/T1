@@ -7,25 +7,25 @@ extends Node
 export (bool) var logic
 
 func _ready():
+	set_process(true)
 	pass
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
-	set_process(true)
-	
 func _process(delta):
 	react(1)
+
 func react(events):
 	for child in $Level_1.get_children():
 		var outcome = child.outcome()
 		if(outcome):
-			return outcome 
-	
+			return outcome
+
 	return null
 	pass
-	# Get current Location ... 
+	# Get current Location ...
 
 	#Evaluate for every event were looking for
-	#if true, return the Action to occur.... 
+	#if true, return the Action to occur....
 	#	return State.new.Move("Object_to_move to")
 	#		   State.new.Stun(0.5)
 	#Or? Perform it ourselves.

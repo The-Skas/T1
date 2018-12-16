@@ -7,9 +7,8 @@
 [ext_resource path="res://player/states/state.gd" type="Script" id=5]
 [ext_resource path="res://player/states/motion/on_ground/move.gd" type="Script" id=6]
 [ext_resource path="res://scripts/idle.gd" type="Script" id=7]
-[ext_resource path="res://scripts/Event_React_Mom.gd" type="Script" id=8]
-[ext_resource path="res://scripts/Rewindable_Node.gd" type="Script" id=9]
-[ext_resource path="res://scenes/Event.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scripts/Rewindable_Node.gd" type="Script" id=8]
+[ext_resource path="res://scenes/Event.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=1]
 
@@ -133,6 +132,48 @@ extents = Vector2( 24.7271, 11.3277 )
 custom_solver_bias = 0.0
 radius = 10.0
 
+[sub_resource type="GDScript" id=17]
+
+script/source = "extends Node
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+export (bool) var logic
+
+func _ready():
+
+	pass
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+
+func react(events):
+	for child in $Level_1.get_children():
+		var outcome = child.outcome()
+		if(outcome):
+			return outcome
+
+	return null
+	pass
+	# Get current Location ...
+
+	#Evaluate for every event were looking for
+	#if true, return the Action to occur....
+	#	return State.new.Move(\"Object_to_move to\")
+	#		   State.new.Stun(0.5)
+	#Or? Perform it ourselves.
+func rewind():
+	for child in self.get_children():
+		if(child.has_method(\"rewind\")):
+				child.rewind()
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+_sections_unfolded = [ "Resource" ]
+
 [sub_resource type="GDScript" id=9]
 
 script/source = "extends Node
@@ -177,7 +218,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GDScript" id=11]
+[sub_resource type="GDScript" id=10]
 
 script/source = "extends Node
 
@@ -221,7 +262,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GDScript" id=10]
+[sub_resource type="GDScript" id=11]
 
 script/source = "extends Node
 
@@ -361,12 +402,12 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="Event_React" type="Node" parent="." index="5"]
 
-script = ExtResource( 8 )
+script = SubResource( 17 )
 logic = null
 
 [node name="Level_1" type="Node" parent="Event_React" index="0"]
 
-script = ExtResource( 9 )
+script = ExtResource( 8 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="Reacts_to_Alarm" type="Node" parent="Event_React/Level_1" index="0"]
@@ -377,17 +418,17 @@ do_once = true
 
 [node name="Reacts_to_mom_alarm" type="Node" parent="Event_React/Level_1" index="1"]
 
-script = SubResource( 11 )
+script = SubResource( 10 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
 [node name="Reacts_to_Radio" type="Node" parent="Event_React/Level_1" index="2"]
 
-script = SubResource( 10 )
+script = SubResource( 11 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
-[node name="Event" parent="." index="6" instance=ExtResource( 10 )]
+[node name="Event" parent="." index="6" instance=ExtResource( 9 )]
 
 do_once = false
 

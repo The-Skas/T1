@@ -7,11 +7,12 @@ extends Node
 export (bool) var logic
 
 func _ready():
+	set_process(true)
 	pass
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
-
-
+func _process(delta):
+	react(1)
 
 func react(events):
 	for child in $Level_1.get_children():

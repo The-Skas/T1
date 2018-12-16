@@ -11,14 +11,14 @@ var goal_position = null
 var start_position
 var positions
 
-var start_state = "Move"
-var start_state_params = {"speed": speed, "move_to": "Dining"}
+var start_state = "Idle"
+var start_state_params = {}
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	set_process(true)
 	self.start_position = self.position
-	$Current_State.add_child($State/Move.duplicate())
+	$Current_State.add_child($State/Idle.duplicate())
 	current_state = $Current_State.get_child(0)
 	current_state.enter(self, start_state_params)
 
@@ -75,7 +75,7 @@ func rewind():
 	self.position = self.start_position
 	
 	#AI 
-	current_state.exit( $State/Move.duplicate(), start_state_params)
+	current_state.exit( $State/Idle.duplicate(), start_state_params)
 
 	
 	for child in self.get_children():
