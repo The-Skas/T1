@@ -18,11 +18,12 @@ func _ready():
 	t.set_wait_time(1)
 	print("Initializing Camera")
 	t.start()
+	set_physics_process(true)
 	
 
 
 onready var player = get_node("/root/Root/Stage/Foreground/Player")
-func _process(delta):
+func _physics_process(delta):
 	#attempt shake
 	attempt_shake(delta)
 	self.position = player.position

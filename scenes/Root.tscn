@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Rewindable.gd" type="Script" id=2]
@@ -31,9 +31,10 @@
 [ext_resource path="res://scripts/Temp/ComicEvent.gd" type="Script" id=29]
 [ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=30]
 [ext_resource path="res://resource/Particles/dust_charge/Smoke.tscn" type="PackedScene" id=31]
-[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=32]
-[ext_resource path="res://scripts/Comics.gd" type="Script" id=33]
-[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=34]
+[ext_resource path="res://resource/LaserImg.svg" type="Texture" id=32]
+[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=33]
+[ext_resource path="res://scripts/Comics.gd" type="Script" id=34]
+[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=35]
 
 [sub_resource type="GDScript" id=1]
 
@@ -355,7 +356,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Angle", "Angular Velocity", "Emission Shape", "Gravity", "Hue Variation", "Initial Velocity", "Linear Accel", "Orbit Velocity", "Radial Accel", "Spread", "Tangential Accel", "Trail" ]
 
-[sub_resource type="GDScript" id=16]
+[sub_resource type="GDScript" id=13]
 
 script/source = "extends Node
 
@@ -399,13 +400,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="NavigationPolygon" id=13]
-
-vertices = PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 558.094, 240.042, 421.594, 240.042, 960.866, 547.773, 556.603, 408.526, -18.1671, 549.069, 419.241, 407.301 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 1, 4, 5 ), PoolIntArray( 5, 4, 6, 7 ), PoolIntArray( 6, 0, 3, 7 ) ]
-outlines = [ PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 960.866, 547.773, -18.1671, 549.069 ), PoolVector2Array( 421.594, 240.042, 419.241, 407.301, 556.603, 408.526, 558.094, 240.042 ) ]
-
-[sub_resource type="GDScript" id=14]
+[sub_resource type="GDScript" id=15]
 
 script/source = "extends Node
 
@@ -450,7 +445,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GDScript" id=15]
+[sub_resource type="GDScript" id=16]
 
 script/source = "extends Node
 
@@ -487,6 +482,41 @@ func rewind():
 #	# Update game logic here.
 #	pass
 "
+
+[sub_resource type="StyleBoxFlat" id=17]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+bg_color = Color( 0.96875, 0.909505, 0.0208333, 1 )
+draw_center = true
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color( 0, 0, 0, 1 )
+border_blend = false
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+corner_detail = 8
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+shadow_color = Color( 0, 0, 0, 0.6 )
+shadow_size = 0
+anti_aliasing = true
+anti_aliasing_size = 1
+_sections_unfolded = [ "Border" ]
+
+[sub_resource type="NavigationPolygon" id=14]
+
+vertices = PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 558.094, 240.042, 421.594, 240.042, 960.866, 547.773, 556.603, 408.526, -18.1671, 549.069, 419.241, 407.301 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 1, 4, 5 ), PoolIntArray( 5, 4, 6, 7 ), PoolIntArray( 6, 0, 3, 7 ) ]
+outlines = [ PoolVector2Array( -3.91254, -5.72095, 958.922, -6.3689, 960.866, 547.773, -18.1671, 549.069 ), PoolVector2Array( 421.594, 240.042, 419.241, 407.301, 556.603, 408.526, 558.094, 240.042 ) ]
 
 [node name="Root" type="Node2D" index="0"]
 
@@ -573,12 +603,14 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Dining" parent="Stage/Foreground" index="0" instance=ExtResource( 7 )]
 
+editor/display_folded = true
 position = Vector2( 475.446, 376.172 )
 scale = Vector2( 3.08541, 1.98202 )
 script = ExtResource( 2 )
 
 [node name="Cooking_Done" type="Node2D" parent="Stage/Foreground/Dining" index="3"]
 
+editor/display_folded = true
 visible = false
 
 [node name="food_steak" type="Sprite" parent="Stage/Foreground/Dining/Cooking_Done" index="0"]
@@ -661,6 +693,7 @@ position = Vector2( 1.16431, 19 )
 "player_exception",
 ] instance=ExtResource( 13 )]
 
+editor/display_folded = true
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 354.182, 185.319 )
 scale = Vector2( 1.71775, 1.8757 )
@@ -829,7 +862,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
 material = SubResource( 7 )
-position = Vector2( -2.63757, -7.31187 )
+position = Vector2( -9.78831, -7.31187 )
 scale = Vector2( 0.661201, 0.471734 )
 emitting = false
 amount = 1
@@ -863,7 +896,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Event_React" type="Node" parent="Stage/Foreground/Pantry" index="7"]
 
-script = SubResource( 16 )
+script = SubResource( 13 )
 logic = null
 
 [node name="Level_1" type="Node" parent="Stage/Foreground/Pantry/Event_React" index="0"]
@@ -883,6 +916,7 @@ do_once = false
 
 [node name="Top" type="Node2D" parent="Stage" index="2"]
 
+editor/display_folded = true
 script = ExtResource( 2 )
 
 [node name="Chandalier" parent="Stage/Top" index="0" instance=ExtResource( 30 )]
@@ -900,17 +934,45 @@ explosiveness = 0.0
 randomness = 0.62
 _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time", "Transform", "Visibility" ]
 
-[node name="Navigation" type="Navigation2D" parent="." index="1"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="1"]
 
-visible = false
-_sections_unfolded = [ "Transform" ]
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation" index="0"]
+[node name="TextureProgress" type="TextureProgress" parent="CanvasLayer" index="0"]
 
-position = Vector2( -17.4944, -17.6184 )
-scale = Vector2( 1, 1.05781 )
-navpoly = SubResource( 13 )
-enabled = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 930.0
+margin_top = 20.0
+margin_right = 970.0
+margin_bottom = 148.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+texture_under = ExtResource( 32 )
+texture_over = null
+texture_progress = null
+fill_mode = 4
+radial_fill_degrees = 360.0
+radial_center_offset = Vector2( 0, 0 )
+nine_patch_stretch = false
+_sections_unfolded = [ "Textures" ]
 
 [node name="Camera" type="Camera2D" parent="." index="2"]
 
@@ -937,14 +999,15 @@ drag_margin_bottom = 0.1
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-script = ExtResource( 32 )
+script = ExtResource( 33 )
 _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Smoothing", "Transform", "Visibility" ]
 
 [node name="Comics" type="Node2D" parent="Camera" index="0"]
 
+editor/display_folded = true
 visible = false
 position = Vector2( -178.28, -206.131 )
-script = ExtResource( 33 )
+script = ExtResource( 34 )
 
 [node name="Panel" type="Panel" parent="Camera/Comics" index="0"]
 
@@ -965,17 +1028,17 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Visibility" ]
 
-[node name="Panel2" type="Panel" parent="Camera/Comics" index="1"]
+[node name="Panel3" type="Panel" parent="Camera/Comics" index="1"]
 
-modulate = Color( 0, 0, 0, 0.5 )
+modulate = Color( 1, 1, 1, 0.5 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -77.72
-margin_top = 67.131
-margin_right = 449.28
-margin_bottom = 286.131
+margin_left = -341.72
+margin_top = -106.869
+margin_right = 679.28
+margin_bottom = 493.131
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -988,18 +1051,88 @@ _sections_unfolded = [ "Visibility" ]
 
 position = Vector2( 186.7, 177.954 )
 scale = Vector2( 1.45143, 1.09249 )
-texture = ExtResource( 34 )
+texture = ExtResource( 35 )
 
 [node name="Event_React2" type="Node" parent="Camera/Comics" index="3"]
 
-script = SubResource( 14 )
+editor/display_folded = true
+script = SubResource( 15 )
 logic = null
 
 [node name="Mom_off_Radio" type="Node" parent="Camera/Comics/Event_React2" index="0"]
 
-script = SubResource( 15 )
+script = SubResource( 16 )
 _sections_unfolded = [ "Pause" ]
 do_once = false
+
+[node name="PlayerThought" type="Node2D" parent="Camera" index="1"]
+
+self_modulate = Color( 1, 1, 1, 0.49 )
+position = Vector2( -316.28, -360.631 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Panel4" type="Panel" parent="Camera/PlayerThought" index="0"]
+
+modulate = Color( 1, 0, 0, 1 )
+self_modulate = Color( 1, 1, 1, 0.66498 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 238.0
+margin_top = 147.0
+margin_right = 435.0
+margin_bottom = 198.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_styles/panelf = SubResource( 17 )
+_sections_unfolded = [ "Size Flags", "Theme", "Visibility", "custom_styles" ]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Camera/PlayerThought" index="1"]
+
+self_modulate = Color( 0.976562, 0.909087, 0.359648, 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 247.0
+margin_top = 150.0
+margin_right = 435.0
+margin_bottom = 349.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+bbcode_enabled = false
+bbcode_text = "The words of time seems to run across... unsure of what it is. I think ill stay here."
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = true
+tab_size = 4
+text = "The words of time seems to run across... unsure of what it is. I think ill stay here."
+scroll_active = true
+scroll_following = false
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "BBCode", "Visibility" ]
+
+[node name="Navigation" type="Navigation2D" parent="." index="3"]
+
+visible = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation" index="0"]
+
+position = Vector2( -17.4944, -17.6184 )
+scale = Vector2( 1, 1.05781 )
+navpoly = SubResource( 14 )
+enabled = true
 
 
 [editable path="Stage/Background/Blood"]
