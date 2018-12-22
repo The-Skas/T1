@@ -31,7 +31,8 @@ func _on_Tween_tween_completed(object, key):
 	$Chand/Crash.play()
 	$Chand/Crash2.play()
 	$Chand/Crash3.play()
-	$Chand/Crash4.play()	
+	$Chand/Crash4.play()
+	$Chand/Kinematic2D_Chand/Collision_Chand.disabled = true
 		
 
 	pass # replace with function body
@@ -41,7 +42,11 @@ func _on_Tween_tween_completed(object, key):
 
 	
 func rewind():
+	$Chand/Kinematic2D_Chand/Collision_Chand.disabled = true
 	get_node("Chand").position = start_chand_pos 
 	get_node("Fall/Shadow").scale = start_shadow_scale 
 	self.fall()
+
+func end_rewind():
+	$Chand/Kinematic2D_Chand/Collision_Chand.disabled = false
 	

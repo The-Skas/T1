@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/LaserTex.svg-fefbf6f29b5d4c9018268e3467b0ec69.stex"
+path="res://.import/blood_2.png-916e65b7cd956e0c9faa90d5893c3a1d.stex"
 
 [deps]
 
-source_file="res://resource/LaserTex.svg"
-dest_files=[ "res://.import/LaserTex.svg-fefbf6f29b5d4c9018268e3467b0ec69.stex" ]
+source_file="res://resource/Particles/blood_2.png"
+dest_files=[ "res://.import/blood_2.png-916e65b7cd956e0c9faa90d5893c3a1d.stex" ]
 
 [params]
 

@@ -1,9 +1,30 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/Chandalier.gd" type="Script" id=1]
 [ext_resource path="res://resource/Fx/shadow.png" type="Texture" id=2]
 [ext_resource path="res://resource/House_objects/Iron_Chandelier_furniture_icon_ID_653.png" type="Texture" id=3]
 [ext_resource path="res://resource/sounds/Crash.wav" type="AudioStream" id=4]
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends KinematicBody2D
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	pass
+
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+func trigger(entity):
+	if(entity.has_method(\"kill\")):
+		entity.kill()"
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -43,16 +64,17 @@ scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="KinematicBody2D" type="KinematicBody2D" parent="Chand" index="0"]
+[node name="Kinematic2D_Chand" type="KinematicBody2D" parent="Chand" index="0"]
 
 scale = Vector2( 10, 10 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
+script = SubResource( 2 )
 _sections_unfolded = [ "Collision" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Chand/KinematicBody2D" index="0"]
+[node name="Collision_Chand" type="CollisionShape2D" parent="Chand/Kinematic2D_Chand" index="0"]
 
 position = Vector2( -1.2959, 14.2546 )
 shape = SubResource( 1 )

@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hellhound v2.svg-8f30644e8efa99d58f55617fbc4b2ef0.stex"
+path="res://.import/ayene_wooden_floor.png-eeb8f80d1e40e2526017e8ee87b1eb63.stex"
 
 [deps]
 
-source_file="res://resource/hellhound v2.svg"
-dest_files=[ "res://.import/hellhound v2.svg-8f30644e8efa99d58f55617fbc4b2ef0.stex" ]
+source_file="res://resource/House_objects/ayene_wooden_floor.png"
+dest_files=[ "res://.import/ayene_wooden_floor.png-eeb8f80d1e40e2526017e8ee87b1eb63.stex" ]
 
 [params]
 

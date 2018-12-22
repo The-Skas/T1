@@ -8,7 +8,7 @@ onready var root = get_node("/root/Root")
 
 
 #Timer
-var is_rewinding
+var is_rewinding = false
 var timer
 onready var camera = get_node("/root/Root/Camera")
 #Global TIme Events
@@ -22,6 +22,7 @@ var Event_Message = preload("res://scenes/Event.tscn")
 var events = {}
 
 
+
 #Custom classes
 var Class = {
 	
@@ -31,7 +32,14 @@ var Class = {
 func rewind(entity):
 	var children = entity.get_children()
 	for child in children:
+		print(child.get_name())
 		if child.has_method("rewind"):
 			child.rewind()
+			
+func end_rewind(entity):
+	var children = entity.get_children()
+	for child in children:
+		if(child.has_method("end_rewind")):
+			child.end_rewind()
 
 

@@ -68,7 +68,11 @@ func kill():
 		get_node("AnimatedSprite").rotate(90)
 		self.modulate = Color( 0.2, 0.2, 0.2, 1.0)
 		
+		$Event.this_happened("mom_dead")
+		
 func rewind():
+	$Area2D/CollisionShape2D.disabled = true
+	
 	dead = false
 	self.modulate = Color(1,1,1,1)
 	get_node("AnimatedSprite").rotation = 0
@@ -82,9 +86,17 @@ func rewind():
 		if(child.has_method("rewind")):
 				child.rewind()
 
-
+#Used for when rewinding certain objects cause overlap and collision.
+func end_rewind():
+	
+#	print("Mom Ends rewind!")
+	$Area2D/CollisionShape2D.disabled = false
+#	pass
+	
 func _on_Area2D_body_entered(body):
+	print("Am I rewinding? "+str(Globals.is_rewinding))
 
-	if(body.get_parent().get_name() == "Chand" and body.get_name() == "Kill"):
-		self.kill()
+	if(body.has_method("trigger")):
+		body.trigger(self)
+
 	pass # replace with function body

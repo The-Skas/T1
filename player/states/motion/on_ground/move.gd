@@ -10,7 +10,8 @@ func set_goal_pos(var pos):
 	#assert
 
 	goal_position = pos
-	goal_position = get_node("/root/Root/Navigation").get_simple_path(host.position, goal_position,true)[-1]
+	var array_temp = get_node("/root/Root/Stage/Navigation").get_simple_path(host.position, goal_position,true)
+	goal_position = array_temp[-1]
 
 
 func moveTo(entityName):
@@ -18,7 +19,7 @@ func moveTo(entityName):
 	var _object = get_parent().get_parent().get_parent().get_node(entityName)
 	if(_object != null):
 		set_goal_pos(get_object_pos(_object))
-		return get_node("/root/Root/Navigation").get_simple_path(host.position, goal_position,true)
+		return get_node("/root/Root/Stage/Navigation").get_simple_path(host.position, goal_position,true)
 	else:
 		return self.position
 

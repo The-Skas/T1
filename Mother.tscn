@@ -132,7 +132,7 @@ extents = Vector2( 24.7271, 11.3277 )
 custom_solver_bias = 0.0
 radius = 10.0
 
-[sub_resource type="GDScript" id=17]
+[sub_resource type="GDScript" id=9]
 
 script/source = "extends Node
 
@@ -174,7 +174,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GDScript" id=9]
+[sub_resource type="GDScript" id=10]
 
 script/source = "extends Node
 
@@ -218,7 +218,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GDScript" id=10]
+[sub_resource type="GDScript" id=11]
 
 script/source = "extends Node
 
@@ -262,7 +262,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GDScript" id=11]
+[sub_resource type="GDScript" id=12]
 
 script/source = "extends Node
 
@@ -319,6 +319,7 @@ collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
 goal = null
 
 [node name="AnimatedSprite" type="Sprite" parent="." index="0"]
@@ -379,8 +380,8 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 
-position = Vector2( 1.39027, -53.2775 )
-scale = Vector2( 1.38577, 1.52625 )
+position = Vector2( -0.898126, -55.6952 )
+scale = Vector2( 1.71235, 1.85491 )
 shape = SubResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
@@ -388,6 +389,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="State" type="Node" parent="." index="4"]
 
+editor/display_folded = true
 script = ExtResource( 5 )
 
 [node name="Move" type="Node" parent="State" index="0"]
@@ -402,7 +404,7 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="Event_React" type="Node" parent="." index="5"]
 
-script = SubResource( 17 )
+script = SubResource( 9 )
 logic = null
 
 [node name="Level_1" type="Node" parent="Event_React" index="0"]
@@ -412,19 +414,19 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="Reacts_to_Alarm" type="Node" parent="Event_React/Level_1" index="0"]
 
-script = SubResource( 9 )
+script = SubResource( 10 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
 [node name="Reacts_to_mom_alarm" type="Node" parent="Event_React/Level_1" index="1"]
 
-script = SubResource( 10 )
+script = SubResource( 11 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
 [node name="Reacts_to_Radio" type="Node" parent="Event_React/Level_1" index="2"]
 
-script = SubResource( 11 )
+script = SubResource( 12 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
