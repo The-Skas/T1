@@ -69,19 +69,25 @@ func kill():
 	#kill the mom
 
 	if(not dead and not Globals.is_rewinding):
+
 		$AnimatedSprite/AudioStreamPlayer2D.play()
 		dead = true
-		get_node("AnimatedSprite").rotate(90)
-		self.modulate = Color( 0.2, 0.2, 0.2, 1.0)
+		self.rotation_degrees = 90
+		get_node("AnimatedSprite").modulate = Color( 0.2, 0.2, 0.2, 1.0)
 		
+		yield(get_tree().create_timer(.5),"timeout")
 		$Event.this_happened("mom_dead")
+		
+		#A paradox has occurred.
+		$Event.this_happened("paradox")
 func _rewind():
 	Globals.Debug["Mom"] = 1
 	$Area2D/CollisionShape2D.disabled = true
 	
-
-	self.modulate = Color(1,1,1,1)
-	get_node("AnimatedSprite").rotation = 0
+	#reverse death
+	get_node("AnimatedSprite").modulate  = Color(1,1,1,1)
+	self.rotation = 0
+	########
 	self.position = self.start_position
 	
 	#AI 

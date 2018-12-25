@@ -32,15 +32,20 @@ var Class = {
 func rewind(entity):
 	var children = entity.get_children()
 	for child in children:
-
 		if child.has_method("rewind"):
 			child.rewind()
+	
+	for rewindable in get_tree().get_nodes_in_group("rewindable"):
+		rewindable.rewind()
+
 			
 func end_rewind(entity):
 	var children = entity.get_children()
 	for child in children:
 		if(child.has_method("end_rewind")):
 			child.end_rewind()
+	
+
 			
 
 

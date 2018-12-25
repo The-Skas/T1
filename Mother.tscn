@@ -1,14 +1,16 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scripts/Mother.gd" type="Script" id=1]
 [ext_resource path="res://resource/Woman/651bfcbdc9f47c71ffcc3a888846b428.png" type="Texture" id=2]
 [ext_resource path="res://scenes/AnimationPlayer.gd" type="Script" id=3]
 [ext_resource path="res://resource/sounds/Scream_Chand.wav" type="AudioStream" id=4]
-[ext_resource path="res://player/states/state.gd" type="Script" id=5]
-[ext_resource path="res://player/states/motion/on_ground/move.gd" type="Script" id=6]
-[ext_resource path="res://scripts/idle.gd" type="Script" id=7]
-[ext_resource path="res://scripts/Rewindable_Node.gd" type="Script" id=8]
-[ext_resource path="res://scenes/Event.tscn" type="PackedScene" id=9]
+[ext_resource path="res://resource/Fx/fire-Anim/fire.tscn" type="PackedScene" id=5]
+[ext_resource path="res://player/states/state.gd" type="Script" id=6]
+[ext_resource path="res://player/states/motion/on_ground/move.gd" type="Script" id=7]
+[ext_resource path="res://scripts/idle.gd" type="Script" id=8]
+[ext_resource path="res://scripts/Rewindable_Node.gd" type="Script" id=9]
+[ext_resource path="res://Reacts_to_Fire.gd" type="Script" id=10]
+[ext_resource path="res://scenes/Event.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Animation" id=1]
 
@@ -308,7 +310,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[node name="Mother" type="KinematicBody2D" groups=[
+[node name="Mother" type="KinematicBody2D" index="0" groups=[
 "event_react",
 ]]
 
@@ -359,14 +361,31 @@ attenuation = 1.0
 bus = "Master"
 area_mask = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+[node name="Effects" type="Node2D" parent="." index="1"]
+
+position = Vector2( -10.9093, -55.8495 )
+rotation = -1.60082
+scale = Vector2( 0.275035, 0.325429 )
+
+[node name="Burn" parent="Effects" index="0" instance=ExtResource( 5 )]
+
+visible = false
+modulate = Color( 0.796875, 0.785227, 0.0514113, 0.75502 )
+self_modulate = Color( 1, 1, 1, 0.49 )
+position = Vector2( -95.2653, -71.7928 )
+rotation = 0.0319777
+scale = Vector2( 1, 1.31064 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 
 position = Vector2( 0.979391, -3.10455 )
 scale = Vector2( 0.844558, 0.735697 )
 shape = SubResource( 7 )
 
-[node name="Area2D" type="Area2D" parent="." index="2"]
+[node name="Area2D" type="Area2D" parent="." index="3"]
 
+editor/display_folded = true
 position = Vector2( 0.979391, -3.10455 )
 scale = Vector2( 0.844558, 0.735697 )
 input_pickable = true
@@ -385,31 +404,36 @@ scale = Vector2( 1.71235, 1.85491 )
 shape = SubResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Current_State" type="Node" parent="." index="3"]
+[node name="Current_State" type="Node" parent="." index="4"]
 
-[node name="State" type="Node" parent="." index="4"]
+[node name="State" type="Node" parent="." index="5"]
 
 editor/display_folded = true
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="Move" type="Node" parent="State" index="0"]
 
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 move_to = null
 
 [node name="Idle" type="Node" parent="State" index="1"]
 
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 _sections_unfolded = [ "Pause" ]
 
-[node name="Event_React" type="Node" parent="." index="5"]
+[node name="Die" type="Node" parent="State" index="2"]
+
+script = ExtResource( 8 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="Event_React" type="Node" parent="." index="6"]
 
 script = SubResource( 9 )
 logic = null
 
 [node name="Level_1" type="Node" parent="Event_React" index="0"]
 
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="Reacts_to_Alarm" type="Node" parent="Event_React/Level_1" index="0"]
@@ -430,7 +454,13 @@ script = SubResource( 12 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
-[node name="Event" parent="." index="6" instance=ExtResource( 9 )]
+[node name="Reacts_to_Fire" type="Node" parent="Event_React/Level_1" index="3"]
+
+script = ExtResource( 10 )
+_sections_unfolded = [ "Pause" ]
+do_once = true
+
+[node name="Event" parent="." index="7" instance=ExtResource( 11 )]
 
 do_once = false
 

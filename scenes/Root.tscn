@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Rewindable.gd" type="Script" id=2]
@@ -10,32 +10,34 @@
 [ext_resource path="res://resource/House_objects/fork.png" type="Texture" id=8]
 [ext_resource path="res://resource/House_objects/knife.png" type="Texture" id=9]
 [ext_resource path="res://scripts/Event_React.gd" type="Script" id=10]
-[ext_resource path="res://resource/House_objects/Kitchen_table1.tscn" type="PackedScene" id=11]
-[ext_resource path="res://resource/House_objects/kitchen_table_2.png" type="Texture" id=12]
-[ext_resource path="res://resource/House_objects/pot.png" type="Texture" id=13]
-[ext_resource path="res://scenes/Event.tscn" type="PackedScene" id=14]
-[ext_resource path="res://resource/House_objects/timer.png" type="Texture" id=15]
-[ext_resource path="res://resource/sounds/Sound_Alarm.wav" type="AudioStream" id=16]
-[ext_resource path="res://resource/sounds/Sound_Tick.wav" type="AudioStream" id=17]
-[ext_resource path="res://scenes/Interactable.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Mother.tscn" type="PackedScene" id=19]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=20]
-[ext_resource path="res://resource/House_objects/pantry.png" type="Texture" id=21]
-[ext_resource path="res://resource/sounds/Blues-Bits.ogg" type="AudioStream" id=22]
-[ext_resource path="res://resource/House_objects/radio.png" type="Texture" id=23]
-[ext_resource path="res://resource/Fx/Music_note_small.png" type="Texture" id=24]
-[ext_resource path="res://scenes/Music Notes.gd" type="Script" id=25]
-[ext_resource path="res://scripts/Temp/ComicEvent.gd" type="Script" id=26]
-[ext_resource path="res://resource/Fx/fire-Anim/fire.tscn" type="PackedScene" id=27]
-[ext_resource path="res://scenes/React_Fire.gd" type="Script" id=28]
-[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=29]
-[ext_resource path="res://resource/Particles/dust_charge/Smoke.tscn" type="PackedScene" id=30]
-[ext_resource path="res://scripts/Event_React_House_L.gd" type="Script" id=31]
-[ext_resource path="res://scripts/Event_React_Alarm.gd" type="Script" id=32]
-[ext_resource path="res://resource/fonts/m5x7.tres" type="DynamicFont" id=33]
-[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=34]
-[ext_resource path="res://scripts/Comics.gd" type="Script" id=35]
-[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=36]
+[ext_resource path="res://scripts/Rewindable_Node.gd" type="Script" id=11]
+[ext_resource path="res://resource/House_objects/Kitchen_table1.tscn" type="PackedScene" id=12]
+[ext_resource path="res://resource/House_objects/kitchen_table_2.png" type="Texture" id=13]
+[ext_resource path="res://resource/House_objects/pot.png" type="Texture" id=14]
+[ext_resource path="res://scenes/Event.tscn" type="PackedScene" id=15]
+[ext_resource path="res://resource/House_objects/timer.png" type="Texture" id=16]
+[ext_resource path="res://resource/sounds/Sound_Alarm.wav" type="AudioStream" id=17]
+[ext_resource path="res://resource/sounds/Sound_Tick.wav" type="AudioStream" id=18]
+[ext_resource path="res://scenes/Interactable.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Mother.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=21]
+[ext_resource path="res://resource/House_objects/pantry.png" type="Texture" id=22]
+[ext_resource path="res://resource/sounds/Blues-Bits.ogg" type="AudioStream" id=23]
+[ext_resource path="res://resource/House_objects/radio.png" type="Texture" id=24]
+[ext_resource path="res://resource/Fx/Music_note_small.png" type="Texture" id=25]
+[ext_resource path="res://scenes/Music Notes.gd" type="Script" id=26]
+[ext_resource path="res://scripts/Temp/ComicEvent.gd" type="Script" id=27]
+[ext_resource path="res://resource/Fx/fire-Anim/fire.tscn" type="PackedScene" id=28]
+[ext_resource path="res://scenes/React_Fire.gd" type="Script" id=29]
+[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=30]
+[ext_resource path="res://resource/Particles/dust_charge/Smoke.tscn" type="PackedScene" id=31]
+[ext_resource path="res://scripts/Event_React_House_L.gd" type="Script" id=32]
+[ext_resource path="res://scripts/Event_React_Alarm.gd" type="Script" id=33]
+[ext_resource path="res://resource/fonts/m5x7.tres" type="DynamicFont" id=34]
+[ext_resource path="res://scenes/Next_Paradox_UI.gd" type="Script" id=35]
+[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=36]
+[ext_resource path="res://scripts/Comics.gd" type="Script" id=37]
+[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=38]
 
 [sub_resource type="GDScript" id=1]
 
@@ -151,8 +153,11 @@ func _process(delta):
 			self.position.x = fixed_pos.x + rand_range(-1, 1)*1
 			
 		#What heat sets on fire? Or better yet when...
-	
-		if(Globals.timer.time_left < 10):
+		
+		if(Globals.events.has(\"mom_alarm\")):
+			on = false
+			pass
+		elif(Globals.timer.time_left < 10):
 			print(Globals.timer.time_left)
 			get_node(\"/root/Root/Event\").this_happened(\"fire\")
 		
@@ -486,6 +491,86 @@ anti_aliasing = true
 anti_aliasing_size = 1
 _sections_unfolded = [ "Border" ]
 
+[sub_resource type="GDScript" id=19]
+
+script/source = "extends Node
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+export (bool) var do_once = true
+var done = false
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	pass
+
+func outcome():
+	if(do_once and done):
+		return null
+
+	var logic;
+	logic =  Globals.events.has(\"radio_on\")
+
+	if(logic):
+		done = true
+		var ui_text = get_node(\"../../../Next_Paradox\")
+		ui_text.text = \"Burnt Alive\"
+
+
+
+	else:
+		return null
+
+func rewind():
+	done = false
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+
+[sub_resource type="GDScript" id=20]
+
+script/source = "extends Node
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+export (bool) var do_once = true
+var done = false
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	pass
+
+func outcome():
+	if(do_once and done):
+		return null
+
+	var logic;
+	logic =  Globals.events.has(\"mom_alarm\")
+
+	if(logic):
+		done = true
+		var ui_text = get_node(\"../../../Next_Paradox\")
+		ui_text.text = \"Car Crash\"
+
+
+
+	else:
+		return null
+
+func rewind():
+	done = false
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+
 [sub_resource type="GDScript" id=17]
 
 script/source = "extends Node
@@ -582,7 +667,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Background" type="Node2D" parent="Stage" index="0"]
 
-editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
 
 [node name="Window" parent="Stage/Background" index="0" instance=ExtResource( 3 )]
@@ -621,13 +705,13 @@ one_way_collision = true
 
 [node name="Foreground" type="YSort" parent="Stage" index="1"]
 
-editor/display_folded = true
 sort_enabled = true
 script = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Dining" parent="Stage/Foreground" index="0" instance=ExtResource( 5 )]
 
+editor/display_folded = true
 position = Vector2( 475.446, 376.172 )
 scale = Vector2( 3.08541, 1.98202 )
 script = ExtResource( 2 )
@@ -690,6 +774,7 @@ logic = null
 
 [node name="Level_1" type="Node" parent="Stage/Foreground/Dining/Event_React" index="0"]
 
+script = ExtResource( 11 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="Mom_off_Alarm" type="Node" parent="Stage/Foreground/Dining/Event_React/Level_1" index="0"]
@@ -698,7 +783,7 @@ script = SubResource( 1 )
 _sections_unfolded = [ "Pause" ]
 do_once = false
 
-[node name="Kitchen_2" parent="Stage/Foreground" index="1" instance=ExtResource( 11 )]
+[node name="Kitchen_2" parent="Stage/Foreground" index="1" instance=ExtResource( 12 )]
 
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 464.182, 185.319 )
@@ -706,7 +791,7 @@ scale = Vector2( 1.71775, 1.8757 )
 
 [node name="Sprite" parent="Stage/Foreground/Kitchen_2" index="0"]
 
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 
 [node name="Nav" parent="Stage/Foreground/Kitchen_2" index="2"]
 
@@ -714,7 +799,7 @@ position = Vector2( 1.16431, 19 )
 
 [node name="Kitchen_1" parent="Stage/Foreground" index="2" groups=[
 "player_exception",
-] instance=ExtResource( 11 )]
+] instance=ExtResource( 12 )]
 
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 354.182, 185.319 )
@@ -730,13 +815,13 @@ position = Vector2( -17.4647, 18.2003 )
 position = Vector2( 17.8287, -18.1917 )
 rotation = 0.00579712
 scale = Vector2( 1.02782, 0.908033 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 region_enabled = true
 region_rect = Rect2( 0, 32, 32, 32 )
 script = SubResource( 3 )
 _sections_unfolded = [ "Animation", "Offset", "Region" ]
 
-[node name="Event" parent="Stage/Foreground/Kitchen_1/pot" index="0" instance=ExtResource( 14 )]
+[node name="Event" parent="Stage/Foreground/Kitchen_1/pot" index="0" instance=ExtResource( 15 )]
 
 event_name = "Null"
 do_once = true
@@ -746,7 +831,7 @@ do_once = true
 position = Vector2( -15.8521, -11.0778 )
 rotation = 0.00579712
 scale = Vector2( 0.920129, 0.820845 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 script = SubResource( 4 )
 _sections_unfolded = [ "Pause" ]
 
@@ -755,7 +840,7 @@ _sections_unfolded = [ "Pause" ]
 position = Vector2( 0.674918, 2.24267 )
 rotation = -0.00649828
 scale = Vector2( 0.632693, 0.649493 )
-stream = ExtResource( 16 )
+stream = ExtResource( 17 )
 volume_db = -4.0
 pitch_scale = 1.0
 autoplay = false
@@ -771,7 +856,7 @@ _sections_unfolded = [ "Transform" ]
 position = Vector2( 0.674918, 2.24267 )
 rotation = -0.00649828
 scale = Vector2( 0.632693, 0.649493 )
-stream = ExtResource( 17 )
+stream = ExtResource( 18 )
 volume_db = -34.05
 pitch_scale = 1.0
 autoplay = false
@@ -781,13 +866,13 @@ bus = "Master"
 area_mask = 1
 _sections_unfolded = [ "Transform" ]
 
-[node name="Event" parent="Stage/Foreground/Kitchen_1/timer" index="2" instance=ExtResource( 14 )]
+[node name="Event" parent="Stage/Foreground/Kitchen_1/timer" index="2" instance=ExtResource( 15 )]
 
 _sections_unfolded = [ "Pause" ]
 event_name = "Null"
 do_once = false
 
-[node name="Interactable" parent="Stage/Foreground/Kitchen_1/timer" index="3" instance=ExtResource( 18 )]
+[node name="Interactable" parent="Stage/Foreground/Kitchen_1/timer" index="3" instance=ExtResource( 19 )]
 
 position = Vector2( -0.645568, 16.1182 )
 rotation = -0.00649828
@@ -800,6 +885,7 @@ logic = null
 
 [node name="Level_1" type="Node" parent="Stage/Foreground/Kitchen_1/Event_React" index="0"]
 
+script = ExtResource( 11 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="Mom_off_Alarm" type="Node" parent="Stage/Foreground/Kitchen_1/Event_React/Level_1" index="0"]
@@ -808,7 +894,7 @@ script = SubResource( 6 )
 _sections_unfolded = [ "Pause" ]
 do_once = false
 
-[node name="Mother" parent="Stage/Foreground" index="3" instance=ExtResource( 19 )]
+[node name="Mother" parent="Stage/Foreground" index="3" instance=ExtResource( 20 )]
 
 position = Vector2( 470.331, 238.461 )
 collision_layer = 4
@@ -819,15 +905,11 @@ goal = "Dining"
 position = Vector2( -146.258, -16.0184 )
 scale = Vector2( 1.02042, 1.05307 )
 
-[node name="Area2D" parent="Stage/Foreground/Mother" index="3"]
-
-editor/display_folded = true
-
-[node name="State" parent="Stage/Foreground/Mother" index="5"]
+[node name="State" parent="Stage/Foreground/Mother" index="6"]
 
 editor/display_folded = false
 
-[node name="Player" parent="Stage/Foreground" index="4" instance=ExtResource( 20 )]
+[node name="Player" parent="Stage/Foreground" index="4" instance=ExtResource( 21 )]
 
 pause_mode = 2
 modulate = Color( 0.422421, 0.645423, 0.882812, 0.83498 )
@@ -841,11 +923,11 @@ _sections_unfolded = [ "Collision", "Pause", "Visibility", "collision" ]
 position = Vector2( 657.081, 148.284 )
 scale = Vector2( 1.5124, 2.11984 )
 script = SubResource( 7 )
-my_texture = ExtResource( 21 )
+my_texture = ExtResource( 22 )
 
 [node name="Sprite" parent="Stage/Foreground/Pantry" index="0"]
 
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 
 [node name="StaticBody" parent="Stage/Foreground/Pantry" index="1"]
 
@@ -866,7 +948,7 @@ position = Vector2( 12.5628, 32.6803 )
 
 position = Vector2( 15.1544, -3.90786 )
 scale = Vector2( 0.661201, 0.471734 )
-stream = ExtResource( 22 )
+stream = ExtResource( 23 )
 volume_db = -4.0
 pitch_scale = 1.0
 autoplay = false
@@ -881,7 +963,7 @@ _sections_unfolded = [ "Transform" ]
 modulate = Color( 0.879032, 0.957472, 1, 1 )
 position = Vector2( 13.6273, -7.6999 )
 scale = Vector2( 0.159541, 0.115344 )
-texture = ExtResource( 23 )
+texture = ExtResource( 24 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Particle_Music" type="Particles2D" parent="Stage/Foreground/Pantry" index="5"]
@@ -889,7 +971,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
 material = SubResource( 8 )
-position = Vector2( -7.15053, -7.7836 )
+position = Vector2( -1.00485, -7.7836 )
 scale = Vector2( 0.661201, 0.471734 )
 emitting = false
 amount = 1
@@ -905,11 +987,11 @@ visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 0
 process_material = SubResource( 13 )
-texture = ExtResource( 24 )
+texture = ExtResource( 25 )
 normal_map = null
 h_frames = 1
 v_frames = 1
-script = ExtResource( 25 )
+script = ExtResource( 26 )
 _sections_unfolded = [ "Material", "Process Material", "Textures", "Time", "Transform", "Visibility" ]
 TIME_SCALE = 2.0
 RADIUS = 10.0
@@ -928,21 +1010,23 @@ logic = null
 
 [node name="Level_1" type="Node" parent="Stage/Foreground/Pantry/Event_React" index="0"]
 
+script = ExtResource( 11 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="Mom_off_Radio" type="Node" parent="Stage/Foreground/Pantry/Event_React/Level_1" index="0"]
 
-script = ExtResource( 26 )
+script = ExtResource( 27 )
 _sections_unfolded = [ "Pause" ]
 do_once = false
 
-[node name="Event" parent="Stage/Foreground/Pantry" index="8" instance=ExtResource( 14 )]
+[node name="Event" parent="Stage/Foreground/Pantry" index="8" instance=ExtResource( 15 )]
 
 event_name = "Null"
 do_once = false
 
 [node name="Top" type="Node2D" parent="Stage" index="2"]
 
+editor/display_folded = true
 position = Vector2( 35, -21 )
 script = ExtResource( 2 )
 
@@ -953,21 +1037,21 @@ visible = false
 position = Vector2( 372.787, 75 )
 scale = Vector2( 0.868354, 1 )
 
-[node name="fire_1" parent="Stage/Top/fire" index="0" instance=ExtResource( 27 )]
+[node name="fire_1" parent="Stage/Top/fire" index="0" instance=ExtResource( 28 )]
 
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
 position = Vector2( -25.3439, 51.9845 )
 scale = Vector2( 0.782697, 0.578609 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="fire_2" parent="Stage/Top/fire" index="1" instance=ExtResource( 27 )]
+[node name="fire_2" parent="Stage/Top/fire" index="1" instance=ExtResource( 28 )]
 
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
 position = Vector2( 24.0797, 51.9845 )
 scale = Vector2( 0.782697, 0.578609 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="fire_3" parent="Stage/Top/fire" index="2" instance=ExtResource( 27 )]
+[node name="fire_3" parent="Stage/Top/fire" index="2" instance=ExtResource( 28 )]
 
 editor/display_folded = true
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
@@ -977,50 +1061,55 @@ _sections_unfolded = [ "Visibility", "Z Index" ]
 
 [node name="AnimatedSprite" parent="Stage/Top/fire/fire_3" index="0"]
 
-frame = 17
+frame = 40
 _sections_unfolded = [ "Visibility" ]
 
-[node name="fire_4" parent="Stage/Top/fire" index="3" instance=ExtResource( 27 )]
+[node name="fire_4" parent="Stage/Top/fire" index="3" instance=ExtResource( 28 )]
 
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
 position = Vector2( 77.6943, 215.185 )
 scale = Vector2( 0.392852, 0.525484 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="fire_5" parent="Stage/Top/fire" index="4" instance=ExtResource( 27 )]
+[node name="fire_5" parent="Stage/Top/fire" index="4" instance=ExtResource( 28 )]
 
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
 position = Vector2( 77.6943, 185.185 )
 scale = Vector2( 0.392852, 0.525484 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="fire_6" parent="Stage/Top/fire" index="5" instance=ExtResource( 27 )]
+[node name="fire_6" parent="Stage/Top/fire" index="5" instance=ExtResource( 28 )]
 
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
 position = Vector2( 77.6943, 155.185 )
 scale = Vector2( 0.392852, 0.525484 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="Event_React" type="Node" parent="Stage/Top/fire" index="6"]
+[node name="Event_React_fire" type="Node" parent="Stage/Top/fire" index="6" groups=[
+"rewindable",
+]]
 
+editor/display_folded = true
 script = ExtResource( 10 )
 logic = null
 
-[node name="Level_1" type="Node" parent="Stage/Top/fire/Event_React" index="0"]
+[node name="Level_1" type="Node" parent="Stage/Top/fire/Event_React_fire" index="0"]
 
+editor/display_folded = true
+script = ExtResource( 11 )
 _sections_unfolded = [ "Pause" ]
 
-[node name="Fire_Start" type="Node" parent="Stage/Top/fire/Event_React/Level_1" index="0"]
+[node name="mom_fire" type="Node" parent="Stage/Top/fire/Event_React_fire/Level_1" index="0"]
 
-script = ExtResource( 28 )
+script = ExtResource( 29 )
 do_once = true
 
-[node name="Chandalier" parent="Stage/Top" index="1" instance=ExtResource( 29 )]
+[node name="Chandalier" parent="Stage/Top" index="1" instance=ExtResource( 30 )]
 
 position = Vector2( 439, -7 )
 scale = Vector2( 0.635622, 0.4748 )
 
-[node name="pot_smoke" parent="Stage/Top" index="2" instance=ExtResource( 30 )]
+[node name="pot_smoke" parent="Stage/Top" index="2" instance=ExtResource( 31 )]
 
 modulate = Color( 1, 1, 1, 0.03 )
 position = Vector2( 346.4, 155.675 )
@@ -1032,12 +1121,12 @@ _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time", "Trans
 
 [node name="Event_React" type="Node" parent="Stage" index="3"]
 
-script = ExtResource( 31 )
+script = ExtResource( 32 )
 logic = null
 
 [node name="Paradox" type="Node" parent="Stage/Event_React" index="0"]
 
-script = ExtResource( 32 )
+script = ExtResource( 33 )
 _sections_unfolded = [ "Pause" ]
 do_once = false
 
@@ -1102,7 +1191,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 33 )
+custom_fonts/font = ExtResource( 34 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
 text = " T1M3 PARADOX"
@@ -1112,8 +1201,6 @@ max_lines_visible = -1
 _sections_unfolded = [ "Theme", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
 
 [node name="UI" type="Node2D" parent="CanvasLayer" index="1"]
-
-editor/display_folded = true
 
 [node name="TextureProgress" type="TextureProgress" parent="CanvasLayer/UI" index="0"]
 
@@ -1184,7 +1271,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/normal_font = ExtResource( 33 )
+custom_fonts/normal_font = ExtResource( 34 )
 bbcode_enabled = false
 bbcode_text = "PARADOX:
 "
@@ -1200,7 +1287,7 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Visibility", "custom_colors", "custom_fonts" ]
 
-[node name="Next_Paradox2" type="RichTextLabel" parent="CanvasLayer/UI" index="3"]
+[node name="Next_Paradox" type="RichTextLabel" parent="CanvasLayer/UI" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1216,7 +1303,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/normal_font = ExtResource( 33 )
+custom_fonts/normal_font = ExtResource( 34 )
 bbcode_enabled = false
 bbcode_text = "DEATH BY FIRE"
 visible_characters = -1
@@ -1229,6 +1316,40 @@ scroll_following = false
 selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Event_React3" type="Node" parent="CanvasLayer/UI" index="4"]
+
+editor/display_folded = true
+script = ExtResource( 10 )
+logic = null
+
+[node name="Level_1" type="Node" parent="CanvasLayer/UI/Event_React3" index="0"]
+
+script = ExtResource( 11 )
+
+[node name="Paradox_Chandalier" type="Node" parent="CanvasLayer/UI/Event_React3/Level_1" index="0" groups=[
+"rewindable",
+]]
+
+script = ExtResource( 35 )
+_sections_unfolded = [ "Pause" ]
+do_once = true
+
+[node name="Death by Fire" type="Node" parent="CanvasLayer/UI/Event_React3/Level_1" index="1" groups=[
+"rewindable",
+]]
+
+script = SubResource( 19 )
+_sections_unfolded = [ "Pause" ]
+do_once = true
+
+[node name="Death by Car" type="Node" parent="CanvasLayer/UI/Event_React3/Level_1" index="2" groups=[
+"rewindable",
+]]
+
+script = SubResource( 20 )
+_sections_unfolded = [ "Pause" ]
+do_once = true
 
 [node name="Camera" type="Camera2D" parent="." index="2"]
 
@@ -1256,14 +1377,15 @@ drag_margin_bottom = 0.1
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-script = ExtResource( 34 )
+script = ExtResource( 36 )
 _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Pause", "Smoothing", "Transform", "Visibility" ]
 
 [node name="Comics" type="Node2D" parent="Camera" index="0"]
 
+editor/display_folded = true
 visible = false
 position = Vector2( -178.28, -206.131 )
-script = ExtResource( 35 )
+script = ExtResource( 37 )
 
 [node name="Panel" type="Panel" parent="Camera/Comics" index="0"]
 
@@ -1307,11 +1429,10 @@ _sections_unfolded = [ "Visibility" ]
 
 position = Vector2( 186.7, 177.954 )
 scale = Vector2( 1.45143, 1.09249 )
-texture = ExtResource( 36 )
+texture = ExtResource( 38 )
 
 [node name="Event_React2" type="Node" parent="Camera/Comics" index="3"]
 
-editor/display_folded = true
 script = SubResource( 17 )
 logic = null
 
@@ -1378,7 +1499,7 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Visibility" ]
 
-[node name="Event" parent="." index="3" instance=ExtResource( 14 )]
+[node name="Event" parent="." index="3" instance=ExtResource( 15 )]
 
 event_name = "Null"
 do_once = false

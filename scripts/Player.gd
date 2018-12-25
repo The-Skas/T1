@@ -159,20 +159,20 @@ func _physics_process(delta):
 
 
 
-
-		if(actions.size() > 0):
-			pass
-		actions_timeline.append([Globals.timer.get_time_left(), actions])
+		var game_paradox = Globals.events.has("paradox")
+		if(not game_paradox and actions.size() > 0 and Globals.timer.get_time_left() >= 0):		
+			actions_timeline.append([Globals.timer.get_time_left(), actions])
 		
 	#Need to redfine the structure to make use of functions with variables
 	else:
-		
-		if(i_actions < actions_timeline.size() && actions_timeline[i_actions][0] > Globals.timer.get_time_left()):
+		var game_paradox = Globals.events.has("paradox")
+		if(not game_paradox and i_actions < actions_timeline.size() && actions_timeline[i_actions][0] > Globals.timer.get_time_left()):
 			for action in actions_timeline[i_actions][1]:
 				call(action)
-
-
 			i_actions += 1
+			
+		if(game_paradox):
+			self.vel = Vector2(0.0,0.0)
 
 	#accelarate
 	acc = acc.clamped(1.0)

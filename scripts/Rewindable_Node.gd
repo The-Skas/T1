@@ -7,12 +7,8 @@ var event = "Staticly assigned"
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
-	set_process(true)
-	pass
+	set_process(false)
 
-func _process(delta):
-#	print(Globals.events)
-	pass
 func rewind():
 
 	var children = get_children()
