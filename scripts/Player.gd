@@ -95,7 +95,7 @@ func _input(event):
 
 
 
-		if(event.is_action_pressed("rewind")):
+		if(event.is_action_pressed("rewind") and Globals.is_rewinding == false):
 			var root = get_node("/root/Root")
 			root.rewind()
 

@@ -21,6 +21,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 scale = Vector2( 3.01106, 3.02029 )
 shape = SubResource( 1 )
+one_way_collision = true
 _sections_unfolded = [ "Transform" ]
 
 

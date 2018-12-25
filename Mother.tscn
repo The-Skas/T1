@@ -308,7 +308,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[node name="Mother" type="KinematicBody2D" index="0" groups=[
+[node name="Mother" type="KinematicBody2D" groups=[
 "event_react",
 ]]
 
@@ -324,7 +324,7 @@ goal = null
 
 [node name="AnimatedSprite" type="Sprite" parent="." index="0"]
 
-position = Vector2( -0.44948, -31.0863 )
+position = Vector2( -0.44948, -31.4275 )
 scale = Vector2( 1.88346, 1.98508 )
 texture = ExtResource( 2 )
 vframes = 8

@@ -42,11 +42,16 @@ func _on_Tween_tween_completed(object, key):
 
 	
 func rewind():
+
+
+	get_node("Tween").stop_all()
 	$Chand/Kinematic2D_Chand/Collision_Chand.disabled = true
 	get_node("Chand").position = start_chand_pos 
 	get_node("Fall/Shadow").scale = start_shadow_scale 
 	self.fall()
 
 func end_rewind():
+
+	Globals.Debug.clear()
 	$Chand/Kinematic2D_Chand/Collision_Chand.disabled = false
 	

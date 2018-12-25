@@ -27,10 +27,16 @@ func _ready():
 	
 
 var current_state 
+var stack_commands = []
 func _process(delta):
 	# What if the mother moves to a different area.. then 
 	# different logic should be loaded for each area
-	#	  
+	#
+	
+	#	Stack sequence of commands
+	if(stack_commands.size() > 0):
+		call(stack_commands.pop_front())
+		
 	var react_state = $Event_React.react(Globals.events)
 	
 	if( react_state):
@@ -69,11 +75,11 @@ func kill():
 		self.modulate = Color( 0.2, 0.2, 0.2, 1.0)
 		
 		$Event.this_happened("mom_dead")
-		
-func rewind():
+func _rewind():
+	Globals.Debug["Mom"] = 1
 	$Area2D/CollisionShape2D.disabled = true
 	
-	dead = false
+
 	self.modulate = Color(1,1,1,1)
 	get_node("AnimatedSprite").rotation = 0
 	self.position = self.start_position
@@ -85,13 +91,16 @@ func rewind():
 	for child in self.get_children():
 		if(child.has_method("rewind")):
 				child.rewind()
+func rewind():
+	stack_commands.append("_rewind")
 
 #Used for when rewinding certain objects cause overlap and collision.
 func end_rewind():
-	
-#	print("Mom Ends rewind!")
+	stack_commands.append("_end_rewind")
+
+func _end_rewind():
+	dead = false
 	$Area2D/CollisionShape2D.disabled = false
-#	pass
 	
 func _on_Area2D_body_entered(body):
 	print("Am I rewinding? "+str(Globals.is_rewinding))

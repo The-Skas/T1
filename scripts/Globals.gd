@@ -22,7 +22,7 @@ var Event_Message = preload("res://scenes/Event.tscn")
 var events = {}
 
 
-
+var Debug = {}
 #Custom classes
 var Class = {
 	
@@ -32,7 +32,7 @@ var Class = {
 func rewind(entity):
 	var children = entity.get_children()
 	for child in children:
-		print(child.get_name())
+
 		if child.has_method("rewind"):
 			child.rewind()
 			
@@ -41,5 +41,6 @@ func end_rewind(entity):
 	for child in children:
 		if(child.has_method("end_rewind")):
 			child.end_rewind()
+			
 
 

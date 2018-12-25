@@ -31,15 +31,18 @@ func _ready():
 var rotate = 0.0
 var positions
 func _process(delta):
+#	$Event.this_happened("fire")
 	pass
 
 
 func rewind():
 	
-	get_tree().paused = true
+
+	Globals.is_rewinding = true
 	Globals.rewind(self)
 	Globals.end_rewind(self)
-	get_tree().paused = false
+
+	Globals.is_rewinding = false
 	
 
 	Globals.timer.start()

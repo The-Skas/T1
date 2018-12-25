@@ -11,7 +11,7 @@ func _ready():
 	pass
 
 func _process(delta):
-#	print(get_node("/root/Globals").events)
+
 	pass
 func rewind():
 
@@ -20,9 +20,7 @@ func rewind():
 			if(child.has_method("rewind")):
 				child.rewind()
 				
-	
-	#Delete all previous events
-	Globals.events = {}
+
 				
 func end_rewind():
 	var children = get_children()

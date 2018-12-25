@@ -14,7 +14,6 @@ func _ready():
 	# Initialization here
 	pass
 
-
 func this_happened(event_name):
 
 	if(do_once and done):
