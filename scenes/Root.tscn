@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Rewindable.gd" type="Script" id=2]
@@ -27,19 +27,20 @@
 [ext_resource path="res://resource/Fx/Music_note_small.png" type="Texture" id=25]
 [ext_resource path="res://scenes/Music Notes.gd" type="Script" id=26]
 [ext_resource path="res://scripts/Temp/ComicEvent.gd" type="Script" id=27]
-[ext_resource path="res://resource/Fx/fire-Anim/fire.tscn" type="PackedScene" id=28]
-[ext_resource path="res://scenes/React_Fire.gd" type="Script" id=29]
-[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=30]
-[ext_resource path="res://resource/Particles/dust_charge/Smoke.tscn" type="PackedScene" id=31]
-[ext_resource path="res://scripts/Event_React_House_L.gd" type="Script" id=32]
-[ext_resource path="res://scripts/Event_React_Alarm.gd" type="Script" id=33]
-[ext_resource path="res://scripts/AnimationPlayer.gd" type="Script" id=34]
-[ext_resource path="res://resource/fonts/m5x7.tres" type="DynamicFont" id=35]
-[ext_resource path="res://scenes/Next_Paradox_UI.gd" type="Script" id=36]
-[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=37]
-[ext_resource path="res://scripts/Comics.gd" type="Script" id=38]
-[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=39]
-[ext_resource path="res://scenes/Galactic_Car.tscn" type="PackedScene" id=40]
+[ext_resource path="res://scenes/Galactic_Car.tscn" type="PackedScene" id=28]
+[ext_resource path="res://resource/Fx/fire-Anim/fire.tscn" type="PackedScene" id=29]
+[ext_resource path="res://scenes/React_Fire.gd" type="Script" id=30]
+[ext_resource path="res://scenes/Chandalier.tscn" type="PackedScene" id=31]
+[ext_resource path="res://resource/Particles/dust_charge/Smoke.tscn" type="PackedScene" id=32]
+[ext_resource path="res://scripts/Event_React_House_L.gd" type="Script" id=33]
+[ext_resource path="res://scripts/Event_React_Alarm.gd" type="Script" id=34]
+[ext_resource path="res://scripts/AnimationPlayer.gd" type="Script" id=35]
+[ext_resource path="res://resource/fonts/m5x7.tres" type="DynamicFont" id=36]
+[ext_resource path="res://scenes/Next_Paradox_UI.gd" type="Script" id=37]
+[ext_resource path="res://scripts/CameraShake.gd" type="Script" id=38]
+[ext_resource path="res://scripts/Comics.gd" type="Script" id=39]
+[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=40]
+[ext_resource path="res://resource/Fx/Comics/Pow_pixel.png" type="Texture" id=41]
 
 [sub_resource type="GDScript" id=1]
 
@@ -497,44 +498,41 @@ tracks/1/keys = {
 "values": [  ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../Galactic Car:position")
+tracks/2/path = NodePath("Foreground/Galactic Car:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.85 ),
-"transitions": PoolRealArray( 0.195937, 55.7322 ),
+"times": PoolRealArray( 0, 0.55, 0.6 ),
+"transitions": PoolRealArray( 1, 0, 1 ),
 "update": 0,
-"values": [ Vector2( 486.675, 670.269 ), Vector2( 469.175, 371.769 ) ]
+"values": [ Vector2( 487.175, 1043.77 ), Vector2( 452.427, 449.195 ), Vector2( 445.75, 433.236 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("../Galactic Car:rotation_degrees")
+tracks/3/path = NodePath("Foreground/Galactic Car:rotation_degrees")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.85 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 0.5, 0 ),
 "update": 0,
-"values": [ 0.0, -45.0 ]
+"values": [ 0.0, -70.0 ]
 }
 tracks/4/type = "method"
-tracks/4/path = NodePath("../Galactic Car")
+tracks/4/path = NodePath("Foreground/Galactic Car")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.6, 1.05 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
 "method": ""
-}, {
-"args": [ "top" ],
-"method": "play"
 }, {
 "args": [ "left" ],
 "method": "play"
@@ -545,12 +543,60 @@ tracks/5/path = NodePath(".")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
-tracks/5/enabled = true
+tracks/5/enabled = false
 tracks/5/keys = {
 "times": PoolRealArray(  ),
 "transitions": PoolRealArray(  ),
 "update": 0,
 "values": [  ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Foreground/Galactic Car:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = false
+tracks/6/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../Pow_pixel:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.25, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0.100169, 0.0974001 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../Pow_pixel:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0.25, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../Pow_pixel:self_modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.25, 0.6, 0.95 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 0.667969, 0.565619, 0.565619, 0.69 ), Color( 0.667969, 0.565619, 0.565619, 0 ) ]
 }
 
 [sub_resource type="StyleBoxFlat" id=17]
@@ -758,7 +804,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Background" type="Node2D" parent="Stage" index="0"]
 
-editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
 
 [node name="Window" parent="Stage/Background" index="0" instance=ExtResource( 3 )]
@@ -797,7 +842,6 @@ one_way_collision = true
 
 [node name="Foreground" type="YSort" parent="Stage" index="1"]
 
-editor/display_folded = true
 sort_enabled = true
 script = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
@@ -1013,6 +1057,7 @@ _sections_unfolded = [ "Collision", "Pause", "Visibility", "collision" ]
 
 [node name="Pantry" parent="Stage/Foreground" index="5" instance=ExtResource( 3 )]
 
+editor/display_folded = true
 position = Vector2( 657.081, 148.284 )
 scale = Vector2( 1.5124, 2.11984 )
 script = SubResource( 7 )
@@ -1064,7 +1109,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
 material = SubResource( 8 )
-position = Vector2( -4.22549, -7.7836 )
+position = Vector2( -9.97653, -7.7836 )
 scale = Vector2( 0.661201, 0.471734 )
 emitting = false
 amount = 1
@@ -1117,6 +1162,12 @@ do_once = false
 event_name = "Null"
 do_once = false
 
+[node name="Galactic Car" parent="Stage/Foreground" index="6" instance=ExtResource( 28 )]
+
+position = Vector2( 487.175, 1043.77 )
+scale = Vector2( 2.59375, 2.85938 )
+_sections_unfolded = [ "Transform" ]
+
 [node name="Top" type="Node2D" parent="Stage" index="2"]
 
 editor/display_folded = true
@@ -1130,21 +1181,21 @@ visible = false
 position = Vector2( 372.787, 75 )
 scale = Vector2( 0.868354, 1 )
 
-[node name="fire_1" parent="Stage/Top/fire" index="0" instance=ExtResource( 28 )]
+[node name="fire_1" parent="Stage/Top/fire" index="0" instance=ExtResource( 29 )]
 
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
 position = Vector2( -25.3439, 51.9845 )
 scale = Vector2( 0.782697, 0.578609 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="fire_2" parent="Stage/Top/fire" index="1" instance=ExtResource( 28 )]
+[node name="fire_2" parent="Stage/Top/fire" index="1" instance=ExtResource( 29 )]
 
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
 position = Vector2( 24.0797, 51.9845 )
 scale = Vector2( 0.782697, 0.578609 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="fire_3" parent="Stage/Top/fire" index="2" instance=ExtResource( 28 )]
+[node name="fire_3" parent="Stage/Top/fire" index="2" instance=ExtResource( 29 )]
 
 editor/display_folded = true
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
@@ -1154,24 +1205,24 @@ _sections_unfolded = [ "Visibility", "Z Index" ]
 
 [node name="AnimatedSprite" parent="Stage/Top/fire/fire_3" index="0"]
 
-frame = 46
+frame = 29
 _sections_unfolded = [ "Visibility" ]
 
-[node name="fire_4" parent="Stage/Top/fire" index="3" instance=ExtResource( 28 )]
+[node name="fire_4" parent="Stage/Top/fire" index="3" instance=ExtResource( 29 )]
 
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
 position = Vector2( 77.6943, 215.185 )
 scale = Vector2( 0.392852, 0.525484 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="fire_5" parent="Stage/Top/fire" index="4" instance=ExtResource( 28 )]
+[node name="fire_5" parent="Stage/Top/fire" index="4" instance=ExtResource( 29 )]
 
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
 position = Vector2( 77.6943, 185.185 )
 scale = Vector2( 0.392852, 0.525484 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="fire_6" parent="Stage/Top/fire" index="5" instance=ExtResource( 28 )]
+[node name="fire_6" parent="Stage/Top/fire" index="5" instance=ExtResource( 29 )]
 
 modulate = Color( 0.894531, 0.76468, 0.76468, 0.6 )
 position = Vector2( 77.6943, 155.185 )
@@ -1194,15 +1245,15 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="mom_fire" type="Node" parent="Stage/Top/fire/Event_React_fire/Level_1" index="0"]
 
-script = ExtResource( 29 )
+script = ExtResource( 30 )
 do_once = true
 
-[node name="Chandalier" parent="Stage/Top" index="1" instance=ExtResource( 30 )]
+[node name="Chandalier" parent="Stage/Top" index="1" instance=ExtResource( 31 )]
 
 position = Vector2( 439, -7 )
 scale = Vector2( 0.635622, 0.4748 )
 
-[node name="pot_smoke" parent="Stage/Top" index="2" instance=ExtResource( 31 )]
+[node name="pot_smoke" parent="Stage/Top" index="2" instance=ExtResource( 32 )]
 
 modulate = Color( 1, 1, 1, 0.03 )
 position = Vector2( 346.4, 155.675 )
@@ -1215,12 +1266,12 @@ _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time", "Trans
 [node name="Event_React" type="Node" parent="Stage" index="3"]
 
 editor/display_folded = true
-script = ExtResource( 32 )
+script = ExtResource( 33 )
 logic = null
 
 [node name="Paradox" type="Node" parent="Stage/Event_React" index="0"]
 
-script = ExtResource( 33 )
+script = ExtResource( 34 )
 _sections_unfolded = [ "Pause" ]
 do_once = false
 
@@ -1246,7 +1297,7 @@ playback_default_blend_time = 0.0
 playback_speed = 1.0
 anims/Car_Crash = SubResource( 16 )
 blend_times = [  ]
-script = ExtResource( 34 )
+script = ExtResource( 35 )
 _sections_unfolded = [ "Pause", "Playback Options" ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="1"]
@@ -1298,7 +1349,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 35 )
+custom_fonts/font = ExtResource( 36 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
 text = " T1M3 PARADOX"
@@ -1378,7 +1429,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/normal_font = ExtResource( 35 )
+custom_fonts/normal_font = ExtResource( 36 )
 bbcode_enabled = false
 bbcode_text = "PARADOX:
 "
@@ -1410,7 +1461,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/normal_font = ExtResource( 35 )
+custom_fonts/normal_font = ExtResource( 36 )
 bbcode_enabled = false
 bbcode_text = "DEATH BY FIRE"
 visible_characters = -1
@@ -1438,7 +1489,7 @@ script = ExtResource( 11 )
 "rewindable",
 ]]
 
-script = ExtResource( 36 )
+script = ExtResource( 37 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
@@ -1461,7 +1512,6 @@ do_once = true
 [node name="Camera" type="Camera2D" parent="." index="2"]
 
 pause_mode = 2
-editor/display_folded = true
 position = Vector2( 486.28, 279.131 )
 anchor_mode = 1
 rotating = false
@@ -1485,7 +1535,7 @@ drag_margin_bottom = 0.1
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-script = ExtResource( 37 )
+script = ExtResource( 38 )
 _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Pause", "Smoothing", "Transform", "Visibility" ]
 
 [node name="Comics" type="Node2D" parent="Camera" index="0"]
@@ -1493,7 +1543,7 @@ _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Pause", "Smoothing", "
 editor/display_folded = true
 visible = false
 position = Vector2( -178.28, -206.131 )
-script = ExtResource( 38 )
+script = ExtResource( 39 )
 
 [node name="Panel" type="Panel" parent="Camera/Comics" index="0"]
 
@@ -1537,7 +1587,7 @@ _sections_unfolded = [ "Visibility" ]
 
 position = Vector2( 186.7, 177.954 )
 scale = Vector2( 1.45143, 1.09249 )
-texture = ExtResource( 39 )
+texture = ExtResource( 40 )
 
 [node name="Event_React2" type="Node" parent="Camera/Comics" index="3"]
 
@@ -1552,6 +1602,7 @@ do_once = false
 
 [node name="PlayerThought" type="Node2D" parent="Camera" index="1"]
 
+editor/display_folded = true
 self_modulate = Color( 1, 1, 1, 0.49 )
 position = Vector2( -316.28, -360.631 )
 _sections_unfolded = [ "Visibility" ]
@@ -1612,12 +1663,13 @@ _sections_unfolded = [ "BBCode", "Visibility" ]
 event_name = "Null"
 do_once = false
 
-[node name="Galactic Car" parent="." index="4" instance=ExtResource( 40 )]
+[node name="Pow_pixel" type="Sprite" parent="." index="4"]
 
-position = Vector2( 469.175, 372.269 )
-rotation = -0.785398
-scale = Vector2( 2.59375, 2.85938 )
-_sections_unfolded = [ "Transform" ]
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 475.8, 378.65 )
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 41 )
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 
 [editable path="Stage/Background/Window"]
