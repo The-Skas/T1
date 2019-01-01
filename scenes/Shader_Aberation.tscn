@@ -26,7 +26,6 @@ void fragment()
 	COLOR.b = texture(SCREEN_TEXTURE, newUV + vec2(abberationAmtX,abberationAmtY)).b;
 	COLOR.a = texture(SCREEN_TEXTURE, newUV).a * maxAlpha;
 	}"
-_sections_unfolded = [ "Resource" ]
 
 [sub_resource type="ShaderMaterial" id=2]
 
@@ -40,7 +39,7 @@ shader_param/maxAlpha = 0.8
 shader_param/displace = ExtResource( 2 )
 _sections_unfolded = [ "shader_param" ]
 
-[node name="Control" type="Control" index="0"]
+[node name="Control" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0

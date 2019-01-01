@@ -69,13 +69,13 @@ func kill():
 	#kill the mom
 
 	if(not dead and not Globals.is_rewinding):
-
-		$AnimatedSprite/AudioStreamPlayer2D.play()
+		print("Moms dead again!")
+		$AnimatedSprite/AudioStreamPlayer2D.play(0.0)
 		dead = true
 		self.rotation_degrees = 90
 		get_node("AnimatedSprite").modulate = Color( 0.2, 0.2, 0.2, 1.0)
 		
-		yield(get_tree().create_timer(.5),"timeout")
+		yield(get_tree().create_timer(.1),"timeout")
 		$Event.this_happened("mom_dead")
 		
 		#A paradox has occurred.

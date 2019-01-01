@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resource/House_objects/closet_2x1.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float threshold = 0.1;
+uniform float contrast_high = 1.5;
+uniform float contrast_low = 0.8;
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE,UV);
+	float lum = (COLOR.r+COLOR.g+COLOR.b)/3.0;//get the average 
+	//COLOR.xyz = vec3(lum);//set the average to get grayscale 
+
+	if(lum > threshold){
+		COLOR.xyz = vec3(lum) * contrast_high;
+	}
+	else {
+		COLOR.xyz = vec3(lum) * contrast_low;
+	}
+	
+
+}"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="ShaderMaterial" id=2]
+
+render_priority = 0
+shader = SubResource( 1 )
+shader_param/threshold = 0.5
+shader_param/contrast_high = 1.2
+shader_param/contrast_low = 0.8
+_sections_unfolded = [ "shader_param" ]
+
+[node name="Control" type="Control" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="closet_2x1" type="Sprite" parent="." index="0"]
+
+visible = false
+position = Vector2( 586.657, 313.3 )
+scale = Vector2( 4.63636, 3.54545 )
+texture = ExtResource( 1 )
+_sections_unfolded = [ "Material" ]
+
+[node name="TextureRect" type="ColorRect" parent="." index="1"]
+
+material = SubResource( 2 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 1, 1, 1, 1 )
+_sections_unfolded = [ "Anchor", "Material", "Visibility" ]
+
+

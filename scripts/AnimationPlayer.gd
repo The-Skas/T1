@@ -7,9 +7,9 @@ extends AnimationPlayer
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
-	yield(get_tree().create_timer(1.0), "timeout")
-
-	play("Car_Crash")
+#	yield(get_tree().create_timer(1.0), "timeout")
+#
+#	play("Car_Crash")
 	pass
 
 #func _process(delta):

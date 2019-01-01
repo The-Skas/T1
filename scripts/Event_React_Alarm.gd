@@ -21,14 +21,18 @@ func outcome():
 	if(logic):
 		get_tree().paused = true
 		var paradox = get_node("/root/Root/CanvasLayer/Paradox")
+		var noir_effect = get_node("/root/Root/CanvasLayer/FX_Noir")
 		paradox.show()
+		noir_effect.show()
 	else:
 		return null
 
 func rewind():
 	get_tree().paused = false
+	var noir_effect = get_node("/root/Root/CanvasLayer/FX_Noir")
 	var paradox = get_node("/root/Root/CanvasLayer/Paradox")
 	paradox.hide()
+	noir_effect.hide()
 	done = false
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
