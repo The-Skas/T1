@@ -24,6 +24,7 @@ animations = [ {
 
 [node name="Galactic Car" type="Node2D" index="0"]
 
+position = Vector2( 0, 18 )
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
