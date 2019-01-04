@@ -33,7 +33,7 @@ func _on_Tween_tween_completed(object, key):
 	$Chand/Crash3.play()
 	$Chand/Crash4.play()
 	$Chand/Kinematic2D_Chand/Collision_Chand.disabled = true
-		
+	get_node("/root/Root/Event").this_happened("chand_fall")
 
 	pass # replace with function body
 

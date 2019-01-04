@@ -1,3 +1,4 @@
+
 extends KinematicBody2D
 
 # class member variables go here, for example:
@@ -39,7 +40,8 @@ func _process(delta):
 		
 	var react_state = $Event_React.react(Globals.events)
 	
-	if( react_state):
+	if( typeof(react_state) == TYPE_DICTIONARY ):
+
 		var new_state = $State.find_node(react_state["state"])
 		current_state.exit(new_state.duplicate(), react_state["params"])
 	

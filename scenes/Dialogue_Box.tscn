@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/Dialogue_Box.gd" type="Script" id=1]
+[ext_resource path="res://resource/Comics/speech_bubble.png" type="Texture" id=2]
+[ext_resource path="res://addons/GodotTIE/text_interface_engine.gd" type="Script" id=3]
+[ext_resource path="res://addons/GodotTIE/GodotTIE_icon.png" type="Texture" id=4]
+[ext_resource path="res://resource/fonts/m5x7_18.tres" type="DynamicFont" id=5]
+
+[node name="panel" type="Control" index="0"]
+
+modulate = Color( 0.960938, 0.960938, 0.960938, 1 )
+self_modulate = Color( 0.949282, 0.954469, 0.964844, 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 200.0
+margin_top = 250.0
+margin_right = 200.0
+margin_bottom = 250.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 1 )
+_sections_unfolded = [ "Focus", "Visibility" ]
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+position = Vector2( -78, -141.5 )
+scale = Vector2( 0.492593, 0.238889 )
+texture = ExtResource( 2 )
+
+[node name="TextInterfaceEngine" type="ReferenceRect" parent="." index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -168.0
+margin_top = -192.0
+margin_right = 15.0
+margin_bottom = -122.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 3 )
+_sections_unfolded = [ "Material", "Size Flags" ]
+__meta__ = {
+"_editor_icon": ExtResource( 4 )
+}
+SCROLL_ON_MAX_LINES = true
+BREAK_ON_MAX_LINES = true
+AUTO_SKIP_WORDS = true
+LOG_SKIPPED_LINES = true
+SCROLL_SKIPPED_LINES = false
+FONT = ExtResource( 5 )
+PRINT_INPUT = true
+BLINKING_INPUT = true
+INPUT_CHARACTERS_LIMIT = -1
+
+
