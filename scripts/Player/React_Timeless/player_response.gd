@@ -4,31 +4,18 @@ extends Node
 # var a = 2
 # var b = "textvar"
 
-export (bool) var do_once = true
-var done = false
+export (String) var reply = "test"
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	pass
 
-func outcome():
-	if(do_once and done):
-		return null
-		
-	var logic;
-	logic =  Globals.events.has("fire") 
-
-	if(logic):
-		done = true
-		var mom = get_node("../../../")
-		mom.get_node("speech").say("Oh No! Heeeeelp!",0.05)
-		
-		
+func player_response():
+	if(not Globals.events.has("paradox")):
+		Globals.player.speech.force_say("*Click*", 0.1, 0.8)
 	else:
-		return null
-		
-func rewind():
-	done = false
+		Globals.player.speech.force_say("the chrono-state of this timer is inconsistent..", 0.05,1)
+		Globals.player.speech.say("The timer should have been on.", 0.04,1)	
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.

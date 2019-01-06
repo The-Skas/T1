@@ -5,7 +5,7 @@
 [ext_resource path="res://resource/House_objects/Iron_Chandelier_furniture_icon_ID_653.png" type="Texture" id=3]
 [ext_resource path="res://resource/sounds/Crash.wav" type="AudioStream" id=4]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 
 script/source = "extends KinematicBody2D
 
@@ -24,9 +24,9 @@ func _ready():
 #	pass
 func trigger(entity):
 	if(entity.has_method(\"kill\")):
-		entity.kill()"
+		entity.kill(\"chand\")"
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=2]
 
 custom_solver_bias = 0.0
 radius = 29.9774
@@ -71,13 +71,13 @@ input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
-script = SubResource( 2 )
+script = SubResource( 1 )
 _sections_unfolded = [ "Collision" ]
 
 [node name="Collision_Chand" type="CollisionShape2D" parent="Chand/Kinematic2D_Chand" index="0"]
 
 position = Vector2( -1.2959, 14.2546 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Crash" type="AudioStreamPlayer2D" parent="Chand" index="1"]
 

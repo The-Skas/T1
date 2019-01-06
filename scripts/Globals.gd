@@ -20,7 +20,7 @@ onready var player = get_node("/root/Root/Stage/Foreground/Player")
 
 var Event_Message = preload("res://scenes/Event.tscn")
 var events = {}
-
+var timeless_events = {}
 
 var Debug = {}
 #Custom classes

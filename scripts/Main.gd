@@ -20,7 +20,8 @@ func _ready():
 	get_node("Stage/Foreground/Mother").goal = "Dining"
 	get_node("Camera")
 	pass
-
+	get_tree().paused = true
+	
 	set_process(true)
 
 
@@ -36,7 +37,8 @@ func _process(delta):
 
 func rewind():
 	
-
+	for key in Globals.events.keys():
+		Globals.timeless_events[key] = true
 	Globals.is_rewinding = true
 	Globals.rewind(self)
 	Globals.end_rewind(self)

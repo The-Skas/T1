@@ -25,7 +25,7 @@ func outcome():
 		mom.get_node("speech").reset()
 		mom.get_node("speech").say("Oh my!!",0.05)
 #		yield(get_tree().create_timer(2),"timeout")
-		mom.get_node("speech").say("That was close! Going to have to get it fixed.",0.05)
+		mom.get_node("speech").say("That was close..",0.05)
 
 	else:
 		return null

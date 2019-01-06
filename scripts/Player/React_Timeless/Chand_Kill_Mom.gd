@@ -14,21 +14,21 @@ func _ready():
 func outcome():
 	if(do_once and done):
 		return null
-		
+
 	var logic;
-	logic =  Globals.events.has("fire") 
+	logic =  Globals.events.has("chand_kill_mom")
 
 	if(logic):
 		done = true
-		var mom = get_node("../../../")
-		mom.get_node("speech").say("Oh No! Heeeeelp!",0.05)
-		
-		
+		Globals.player.speech.say("What a de-Lightful way to go... *Sigh*", 0.1, 2)
+		Globals.player.speech.say("Now, it would seem that her death is causing a paradox, which means..", 0.05, 2)
+		Globals.player.speech.say("she musn't die.",0.08,1)
+		Globals.player.speech.say("Its going to be one of those cases, I can tell.", 0.08, 2)
+
 	else:
 		return null
-		
-func rewind():
-	done = false
+
+
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.

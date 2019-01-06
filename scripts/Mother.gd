@@ -67,7 +67,7 @@ func _draw():
 
 
 var dead = false
-func kill():
+func kill(killed_by=null):
 	#kill the mom
 
 	if(not dead and not Globals.is_rewinding):
@@ -76,12 +76,15 @@ func kill():
 		dead = true
 		self.rotation_degrees = 90
 		get_node("AnimatedSprite").modulate = Color( 0.2, 0.2, 0.2, 1.0)
-		
+		get_node("speech").visible = false
 		yield(get_tree().create_timer(.1),"timeout")
 		$Event.this_happened("mom_dead")
 		
 		#A paradox has occurred.
 		$Event.this_happened("paradox")
+		
+		if(killed_by):
+			$Event.this_happened(killed_by+"_kill_mom")
 func _rewind():
 	Globals.Debug["Mom"] = 1
 	$Area2D/CollisionShape2D.disabled = true

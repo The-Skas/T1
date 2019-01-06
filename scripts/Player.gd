@@ -26,6 +26,8 @@ var actions_timeline = []
 
 export(Vector2) var start_pos = Vector2(466.200012,305.3)
 export(String) var start_scene = "Stage"
+
+var speech
 func _ready():
 
 	tween = get_node("Tween")
@@ -38,7 +40,7 @@ func _ready():
 		self.start_pos = self.position
 		get_node("Area2D").connect("body_enter", self, "_on_body_enter")
 
-		
+		speech = get_node("/root/Root/Camera/PlayerThought/panel")
 		set_process_input(true)
 	else:
 		get_node("Sprite").self_modulate.a = 0.5
@@ -58,17 +60,26 @@ func _interact():
 	if(raycast.is_colliding()):
 	
 		var collider = raycast.get_collider()
-		print(collider.get_name())
+
 		var root = collider.get_parent()
-		print(root.get_name())
+
 		if(root.has_method("interact")):
 			#If its not a Player, interact
 			if(not(	root is Globals.Class.Player)):
 				root.interact()
-			else:
-				root.interact() if master else 0
+				if(master):
+					if(root.has_node("player_response")):
+						root.get_node("player_response").player_response()
+			elif(master):
+				root.interact()
+				if(root.has_node("player_response")):
+					print(root.get_name())
+					root.get_node("player_response").player_response()
 		elif(collider.get_name() == "Interactable"):
 			collider.interact()
+			if(master and collider.has_node("player_response")):
+				print(collider.get_name())
+				collider.get_node("player_response").player_response()
 
 				
 
@@ -199,8 +210,8 @@ func _physics_process(delta):
 	#	self.start_scene = get_node("/root/Root/Stage").get_child(0).get_name()
 	var remainder = move_and_slide(vel/delta)
 	
-	if(get_slide_collision(get_slide_count()-1)):
-		vel = DEACCEL *vel * delta
+#	if(get_slide_collision(get_slide_count()-1)):
+#		vel = DEACCEL *vel * delta
 		
 
 

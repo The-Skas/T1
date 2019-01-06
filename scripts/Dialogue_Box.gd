@@ -17,7 +17,19 @@ var stay_on_time = 1
 
 var say_que = []
 
+var MAX_DISTANCE_ALPHA = 500.0
+var MIN_DISTANCE_ALPHA = 200.0
 func _physics_process(delta):
+	var player_dist = Globals.player.global_position
+	var distance = self.get_parent().global_position.distance_to(player_dist)
+
+	var alpha = distance / MAX_DISTANCE_ALPHA
+	self.modulate.a = 1.0 - min(alpha, 1.0)
+	if(distance < MIN_DISTANCE_ALPHA):
+		self.modulate.a *=1.2
+
+
+
 	if(curr_state == tie.STATE_WAITING and say_que.size() > 0):
 		var _say = say_que.pop_front()
 		tie.reset()

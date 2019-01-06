@@ -20,7 +20,8 @@ func rewind():
 			if(child.has_method("rewind")):
 				child.rewind()
 				
-
+func interact():
+	pass
 				
 func end_rewind():
 	var children = get_children()
