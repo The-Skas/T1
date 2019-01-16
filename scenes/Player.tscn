@@ -1,14 +1,61 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://resource/Detective/detective topdown.png" type="Texture" id=2]
+[ext_resource path="res://resource/Detective/Walk/Walk13.png" type="Texture" id=3]
+[ext_resource path="res://resource/Detective/Walk/Walk14.png" type="Texture" id=4]
+[ext_resource path="res://resource/Detective/Walk/Walk15.png" type="Texture" id=5]
+[ext_resource path="res://resource/Detective/Walk/Walk16.png" type="Texture" id=6]
+[ext_resource path="res://resource/Detective/Walk/Walk17.png" type="Texture" id=7]
+[ext_resource path="res://resource/Detective/Walk/Walk18.png" type="Texture" id=8]
+[ext_resource path="res://resource/Detective/Walk/Walk19.png" type="Texture" id=9]
+[ext_resource path="res://resource/Detective/Walk/Walk20.png" type="Texture" id=10]
+[ext_resource path="res://resource/Detective/Walk/Walk21.png" type="Texture" id=11]
+[ext_resource path="res://resource/Detective/Walk/Walk22.png" type="Texture" id=12]
+[ext_resource path="res://resource/Detective/Walk/Walk23.png" type="Texture" id=13]
+[ext_resource path="res://resource/Detective/Walk/Walk1.png" type="Texture" id=14]
+[ext_resource path="res://resource/Detective/Walk/Walk2.png" type="Texture" id=15]
+[ext_resource path="res://resource/Detective/Walk/Walk3.png" type="Texture" id=16]
+[ext_resource path="res://resource/Detective/Walk/Walk4.png" type="Texture" id=17]
+[ext_resource path="res://resource/Detective/Walk/Walk5.png" type="Texture" id=18]
+[ext_resource path="res://resource/Detective/Walk/Walk6.png" type="Texture" id=19]
+[ext_resource path="res://resource/Detective/Walk/Walk7.png" type="Texture" id=20]
+[ext_resource path="res://resource/Detective/Walk/Walk8.png" type="Texture" id=21]
+[ext_resource path="res://resource/Detective/Walk/Walk9.png" type="Texture" id=22]
+[ext_resource path="res://resource/Detective/Walk/Walk10.png" type="Texture" id=23]
+[ext_resource path="res://resource/Detective/Walk/Walk11.png" type="Texture" id=24]
+[ext_resource path="res://resource/Detective/Walk/Walk12.png" type="Texture" id=25]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 33.3107, 28.7279 )
 
-[node name="Player" type="KinematicBody2D" groups=[
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "wak_back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "walk_right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": false,
+"name": "walk_front",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ) ],
+"loop": true,
+"name": "walk_left",
+"speed": 5.0
+} ]
+
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "Player",
 ]]
 
@@ -25,8 +72,10 @@ start_scene = "Stage"
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
+visible = false
 position = Vector2( 3.59386, -57.6305 )
 texture = ExtResource( 2 )
+_sections_unfolded = [ "Animation", "Offset" ]
 
 [node name="Area2D" type="Area2D" parent="." index="1"]
 
@@ -72,5 +121,12 @@ exclude_parent = true
 cast_to = Vector2( 0, 50 )
 collision_mask = 1
 _sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="5"]
+
+position = Vector2( 2.04404, -59.4104 )
+scale = Vector2( 1.8907, 2.0903 )
+frames = SubResource( 2 )
+animation = "walk_front"
 
 

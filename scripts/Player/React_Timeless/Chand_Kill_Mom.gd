@@ -21,9 +21,9 @@ func outcome():
 	if(logic):
 		done = true
 		Globals.player.speech.say("What a de-Lightful way to go... *Sigh*", 0.1, 2)
-		Globals.player.speech.say("Now, it would seem that her death is causing a paradox, which means..", 0.05, 2)
-		Globals.player.speech.say("she musn't die.",0.08,1)
-		Globals.player.speech.say("Its going to be one of those cases, I can tell.", 0.08, 2)
+		Globals.player.speech.say("It seems her death is causing a paradox, which means..", 0.05, 2)
+#		Globals.player.speech.say("she musn't die.",0.08,1)
+#		Globals.player.speech.say("Its going to be one of those cases, I can tell.", 0.08, 2)
 
 	else:
 		return null

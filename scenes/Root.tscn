@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Rewindable.gd" type="Script" id=2]
@@ -44,11 +44,12 @@
 [ext_resource path="res://scenes/Next_Paradox_UI.gd" type="Script" id=42]
 [ext_resource path="res://scripts/CameraShake.gd" type="Script" id=43]
 [ext_resource path="res://scripts/Comics.gd" type="Script" id=44]
-[ext_resource path="res://resource/Comics/Cooking.png" type="Texture" id=45]
-[ext_resource path="res://scenes/PlayerThought.gd" type="Script" id=46]
-[ext_resource path="res://scenes/Player_Dialogue_Box.tscn" type="PackedScene" id=47]
-[ext_resource path="res://scripts/Player/React_Timeless/Chand_Kill_Mom.gd" type="Script" id=48]
-[ext_resource path="res://resource/Fx/Comics/Pow_pixel.png" type="Texture" id=49]
+[ext_resource path="res://resource/Fx/Splat_Mask.png" type="Texture" id=45]
+[ext_resource path="res://resource/Comics/Level1/Mom_Death_Chandalier.jpg" type="Texture" id=46]
+[ext_resource path="res://scenes/PlayerThought.gd" type="Script" id=47]
+[ext_resource path="res://scenes/Player_Dialogue_Box.tscn" type="PackedScene" id=48]
+[ext_resource path="res://scripts/Player/React_Timeless/Chand_Kill_Mom.gd" type="Script" id=49]
+[ext_resource path="res://resource/Fx/Comics/Pow_pixel.png" type="Texture" id=50]
 
 [sub_resource type="GDScript" id=1]
 
@@ -802,7 +803,85 @@ func rewind():
 #	pass
 "
 
-[sub_resource type="GDScript" id=23]
+[sub_resource type="Animation" id=23]
+
+resource_name = "Comic Fade"
+length = 3.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.28924, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+
+resource_name = "Comic Fade Out"
+length = 2.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="GDScript" id=25]
+
+script/source = "extends Node
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+export (bool) var do_once = true
+var done = false
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	set_process(true)
+
+func _process(delta):
+	outcome()
+func outcome():
+	if(do_once and done):
+		return null
+
+	var logic;
+	logic =  Globals.events.has(\"chand_kill_mom\")
+
+	if(logic):
+		done = true
+		get_node(\"../\").visible = true
+		get_node(\"../../../\").visible = true
+		get_node(\"../../../AnimationPlayer\").play(\"Comic Fade\")
+		Globals.player.pause_mode = PAUSE_MODE_STOP
+	else:
+		return null
+
+
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+
+[sub_resource type="GDScript" id=26]
 
 script/source = "extends Node
 
@@ -847,7 +926,7 @@ func rewind():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="GDScript" id=24]
+[sub_resource type="GDScript" id=27]
 
 script/source = "extends Node
 
@@ -980,6 +1059,7 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="Foreground" type="YSort" parent="Stage" index="1"]
 
+editor/display_folded = true
 sort_enabled = true
 script = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
@@ -1263,7 +1343,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
 material = SubResource( 10 )
-position = Vector2( -4.12701, -7.7836 )
+position = Vector2( -4.93332, -7.7836 )
 scale = Vector2( 0.661201, 0.471734 )
 emitting = false
 amount = 1
@@ -1329,6 +1409,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Top" type="Node2D" parent="Stage" index="2"]
 
+editor/display_folded = true
 position = Vector2( 35, -21 )
 script = ExtResource( 2 )
 
@@ -1362,7 +1443,7 @@ _sections_unfolded = [ "Visibility", "Z Index" ]
 
 [node name="AnimatedSprite" parent="Stage/Top/fire/fire_3" index="0"]
 
-frame = 27
+frame = 22
 _sections_unfolded = [ "Visibility" ]
 
 [node name="fire_4" parent="Stage/Top/fire" index="3" instance=ExtResource( 32 )]
@@ -1422,7 +1503,6 @@ _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time", "Trans
 
 [node name="Event_React" type="Node" parent="Stage" index="3"]
 
-editor/display_folded = true
 script = ExtResource( 36 )
 logic = null
 
@@ -1467,6 +1547,7 @@ transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="FX_Noir" parent="CanvasLayer" index="0" instance=ExtResource( 39 )]
 
+visible = false
 margin_top = 600.0
 margin_bottom = 600.0
 rect_scale = Vector2( 1, -1 )
@@ -1474,7 +1555,6 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="Paradox" type="Node2D" parent="CanvasLayer" index="1"]
 
-editor/display_folded = true
 visible = false
 
 [node name="Panel6" type="Panel" parent="CanvasLayer/Paradox" index="0"]
@@ -1499,6 +1579,7 @@ _sections_unfolded = [ "Size Flags", "Theme", "Visibility", "custom_styles" ]
 
 [node name="Label" type="Label" parent="CanvasLayer/Paradox" index="1"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1524,6 +1605,7 @@ _sections_unfolded = [ "Theme", "custom_colors", "custom_constants", "custom_fon
 
 [node name="FX_Displace2" parent="CanvasLayer/Paradox" index="2" instance=ExtResource( 22 )]
 
+visible = false
 margin_left = 445.0
 margin_top = 243.0
 margin_right = 563.0
@@ -1680,9 +1762,7 @@ script = SubResource( 22 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
-[node name="FX" type="Node2D" parent="." index="2"]
-
-[node name="Camera" type="Camera2D" parent="." index="3"]
+[node name="Camera" type="Camera2D" parent="." index="2"]
 
 pause_mode = 2
 position = Vector2( 486.28, 279.131 )
@@ -1713,63 +1793,120 @@ _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Pause", "Smoothing", "
 
 [node name="Comics" type="Node2D" parent="Camera" index="0"]
 
-editor/display_folded = true
-visible = false
-position = Vector2( -178.28, -206.131 )
+pause_mode = 2
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -427.28, -445.131 )
 script = ExtResource( 44 )
+_sections_unfolded = [ "Pause", "Transform", "Visibility" ]
 
-[node name="Panel" type="Panel" parent="Camera/Comics" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/Comics" index="0"]
 
-modulate = Color( 1, 1, 1, 0.5 )
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -341.72
-margin_top = -106.869
-margin_right = 679.28
-margin_bottom = 493.131
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Visibility" ]
+pause_mode = 2
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+"anims/Comic Fade" = SubResource( 23 )
+"anims/Comic Fade Out" = SubResource( 24 )
+blend_times = [  ]
+_sections_unfolded = [ "Pause", "Playback Options" ]
 
-[node name="Panel3" type="Panel" parent="Camera/Comics" index="1"]
+[node name="Light2D" type="Light2D" parent="Camera/Comics" index="1"]
 
-modulate = Color( 1, 1, 1, 0.5 )
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -341.72
-margin_top = -106.869
-margin_right = 679.28
-margin_bottom = 493.131
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Visibility" ]
-
-[node name="Cooking" type="Sprite" parent="Camera/Comics" index="2"]
-
-position = Vector2( 186.7, 177.954 )
-scale = Vector2( 1.45143, 1.09249 )
+position = Vector2( 436, 444 )
+scale = Vector2( 2.34375, 2.14844 )
+enabled = true
+editor_only = false
 texture = ExtResource( 45 )
+offset = Vector2( 0, 0 )
+texture_scale = 1.0
+color = Color( 1, 1, 1, 1 )
+energy = 1.0
+mode = 3
+range_height = 0.0
+range_z_min = -1024
+range_z_max = 1024
+range_layer_min = 0
+range_layer_max = 0
+range_item_cull_mask = 64
+shadow_enabled = false
+shadow_color = Color( 0, 0, 0, 0 )
+shadow_buffer_size = 2048
+shadow_gradient_length = 0.0
+shadow_filter = 0
+shadow_filter_smooth = 0.0
+shadow_item_cull_mask = 1
+_sections_unfolded = [ "Range", "Shadow", "Visibility" ]
 
-[node name="Event_React2" type="Node" parent="Camera/Comics" index="3"]
+[node name="Panel" type="Panel" parent="Camera/Comics" index="2"]
 
-script = SubResource( 23 )
+visible = false
+modulate = Color( 1, 1, 1, 0.5 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -341.72
+margin_top = -106.869
+margin_right = 679.28
+margin_bottom = 493.131
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Panel3" type="Panel" parent="Camera/Comics" index="3"]
+
+visible = false
+modulate = Color( 1, 1, 1, 0.5 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -341.72
+margin_top = -106.869
+margin_right = 679.28
+margin_bottom = 493.131
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Level_1" type="Node2D" parent="Camera/Comics" index="4"]
+
+position = Vector2( 196.7, 217.954 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Cooking" type="Sprite" parent="Camera/Comics/Level_1" index="0"]
+
+show_behind_parent = true
+light_mask = 64
+position = Vector2( 484.6, 454.092 )
+texture = ExtResource( 46 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Chand_Kill_Mom" type="Node" parent="Camera/Comics/Level_1/Cooking" index="0"]
+
+pause_mode = 2
+script = SubResource( 25 )
+_sections_unfolded = [ "Pause" ]
+do_once = true
+
+[node name="Event_React2" type="Node" parent="Camera/Comics" index="5"]
+
+script = SubResource( 26 )
 logic = null
 
 [node name="Mom_off_Radio" type="Node" parent="Camera/Comics/Event_React2" index="0"]
 
-script = SubResource( 24 )
+script = SubResource( 27 )
 _sections_unfolded = [ "Pause" ]
 do_once = false
 
@@ -1778,10 +1915,10 @@ do_once = false
 pause_mode = 2
 self_modulate = Color( 1, 1, 1, 0.49 )
 position = Vector2( -316.28, -360.631 )
-script = ExtResource( 46 )
+script = ExtResource( 47 )
 _sections_unfolded = [ "Pause", "Visibility" ]
 
-[node name="panel" parent="Camera/PlayerThought" index="0" instance=ExtResource( 47 )]
+[node name="panel" parent="Camera/PlayerThought" index="0" instance=ExtResource( 48 )]
 
 margin_left = 419.0
 margin_top = 333.0
@@ -1790,7 +1927,6 @@ margin_bottom = 333.0
 
 [node name="Event_React2" type="Node" parent="Camera/PlayerThought" index="1"]
 
-editor/display_folded = true
 script = ExtResource( 11 )
 logic = null
 
@@ -1800,21 +1936,21 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="Chand_Kill_Mom" type="Node" parent="Camera/PlayerThought/Event_React2/Level_1" index="0"]
 
-script = ExtResource( 48 )
+script = ExtResource( 49 )
 _sections_unfolded = [ "Pause" ]
 do_once = true
 
-[node name="Event" parent="." index="4" instance=ExtResource( 17 )]
+[node name="Event" parent="." index="3" instance=ExtResource( 17 )]
 
 event_name = "Null"
 do_once = false
 
-[node name="Pow_pixel" type="Sprite" parent="." index="5"]
+[node name="Pow_pixel" type="Sprite" parent="." index="4"]
 
 self_modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 475.8, 378.65 )
 scale = Vector2( 1e-05, 1e-05 )
-texture = ExtResource( 49 )
+texture = ExtResource( 50 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 
