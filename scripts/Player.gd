@@ -140,7 +140,7 @@ func move_down():
 func _physics_process(delta):
 
 	acc = Vector2(0.0,0.0)
-
+	print("???")
 	if master:
 		#update camera	
 
